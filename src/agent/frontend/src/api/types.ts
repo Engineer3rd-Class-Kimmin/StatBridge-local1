@@ -51,7 +51,7 @@ export type QueryState = {
 };
 
 export type QueryResponse = {
-  status?: "need_clarification" | "need_period" | "need_output_config" | "resolved" | "no_match";
+  status?: "need_clarification" | "need_period" | "need_output_config" | "resolved" | "no_match" | "data_unavailable";
   query: string;
   interpretedQuery: string;
   summary: string;
@@ -123,6 +123,7 @@ export type QueryRequest = {
     value: string;
   };
   selections?: Array<{ clarification_id: string; values: string[] }>;
+  dimension_values?: Record<string, string>;
   execute?: boolean;
   period_start?: string;
   period_end?: string;
@@ -139,7 +140,7 @@ export type QueryRequest = {
 export type CatalogTable = {
   tableId: string; name: string; organization: string; frequency: string; frequencyLabel: string; unitScale: string;
   periodStart: string; periodEnd: string; items: string[]; units: string[];
-  dimensions: Array<{ name: string; count: number; values: string[] }>;
+  dimensions: Array<{ name: string; count: number; values: string[]; apiParam: string; valueOptions: Array<{id: string; name: string}>; defaultValueId: string }>;
 };
 export type CatalogMiddle = { name: string; count: number; children: CatalogTable[] };
 export type CatalogMajor = { name: string; count: number; children: CatalogMiddle[] };

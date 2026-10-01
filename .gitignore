@@ -8,6 +8,7 @@ __pycache__/
 *.py[cod]
 .venv/
 .venv_runtime/
+.venv_runtime.invalid.*/
 *.egg-info/
 .pytest_cache/
 
@@ -25,6 +26,10 @@ build/
 data/tables/*.csv
 runtime_data/tables/*.csv
 data/vector_store/
+data/vector_store_349/
+**/vector_store_349/
+evaluation_runs/
+data/runtime_data/tables/
 **/vector_store/
 data/vector_documents/
 eval/results/

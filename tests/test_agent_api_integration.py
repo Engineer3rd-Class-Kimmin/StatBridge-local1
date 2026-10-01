@@ -14,8 +14,8 @@ def test_agent_api_exposes_query_catalog_and_health():
 def test_dictionary_contains_supported_table_catalog():
     dictionary = Path(__file__).resolve().parents[1] / "src/agent/stat_dictionary/stat_language_dictionary.json"
     tables = json.loads(dictionary.read_text(encoding="utf-8"))["tables"]
-    assert len(tables) == 347
-    assert len({table["table_id"] for table in tables}) == 347
+    assert len(tables) == 349
+    assert len({table["table_id"] for table in tables}) == 349
 
 
 def test_catalog_only_table_uses_ui_table_shape(monkeypatch):

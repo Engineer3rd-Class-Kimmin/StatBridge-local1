@@ -158,6 +158,9 @@ class StatBridgeAgent:
             param = str(dimension.get("api_param") or "")
             values = dimension.get("values") or []
             first_id = str(values[0].get("value_id") or "") if values else ""
+            representative = str(dimension.get("representative_value_id") or "")
+            if representative and representative in {str(v.get("value_id")) for v in values}:
+                first_id = representative
             if re.fullmatch(r"objL[1-8]", param) and first_id:
                 classifications[param] = first_id
         # A natural-language dimension hit narrows the corresponding objL to one validated ID.
@@ -178,11 +181,7 @@ class StatBridgeAgent:
         start_period, end_period = self._periods(query, table)
         classifications = self._merge_classifications(table, selected)
         if selected.get("_comparison_default"):
-            for dimension in table.get("dimensions") or []:
-                param = str(dimension.get("api_param") or "")
-                values = dimension.get("values") or []
-                if re.fullmatch(r"objL[1-8]", param) and values:
-                    classifications[param] = str(values[0].get("value_id") or classifications.get(param) or "")
+            classifications = self._merge_classifications(table, {})
         org_id = str(params.get("orgId") or table.get("org_id") or "301")
 
         exact = {
@@ -353,7 +352,7 @@ class StatBridgeAgent:
             else:
                 selected=preflight.get("selected_table") or {}
                 reasons=selected.get("reasons") or []
-                deterministic_fast=bool(float(selected.get("score") or 0)>=150 and any(str(reason) in {"table_name","exact_table_phrase"} for reason in reasons))
+                deterministic_fast=bool(float(selected.get("score") or 0)>=150 and any(str(reason) in {"table_id","table_name","exact_table_phrase"} for reason in reasons))
                 if deterministic_fast:
                     dictionary_query=effective_query
                     classification={"status":"deterministic_fast_path","normalized_query":effective_query,"series":[]}

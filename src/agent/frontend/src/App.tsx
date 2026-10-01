@@ -105,7 +105,8 @@ function ExpandableValues({ values, previewCount = 3 }: { values: string[]; prev
   </div>;
 }
 
-function CatalogCard({ table }: { table: CatalogTable }) {
+function CatalogCard({ table, onQuery, loading }: { table: CatalogTable; onQuery: (query: string, dimensionValues: Record<string, string>) => void; loading: boolean }) {
+  const [values, setValues] = useState<Record<number, string>>({});
   return <article className="catalog-card">
     <div><span>{table.organization}</span><span className="source-check"><Icon name="check" size={12}/></span></div>
     <h3>{table.name}</h3>
@@ -122,10 +123,22 @@ function CatalogCard({ table }: { table: CatalogTable }) {
           <ExpandableValues values={dimension.values}/>
         </section>) : "-"}</dd></div>
     </dl>
+    <section className="catalog-query-controls">
+      <h4>이 통계표 조회</h4>
+      {table.dimensions.map((dimension, index) => <label key={index}>
+        {dimension.name}
+        <select aria-label={`${dimension.name} 선택`} value={values[index] || ""} onChange={(event) => setValues((prior) => ({...prior, [index]: event.target.value}))}>
+          <option value="">대표값: {dimension.valueOptions.find((v) => v.id === dimension.defaultValueId)?.name || "기본 분류"}</option>
+          {dimension.valueOptions.map((value) => <option key={value.id} value={value.id}>{value.name}</option>)}
+        </select>
+      </label>)}
+      <button type="button" disabled={loading} onClick={() => onQuery(table.tableId, Object.fromEntries(table.dimensions.map((dimension, index) => [dimension.apiParam, values[index] || dimension.defaultValueId])))}>이 표로 기간 선택 · 자료 조회</button>
+      <p>기간을 지정하고 자료를 받은 뒤 그래프 종류를 선택합니다.</p>
+    </section>
   </article>;
 }
 
-function DataCatalog() {
+function DataCatalog({ onQuery, loading }: { onQuery: (query: string, dimensionValues: Record<string, string>) => void; loading: boolean }) {
   const [catalog, setCatalog] = useState<CatalogResponse | null>(null);
   const [error, setError] = useState("");
   const [major, setMajor] = useState(""); const [middle, setMiddle] = useState("");
@@ -144,7 +157,7 @@ function DataCatalog() {
       <div className="catalog-column"><h2><span>1</span> 대분류</h2>{majors.map((x) => <button className={x.name === major ? "selected" : ""} key={x.name} onClick={() => setMajor(x.name)}><strong>{x.name}</strong><small>{x.count}개</small><Icon name="chevron" size={15}/></button>)}</div>
       <div className="catalog-column"><h2><span>2</span> 중분류</h2>{middles.map((x) => <button className={x.name === (middleNode?.name || "") ? "selected" : ""} key={x.name} onClick={() => setMiddle(x.name)}><strong>{x.name}</strong><small>{x.count}개</small><Icon name="chevron" size={15}/></button>)}</div>
       <div className="catalog-column catalog-small"><h2><span>3</span> 소분류</h2>{middleNode?.children.map((x) => <button className={x.tableId === selected?.tableId ? "selected" : ""} key={x.tableId} onClick={() => setSelected(x)}><strong>{x.name}</strong><Icon name="chevron" size={15}/></button>)}</div>
-      <div className="catalog-detail"><h2>통계표 정보 카드</h2>{selected ? <CatalogCard key={selected.tableId} table={selected}/> : <div className="catalog-empty"><Icon name="database" size={35}/><strong>소분류 통계표를 선택하세요.</strong><p>주기·기간·수치 단위·통계 항목과 분류 내용을 카드로 보여드립니다.</p></div>}</div>
+      <div className="catalog-detail"><h2>통계표 정보 카드</h2>{selected ? <CatalogCard key={selected.tableId} table={selected} onQuery={onQuery} loading={loading}/> : <div className="catalog-empty"><Icon name="database" size={35}/><strong>소분류 통계표를 선택하세요.</strong><p>주기·기간·수치 단위·통계 항목과 분류 내용을 카드로 보여드립니다.</p></div>}</div>
     </section>}
   </main>;
 }
@@ -370,14 +383,14 @@ function Results({ result }: { result: QueryResponse }) {
     const pngUrl=URL.createObjectURL(png);const link=document.createElement("a");link.download="statbridge-chart.png";link.href=pngUrl;link.click();
     window.setTimeout(()=>URL.revokeObjectURL(pngUrl),1000);
   };
-  const noMatch=["no_match","data_unavailable","catalog_only"].includes(result.status||"");
+  const noMatch=result.status==="no_match" || result.status==="data_unavailable";
   return <section className="results" id="analysis-result">
     <div className="section-heading"><div><span className="eyebrow">ANALYSIS RESULT</span><h2>질문에서 근거까지, 한눈에</h2></div>{noMatch?<span className="unavailable-badge">지원 데이터 없음</span>:<span className="verified-badge"><Icon name="check" size={15}/> 검증된 데이터</span>}</div>
     <div className="result-grid">
       <article className="panel chart-panel">
         <div className="panel-top"><div><span className="question-label">분석한 질문</span><h3>“{result.query}”</h3></div><div className="panel-actions">{result.chart.length>0&&<button onClick={exportPng}><Icon name="chart" size={17}/> PNG</button>}<button onClick={exportCsv}><Icon name="download" size={17}/> CSV</button><button onClick={() => navigator.clipboard?.writeText(location.href)}><Icon name="share" size={17}/> 공유</button></div></div>
         <div className="answer-summary"><span><Icon name="sparkle" size={16}/></span><p>{result.summary}</p></div>
-        {result.warnings?.map((warning,index)=><div className="error-banner" role="alert" key={`${index}-${warning}`}>{warning}</div>)}
+        {result.warnings?.map((warning, index) => <div className="error-banner" role="status" key={`${index}-${warning}`}>{warning}</div>)}
         <div className="chart-header"><div><h3>{editOptions?.title||(result.chart.length ? "시계열 분석 결과" : "MCP 통계표 탐색 결과")}</h3>{result.chart.length > 0 && editOptions?.showLegend!==false && <div className="legend">{result.chart.map((s) => <span key={s.id}><i style={{background:s.color}}/> {s.label}{s.unit ? ` (${s.unit})` : ""}</span>)}</div>}</div>{result.chart.length>0&&<div className="filter-pills"><span>{result.period.start}–{result.period.end}</span><span>{result.frequency} <Icon name="chevron" size={13}/></span></div>}</div>
         {result.chartMode === "separate" ? <div className="separate-charts">{result.chart.map((s) => <div className="single-chart" key={s.id}><h4>{s.label} <small>{s.unit}</small></h4><ChartRenderer series={[s]} chartType={result.chartType} xAxisLabel={editOptions?.xAxisLabel} yAxisLabel={editOptions?.yAxisLabel}/></div>)}</div> : <ChartRenderer series={result.chart} chartType={result.chartType} xAxisLabel={editOptions?.xAxisLabel} yAxisLabel={editOptions?.yAxisLabel}/>}
         {result.insights.length>0&&<div className="insight-box"><div className="insight-title"><span><Icon name="sparkle" size={17}/></span><strong>핵심 인사이트</strong></div><ul>{result.insights.map((x,index) => <li key={`${index}-${x}`}>{x}</li>)}</ul></div>}
@@ -433,11 +446,20 @@ export default function App() {
     setView(nextView);pushUiState(nextView,nextView==="home"?result:null,query);window.scrollTo({top:0,behavior:"smooth"});
   };
 
+  const queryCatalogTable = async (tableQuery: string, dimensionValues: Record<string, string>) => {
+    setView("home"); setQuery(tableQuery); setResult(null); setMultiIntents(null);
+    setLoading(true); setError("");
+    try { showResult(await submitQuery({query: tableQuery, dimension_values: dimensionValues, execute: true})); }
+    catch (err) { setError(err instanceof Error ? err.message : "통계표 조회 중 오류가 발생했습니다."); }
+    finally { setLoading(false); }
+  };
+
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!query.trim()) return;
     setLoading(true); setError(""); setResult(null); setMultiIntents(null);
     try {
+      // Preserve the user's wording; the LangGraph/Jev path resolves comparisons.
       const data = await submitQuery({ query: query.trim(), execute: true });
       showResult(data);
     } catch (err) {
@@ -508,6 +530,6 @@ export default function App() {
 
   return <div className="app-shell">
     <Sidebar open={menuOpen} close={() => setMenuOpen(false)} view={view} selectView={navigateView} goHome={goHome}/>
-    <div className="main-shell"><Header openMenu={() => setMenuOpen(true)}/>{view === "lineage" ? <DataCatalog/> : <main><Hero query={query} setQuery={setQuery} submit={onSubmit} loading={loading}/><FeatureStrip/>{error && <div className="error-banner">{error}</div>}{multiIntents&&<MultiIntentPanel query={query} intents={multiIntents} loading={loading} execute={executeMultiIntents}/>} {result?.status === "need_clarification" && <ClarificationPanel result={result} loading={loading} choose={chooseClarification}/>} {result?.status === "need_period" && <PeriodPanel result={result} loading={loading} submit={submitPeriod}/>} {result?.status === "need_output_config" && <OutputConfigPanel result={result} loading={loading} submit={renderSelectedOutput}/>} {result && !["need_clarification","need_period","need_output_config"].includes(result.status || "") && <Results result={result}/>}<section className="example-footer"><div><Icon name="history"/><span>다른 질문도 탐색해보세요</span></div>{examples.map((x) => <button key={x} onClick={() => { setQuery(x); setResult(null); setMultiIntents(null); window.scrollTo({ top: 0, behavior: "smooth" }); }}>{x}</button>)}</section></main>}<footer><span>© 2026 StatBridge</span><span>입력 UI → LangGraph → MCP/KOSIS → 출력 선택 → 출력 Agent → Renderer</span></footer></div>
+    <div className="main-shell"><Header openMenu={() => setMenuOpen(true)}/>{view === "lineage" ? <DataCatalog onQuery={queryCatalogTable} loading={loading}/> : <main><Hero query={query} setQuery={setQuery} submit={onSubmit} loading={loading}/><FeatureStrip/>{error && <div className="error-banner">{error}</div>}{multiIntents&&<MultiIntentPanel query={query} intents={multiIntents} loading={loading} execute={executeMultiIntents}/>} {result?.status === "need_clarification" && <ClarificationPanel result={result} loading={loading} choose={chooseClarification}/>} {result?.status === "need_period" && <PeriodPanel result={result} loading={loading} submit={submitPeriod}/>} {result?.status === "need_output_config" && <OutputConfigPanel result={result} loading={loading} submit={renderSelectedOutput}/>} {result && !["need_clarification","need_period","need_output_config"].includes(result.status || "") && <Results result={result}/>}<section className="example-footer"><div><Icon name="history"/><span>다른 질문도 탐색해보세요</span></div>{examples.map((x) => <button key={x} onClick={() => { setQuery(x); setResult(null); setMultiIntents(null); window.scrollTo({ top: 0, behavior: "smooth" }); }}>{x}</button>)}</section></main>}<footer><span>© 2026 StatBridge</span><span>입력 UI → LangGraph → MCP/KOSIS → 출력 선택 → 출력 Agent → Renderer</span></footer></div>
   </div>;
 }

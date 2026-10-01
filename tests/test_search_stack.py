@@ -13,7 +13,7 @@ def test_catalog_search_works_without_kosis_key(monkeypatch):
     service = StatisticsService(store=store)
 
     assert len(store.table_ids()) == 349
-    assert len(store.available_supported_tables()) == 347
+    assert len(store.available_supported_tables()) == 349
     result = service.search_tables("경제심리지수", top_k=5)
     assert result[0]["table_id"] == "DT_513Y001"
     assert result[0]["local_csv_available"] == bool(list(settings.tables_dir.glob("DT_513Y001*.csv")))
@@ -33,5 +33,5 @@ def test_mcp_health_reports_catalog_and_configured_data_path():
     status = healthcheck()
     assert status["status"] == "ok"
     assert status["catalog_table_count"] == 349
-    assert status["supported_table_count"] == 347
+    assert status["supported_table_count"] == 349
     assert Path(status["tables_dir"]) == settings.tables_dir

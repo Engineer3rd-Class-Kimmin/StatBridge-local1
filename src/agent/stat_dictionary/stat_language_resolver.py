@@ -32,7 +32,8 @@ class StatLanguageResolver:
         extension_path=dictionary_path.with_name('clarification_extensions.json')
         self.extensions=json.loads(extension_path.read_text(encoding='utf-8')) if extension_path.exists() else {}
         self.groups=sorted([*self.data.get('clarification_groups',[]),*self.extensions.get('groups',[])], key=lambda x:x.get('priority',999))
-        self.catalog_only_tables=list(self.extensions.get('catalog_only_tables',[]))
+        self.catalog_only_tables=[t for t in self.extensions.get('catalog_only_tables',[])
+                                  if str(t['table_id']) not in {str(x['table_id']) for x in self.tables}]
         self.policy=self.data.get('clarification_policy',{})
         self.tables_by_id={str(t['table_id']):t for t in self.tables}
         self._score_cache={}
@@ -152,6 +153,15 @@ class StatLanguageResolver:
         """Reject look-alike tables that share broad aliases but measure another concept."""
         q=self.norm(query); tn=self.norm(table.get('table_name',''))
         qc=q.replace(' ',''); tc=tn.replace(' ','')
+        # Detailed 2018+ accounts are a distinct family, not the aggregate
+        # financial-transaction / asset-liability tables with similar words.
+        if '상세자금순환' in qc and '상세자금순환' not in ''.join(self.norm(x).replace(' ','') for x in table.get('aliases',[])):
+            return False
+        if '상세자금순환' in qc:
+            if any(x in qc for x in ('잔액','보유액')) and tc != '잔액표':
+                return False
+            if any(x in qc for x in ('거래','순거래')) and '잔액' not in qc and tc != '거래표':
+                return False
         searchable=[tc]
         searchable.extend(self.norm(x).replace(' ','') for x in table.get('aliases',[]))
         for dimension in table.get('dimensions',[]):
@@ -190,7 +200,8 @@ class StatLanguageResolver:
         if cached is not None:
             return copy.deepcopy(cached)
         q=self.norm(query)
-        if self._has_unsupported_core_metric(query):
+        explicit_ids={tid for tid in self.tables_by_id if self.norm(tid) in q}
+        if not explicit_ids and self._has_unsupported_core_metric(query):
             self._score_cache[cache_key]=[]
             return []
         confirmed=confirmed or {}
@@ -218,12 +229,16 @@ class StatLanguageResolver:
         ]
         scored=[]
         for t in self.tables:
+            if explicit_ids and str(t['table_id']) not in explicit_ids:
+                continue
             if not self._matches_confirmed_filters(t, confirmed):
                 continue
-            if not self._matches_metric_intent(query, t):
+            if not explicit_ids and not self._matches_metric_intent(query, t):
                 continue
             score=0.0; reasons=[]; dim_hits=[]
             tid=self.norm(t['table_id']); tn=self.norm(t['table_name'])
+            if not explicit_ids and '상세자금순환' in q.replace(' ',''):
+                score+=160; reasons.append('semantic:상세자금순환')
 
             # Confirmed button/text selections are hard anchors.
             if confirmed_terms:
@@ -237,7 +252,7 @@ class StatLanguageResolver:
             for triggers,targets,pts in intent_rules:
                 if any(self.norm(x) in q for x in triggers) and all(self.norm(x) in tn for x in targets):
                     score+=pts; reasons.append('public_intent:'+'+'.join(targets))
-            if tid and tid in q: score+=120; reasons.append('table_id')
+            if tid and tid in q: score+=1000; reasons.append('table_id')
             if tn and tn in q: score+=70; reasons.append('table_name')
             qc=q.replace(' ',''); tc=tn.replace(' ','')
             # General noun-phrase coverage: table suffix words such as 표/통계/별
@@ -305,7 +320,7 @@ class StatLanguageResolver:
             elif any(term in q for term in ('분기별','분기마다')): requested_frequency='Q'
             elif any(term in q for term in ('연간','연도별','매년')): requested_frequency='A'
             actual_frequency=str(t.get('prd_se') or '').upper()
-            if requested_frequency:
+            if requested_frequency and not explicit_ids:
                 if requested_frequency=='A' and actual_frequency not in {'A','Y'}: continue
                 if requested_frequency!='A' and actual_frequency!=requested_frequency: continue
                 score+=15; reasons.append('frequency_covered')
@@ -336,7 +351,7 @@ class StatLanguageResolver:
             # the requested year must not outrank the current table with a similar name.
             years=[int(x) for x in re.findall(r'(?<!\d)((?:19|20)?\d{2})(?!\d)',q)]
             years=[2000+y if y < 100 else y for y in years]
-            if years:
+            if years and not explicit_ids:
                 start_raw=str(t.get('period_start_observed') or '')[:4]
                 end_raw=str(t.get('period_end_observed') or '')[:4]
                 if start_raw.isdigit() and end_raw.isdigit():
@@ -804,6 +819,12 @@ class StatLanguageResolver:
     def resolve(self, query, confirmed=None, asked_clarifications=None, top_k=8):
         confirmed=confirmed or {}
         asked_clarifications=asked_clarifications or []
+        explicit_ids=[tid for tid in self.tables_by_id if self.norm(tid) in self.norm(query)]
+        if len(explicit_ids)==1:
+            candidates=self._score(query,confirmed=None,top_k=top_k)
+            return {'status':'resolved','selected_table':candidates[0],'candidates':candidates,
+                    'state':{'original_query':query,'confirmed':confirmed,'confirmed_terms':[],
+                             'asked_clarifications':asked_clarifications,'status':'resolved'}}
         compact_query=self.norm(query).replace(' ','')
         # Specific metrics must never be silently substituted with a broader
         # supported family. If the current dictionary has no authoritative table

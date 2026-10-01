@@ -1,9 +1,9 @@
 {
   "metadata": {
     "name": "StatBridge 통계언어 사전",
-    "version": "5.0",
-    "table_count": 347,
-    "dimension_value_count": 21196,
+    "version": "5.1",
+    "table_count": 349,
+    "dimension_value_count": 21356,
     "basis": [
       "kosis_api_catalog.json",
       "specs/*.json",
@@ -16,7 +16,8 @@
     "language_enrichment": "general-public aliases, layman phrases, question phrases, related concepts, negative terms; source codes unchanged",
     "design": "candidate-first clarification-loop dictionary",
     "clarification_policy": "If candidates are materially ambiguous, ask one discriminating question, store user selection as confirmed_terms, then rerun dictionary search.",
-    "clarification_group_count": 11
+    "clarification_group_count": 11,
+    "availability_update": "Two detailed flow-of-funds tables verified against live KOSIS on 2026-10-01"
   },
   "normalization": {
     "unicode": "NFKC",
@@ -16424,8 +16425,8 @@
           "id_column": "C1",
           "name_column": "C1_NM",
           "api_param": "objL1",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134773ACC_ITEM",
+          "object_name": "계정항목별",
           "values": [
             {
               "value_id": "13102134773ACC_ITEM.BEDBMK01",
@@ -16861,8 +16862,131 @@
                 "신용대출이 얼마나 늘었어",
                 "담보 없이 빌린 돈이 얼마나 돼"
               ]
+            },
+            {
+              "value_id": "13102134773ACC_ITEM.BEDBMC41",
+              "value_name": "주택담보대출",
+              "normalized": "주택담보대출",
+              "aliases": [
+                "주택담보대출"
+              ],
+              "natural_language_terms": [
+                "주택담보대출"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134773ACC_ITEM.BEDBMC42",
+              "value_name": "기타담보대출",
+              "normalized": "기타담보대출",
+              "aliases": [
+                "기타담보대출"
+              ],
+              "natural_language_terms": [
+                "기타담보대출"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134773ACC_ITEM.BEDBMC45",
+              "value_name": "소액신용대출 2)",
+              "normalized": "소액신용대출 2)",
+              "aliases": [
+                "소액신용대출 2)"
+              ],
+              "natural_language_terms": [
+                "소액신용대출 2)"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134773ACC_ITEM.MC00000",
+              "value_name": "상호저축은행",
+              "normalized": "상호저축은행",
+              "aliases": [
+                "상호저축은행"
+              ],
+              "natural_language_terms": [
+                "상호저축은행"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134773ACC_ITEM.BEDBMC43",
+              "value_name": "보증대출",
+              "normalized": "보증대출",
+              "aliases": [
+                "보증대출"
+              ],
+              "natural_language_terms": [
+                "보증대출"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134773ACC_ITEM.BEDBMC44",
+              "value_name": "일반신용대출",
+              "normalized": "일반신용대출",
+              "aliases": [
+                "일반신용대출"
+              ],
+              "natural_language_terms": [
+                "일반신용대출"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134773ACC_ITEM.BFBDMGAA",
+              "value_name": "상호금융",
+              "normalized": "상호금융",
+              "aliases": [
+                "상호금융"
+              ],
+              "natural_language_terms": [
+                "상호금융"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134773ACC_ITEM.BEDBMKAA",
+              "value_name": "생명보험회사",
+              "normalized": "생명보험회사",
+              "aliases": [
+                "생명보험회사"
+              ],
+              "natural_language_terms": [
+                "생명보험회사"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "계정항목별",
+          "representative_value_id": "13102134773ACC_ITEM.BEDBMA01",
+          "representative_verified_period": "202607"
         }
       ],
       "api_endpoint": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
@@ -16876,7 +17000,7 @@
         "prdSe": "M",
         "newEstPrdCnt": "1",
         "itmId": "13103134773999",
-        "objL1": "13102134773ACC_ITEM.BEDBMK01+13102134773ACC_ITEM.BEDBMK02+13102134773ACC_ITEM.BEDBMA01+13102134773ACC_ITEM.BEDBMC01+13102134773ACC_ITEM.BEDBMC02+13102134773ACC_ITEM.BEDBME01+13102134773ACC_ITEM.BEDBMG01+13102134773ACC_ITEM.BEDBMI+13102134773ACC_ITEM.BEDBMI01+13102134773ACC_ITEM.BEDBMI02+13102134773ACC_ITEM.BEDBMC00+13102134773ACC_ITEM.BEDBMC03+13102134773ACC_ITEM.BEDBMC04+13102134773ACC_ITEM.BEDBMC05+13102134773ACC_ITEM.BEDBMG10+13102134773ACC_ITEM.BEDBMG20+13102134773ACC_ITEM.BEDBMG21+13102134773ACC_ITEM.BEDBMG22+13102134773ACC_ITEM.BEDBMG23+13102134773ACC_ITEM.BEDBMG24+13102134773ACC_ITEM.BEDBMG30+13102134773ACC_ITEM.BEDBMH00+13102134773ACC_ITEM.BEDBMC41+13102134773ACC_ITEM.BEDBMC42+13102134773ACC_ITEM.BEDBMC43+13102134773ACC_ITEM.BEDBMC44+13102134773ACC_ITEM.BEDBMC45"
+        "objL1": "13102134773ACC_ITEM.BEDBMK01+13102134773ACC_ITEM.BEDBMK02+13102134773ACC_ITEM.BEDBMA01+13102134773ACC_ITEM.BEDBMC01+13102134773ACC_ITEM.BEDBMC02+13102134773ACC_ITEM.BEDBME01+13102134773ACC_ITEM.BEDBMG01+13102134773ACC_ITEM.BEDBMI+13102134773ACC_ITEM.BEDBMI01+13102134773ACC_ITEM.BEDBMI02+13102134773ACC_ITEM.BEDBMC00+13102134773ACC_ITEM.BEDBMC03+13102134773ACC_ITEM.BEDBMC04+13102134773ACC_ITEM.BEDBMC05+13102134773ACC_ITEM.BEDBMG10+13102134773ACC_ITEM.BEDBMG20+13102134773ACC_ITEM.BEDBMG21+13102134773ACC_ITEM.BEDBMG22+13102134773ACC_ITEM.BEDBMG23+13102134773ACC_ITEM.BEDBMG24+13102134773ACC_ITEM.BEDBMG30+13102134773ACC_ITEM.BEDBMH00+13102134773ACC_ITEM.BEDBMC41+13102134773ACC_ITEM.BEDBMC42+13102134773ACC_ITEM.BEDBMC45+13102134773ACC_ITEM.MC00000+13102134773ACC_ITEM.BEDBMC43+13102134773ACC_ITEM.BEDBMC44+13102134773ACC_ITEM.BFBDMGAA+13102134773ACC_ITEM.BEDBMKAA"
       },
       "source_kind": "source-derived metadata/codes; aliases are curated/inferred",
       "public_query_terms": [
@@ -100890,6 +101014,2149 @@
       "clarification_tags": []
     },
     {
+      "table_id": "DT_284Y001",
+      "table_name": "잔액표",
+      "domains": [
+        "flow_of_funds"
+      ],
+      "org_id": "301",
+      "prd_se": "A",
+      "period_start_observed": "2018",
+      "period_end_observed": "2024",
+      "item_ids": [
+        "13103852624999"
+      ],
+      "item_names": [
+        "잔액표"
+      ],
+      "units": [
+        "십억원"
+      ],
+      "dimensions": [
+        {
+          "level": 1,
+          "id_column": "C1",
+          "name_column": "C1_NM",
+          "api_param": "objL1",
+          "object_id": "13101852624ACC_ITEM",
+          "object_name": "계정항목별",
+          "dimension_name": "계정항목별",
+          "values": [
+            {
+              "value_id": "13102852624ACC_ITEM.A1000",
+              "value_name": "현금 발행 및 예수금 합계",
+              "normalized": "현금 발행 및 예수금 합계",
+              "aliases": [
+                "현금 발행 및 예수금 합계",
+                "현금 발행과 예수금 합계"
+              ],
+              "natural_language_terms": [
+                "현금 발행 및 예수금 합계",
+                "현금 발행과 예수금 합계"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.A1100",
+              "value_name": "금융법인 예수금",
+              "normalized": "금융법인 예수금",
+              "aliases": [
+                "금융법인 예수금"
+              ],
+              "natural_language_terms": [
+                "금융법인 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.A1110",
+              "value_name": "한국은행 현금 발행액 및 예수금",
+              "normalized": "한국은행 현금 발행액 및 예수금",
+              "aliases": [
+                "한국은행 현금 발행액 및 예수금",
+                "한은 현금 발행액 및 예수금"
+              ],
+              "natural_language_terms": [
+                "한국은행 현금 발행액 및 예수금",
+                "한은 현금 발행액 및 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.A1120",
+              "value_name": "예금취급기관 예수금",
+              "normalized": "예금취급기관 예수금",
+              "aliases": [
+                "예금취급기관 예수금"
+              ],
+              "natural_language_terms": [
+                "예금취급기관 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.A1121",
+              "value_name": "은행 예수금",
+              "normalized": "은행 예수금",
+              "aliases": [
+                "은행 예수금"
+              ],
+              "natural_language_terms": [
+                "은행 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.A1122",
+              "value_name": "비은행 예수금",
+              "normalized": "비은행 예수금",
+              "aliases": [
+                "비은행 예수금"
+              ],
+              "natural_language_terms": [
+                "비은행 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.A1130",
+              "value_name": "투자편드 예수금",
+              "normalized": "투자편드 예수금",
+              "aliases": [
+                "투자편드 예수금"
+              ],
+              "natural_language_terms": [
+                "투자편드 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.A1140",
+              "value_name": "보험 및 연금기관 예수금",
+              "normalized": "보험 및 연금기관 예수금",
+              "aliases": [
+                "보험 및 연금기관 예수금"
+              ],
+              "natural_language_terms": [
+                "보험 및 연금기관 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.A1150",
+              "value_name": "기타금융기관 예수금",
+              "normalized": "기타금융기관 예수금",
+              "aliases": [
+                "기타금융기관 예수금"
+              ],
+              "natural_language_terms": [
+                "기타금융기관 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.A1200",
+              "value_name": "일반정부 예수금",
+              "normalized": "일반정부 예수금",
+              "aliases": [
+                "일반정부 예수금"
+              ],
+              "natural_language_terms": [
+                "일반정부 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.B1000",
+              "value_name": "보험 및 연금 준비금 합계",
+              "normalized": "보험 및 연금 준비금 합계",
+              "aliases": [
+                "보험 및 연금 준비금 합계"
+              ],
+              "natural_language_terms": [
+                "보험 및 연금 준비금 합계"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.C1000",
+              "value_name": "채권 합계",
+              "normalized": "채권 합계",
+              "aliases": [
+                "채권 합계"
+              ],
+              "natural_language_terms": [
+                "채권 합계"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.C1100",
+              "value_name": "금융법인 발행채",
+              "normalized": "금융법인 발행채",
+              "aliases": [
+                "금융법인 발행채"
+              ],
+              "natural_language_terms": [
+                "금융법인 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.C1110",
+              "value_name": "한국은행 발행채",
+              "normalized": "한국은행 발행채",
+              "aliases": [
+                "한국은행 발행채"
+              ],
+              "natural_language_terms": [
+                "한국은행 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.C1120",
+              "value_name": "예금취급기관 발행채",
+              "normalized": "예금취급기관 발행채",
+              "aliases": [
+                "예금취급기관 발행채"
+              ],
+              "natural_language_terms": [
+                "예금취급기관 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.C1121",
+              "value_name": "은행 발행채",
+              "normalized": "은행 발행채",
+              "aliases": [
+                "은행 발행채"
+              ],
+              "natural_language_terms": [
+                "은행 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.C1122",
+              "value_name": "비은행 발행채",
+              "normalized": "비은행 발행채",
+              "aliases": [
+                "비은행 발행채"
+              ],
+              "natural_language_terms": [
+                "비은행 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.C1130",
+              "value_name": "투자펀드 발행채",
+              "normalized": "투자펀드 발행채",
+              "aliases": [
+                "투자펀드 발행채"
+              ],
+              "natural_language_terms": [
+                "투자펀드 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.C1140",
+              "value_name": "보험 및 연금기관 발행채",
+              "normalized": "보험 및 연금기관 발행채",
+              "aliases": [
+                "보험 및 연금기관 발행채"
+              ],
+              "natural_language_terms": [
+                "보험 및 연금기관 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.C1150",
+              "value_name": "기타금융기관 발행채",
+              "normalized": "기타금융기관 발행채",
+              "aliases": [
+                "기타금융기관 발행채"
+              ],
+              "natural_language_terms": [
+                "기타금융기관 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.C1200",
+              "value_name": "일반정부 발행채",
+              "normalized": "일반정부 발행채",
+              "aliases": [
+                "일반정부 발행채"
+              ],
+              "natural_language_terms": [
+                "일반정부 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.C1300",
+              "value_name": "비금융법인 발행채",
+              "normalized": "비금융법인 발행채",
+              "aliases": [
+                "비금융법인 발행채"
+              ],
+              "natural_language_terms": [
+                "비금융법인 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.C1400",
+              "value_name": "비거주자 발행채",
+              "normalized": "비거주자 발행채",
+              "aliases": [
+                "비거주자 발행채"
+              ],
+              "natural_language_terms": [
+                "비거주자 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.D1000",
+              "value_name": "차입금 합계(정부융자포함)",
+              "normalized": "차입금 합계(정부융자포함)",
+              "aliases": [
+                "차입금 합계(정부융자포함)"
+              ],
+              "natural_language_terms": [
+                "차입금 합계(정부융자포함)"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.D1100",
+              "value_name": "금융법인 차입금",
+              "normalized": "금융법인 차입금",
+              "aliases": [
+                "금융법인 차입금"
+              ],
+              "natural_language_terms": [
+                "금융법인 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.D1110",
+              "value_name": "한국은행 차입금",
+              "normalized": "한국은행 차입금",
+              "aliases": [
+                "한국은행 차입금"
+              ],
+              "natural_language_terms": [
+                "한국은행 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.D1120",
+              "value_name": "예금취급기관 차입금",
+              "normalized": "예금취급기관 차입금",
+              "aliases": [
+                "예금취급기관 차입금"
+              ],
+              "natural_language_terms": [
+                "예금취급기관 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.D1121",
+              "value_name": "은행 차입금",
+              "normalized": "은행 차입금",
+              "aliases": [
+                "은행 차입금"
+              ],
+              "natural_language_terms": [
+                "은행 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.D1122",
+              "value_name": "비은행 차입금",
+              "normalized": "비은행 차입금",
+              "aliases": [
+                "비은행 차입금"
+              ],
+              "natural_language_terms": [
+                "비은행 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.D1130",
+              "value_name": "투자펀드 차입금",
+              "normalized": "투자펀드 차입금",
+              "aliases": [
+                "투자펀드 차입금"
+              ],
+              "natural_language_terms": [
+                "투자펀드 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.D1140",
+              "value_name": "보험 및 연금기관 차입금",
+              "normalized": "보험 및 연금기관 차입금",
+              "aliases": [
+                "보험 및 연금기관 차입금"
+              ],
+              "natural_language_terms": [
+                "보험 및 연금기관 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.D1150",
+              "value_name": "기타금융기관 차입금",
+              "normalized": "기타금융기관 차입금",
+              "aliases": [
+                "기타금융기관 차입금"
+              ],
+              "natural_language_terms": [
+                "기타금융기관 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.D1200",
+              "value_name": "일반정부 차입금",
+              "normalized": "일반정부 차입금",
+              "aliases": [
+                "일반정부 차입금"
+              ],
+              "natural_language_terms": [
+                "일반정부 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.D1300",
+              "value_name": "비금융법인 차입금",
+              "normalized": "비금융법인 차입금",
+              "aliases": [
+                "비금융법인 차입금"
+              ],
+              "natural_language_terms": [
+                "비금융법인 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.D1400",
+              "value_name": "가계 및 비영리단체 차입금",
+              "normalized": "가계 및 비영리단체 차입금",
+              "aliases": [
+                "가계 및 비영리단체 차입금"
+              ],
+              "natural_language_terms": [
+                "가계 및 비영리단체 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.D1500",
+              "value_name": "비거주자 차입금",
+              "normalized": "비거주자 차입금",
+              "aliases": [
+                "비거주자 차입금"
+              ],
+              "natural_language_terms": [
+                "비거주자 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.E1000",
+              "value_name": "투자펀드 지분 합계",
+              "normalized": "투자펀드 지분 합계",
+              "aliases": [
+                "투자펀드 지분 합계"
+              ],
+              "natural_language_terms": [
+                "투자펀드 지분 합계"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.F1000",
+              "value_name": "총 금융상품 발행 채무 합계",
+              "normalized": "총 금융상품 발행 채무 합계",
+              "aliases": [
+                "총 금융상품 발행 채무 합계"
+              ],
+              "natural_language_terms": [
+                "총 금융상품 발행 채무 합계"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.F1100",
+              "value_name": "금융법인 발행 채무",
+              "normalized": "금융법인 발행 채무",
+              "aliases": [
+                "금융법인 발행 채무"
+              ],
+              "natural_language_terms": [
+                "금융법인 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.F1110",
+              "value_name": "한국은행 발행 채무",
+              "normalized": "한국은행 발행 채무",
+              "aliases": [
+                "한국은행 발행 채무"
+              ],
+              "natural_language_terms": [
+                "한국은행 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.F1120",
+              "value_name": "예금취급기관 발행 채무",
+              "normalized": "예금취급기관 발행 채무",
+              "aliases": [
+                "예금취급기관 발행 채무"
+              ],
+              "natural_language_terms": [
+                "예금취급기관 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.F1121",
+              "value_name": "은행 발행 채무",
+              "normalized": "은행 발행 채무",
+              "aliases": [
+                "은행 발행 채무"
+              ],
+              "natural_language_terms": [
+                "은행 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.F1122",
+              "value_name": "비은행 발행 채무",
+              "normalized": "비은행 발행 채무",
+              "aliases": [
+                "비은행 발행 채무"
+              ],
+              "natural_language_terms": [
+                "비은행 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.F1130",
+              "value_name": "투자펀드 발행 채무",
+              "normalized": "투자펀드 발행 채무",
+              "aliases": [
+                "투자펀드 발행 채무"
+              ],
+              "natural_language_terms": [
+                "투자펀드 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.F1140",
+              "value_name": "보험 및 연금기관 발행 채무",
+              "normalized": "보험 및 연금기관 발행 채무",
+              "aliases": [
+                "보험 및 연금기관 발행 채무"
+              ],
+              "natural_language_terms": [
+                "보험 및 연금기관 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.F1150",
+              "value_name": "기타금융기관 발행 채무",
+              "normalized": "기타금융기관 발행 채무",
+              "aliases": [
+                "기타금융기관 발행 채무"
+              ],
+              "natural_language_terms": [
+                "기타금융기관 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.F1200",
+              "value_name": "일반정부 발행 채무",
+              "normalized": "일반정부 발행 채무",
+              "aliases": [
+                "일반정부 발행 채무"
+              ],
+              "natural_language_terms": [
+                "일반정부 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.F1300",
+              "value_name": "비금융법인 발행 채무",
+              "normalized": "비금융법인 발행 채무",
+              "aliases": [
+                "비금융법인 발행 채무"
+              ],
+              "natural_language_terms": [
+                "비금융법인 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.F1400",
+              "value_name": "가계 및 비영리단체 발행 채무",
+              "normalized": "가계 및 비영리단체 발행 채무",
+              "aliases": [
+                "가계 및 비영리단체 발행 채무"
+              ],
+              "natural_language_terms": [
+                "가계 및 비영리단체 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624ACC_ITEM.F1500",
+              "value_name": "비거주자 발행 채무",
+              "normalized": "비거주자 발행 채무",
+              "aliases": [
+                "비거주자 발행 채무"
+              ],
+              "natural_language_terms": [
+                "비거주자 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            }
+          ]
+        },
+        {
+          "level": 2,
+          "id_column": "C2",
+          "name_column": "C2_NM",
+          "api_param": "objL2",
+          "object_id": "13101852624INSTITUTIONAL_SECTOR",
+          "object_name": "제도부문별",
+          "dimension_name": "제도부문별",
+          "values": [
+            {
+              "value_id": "13102852624INSTITUTIONAL_SECTOR.T10000",
+              "value_name": "합계",
+              "normalized": "합계",
+              "aliases": [
+                "합계",
+                "전체",
+                "총합",
+                "총계"
+              ],
+              "natural_language_terms": [
+                "합계",
+                "전체",
+                "총합",
+                "총계"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624INSTITUTIONAL_SECTOR.T11000",
+              "value_name": "국내",
+              "normalized": "국내",
+              "aliases": [
+                "국내",
+                "국내 전체",
+                "국내경제"
+              ],
+              "natural_language_terms": [
+                "국내",
+                "국내 전체",
+                "국내경제"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624INSTITUTIONAL_SECTOR.T11100",
+              "value_name": "금융법인",
+              "normalized": "금융법인",
+              "aliases": [
+                "금융법인",
+                "금융기관"
+              ],
+              "natural_language_terms": [
+                "금융법인",
+                "금융기관"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624INSTITUTIONAL_SECTOR.T11110",
+              "value_name": "한국은행",
+              "normalized": "한국은행",
+              "aliases": [
+                "한국은행",
+                "중앙은행",
+                "한은"
+              ],
+              "natural_language_terms": [
+                "한국은행",
+                "중앙은행",
+                "한은"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624INSTITUTIONAL_SECTOR.T11120",
+              "value_name": "예금취급기관",
+              "normalized": "예금취급기관",
+              "aliases": [
+                "예금취급기관"
+              ],
+              "natural_language_terms": [
+                "예금취급기관"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624INSTITUTIONAL_SECTOR.T11121",
+              "value_name": "은행",
+              "normalized": "은행",
+              "aliases": [
+                "은행"
+              ],
+              "natural_language_terms": [
+                "은행"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624INSTITUTIONAL_SECTOR.T11122",
+              "value_name": "비은행",
+              "normalized": "비은행",
+              "aliases": [
+                "비은행"
+              ],
+              "natural_language_terms": [
+                "비은행"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624INSTITUTIONAL_SECTOR.T11130",
+              "value_name": "투자펀드",
+              "normalized": "투자펀드",
+              "aliases": [
+                "투자펀드"
+              ],
+              "natural_language_terms": [
+                "투자펀드"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624INSTITUTIONAL_SECTOR.T11140",
+              "value_name": "보험 및 연금기관",
+              "normalized": "보험 및 연금기관",
+              "aliases": [
+                "보험 및 연금기관"
+              ],
+              "natural_language_terms": [
+                "보험 및 연금기관"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624INSTITUTIONAL_SECTOR.T11150",
+              "value_name": "기타금융기관",
+              "normalized": "기타금융기관",
+              "aliases": [
+                "기타금융기관"
+              ],
+              "natural_language_terms": [
+                "기타금융기관"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624INSTITUTIONAL_SECTOR.T11200",
+              "value_name": "일반정부",
+              "normalized": "일반정부",
+              "aliases": [
+                "일반정부",
+                "정부"
+              ],
+              "natural_language_terms": [
+                "일반정부",
+                "정부"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624INSTITUTIONAL_SECTOR.T11300",
+              "value_name": "비금융법인",
+              "normalized": "비금융법인",
+              "aliases": [
+                "비금융법인",
+                "비금융기업"
+              ],
+              "natural_language_terms": [
+                "비금융법인",
+                "비금융기업"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624INSTITUTIONAL_SECTOR.T11400",
+              "value_name": "가계 및 비영리단체",
+              "normalized": "가계 및 비영리단체",
+              "aliases": [
+                "가계 및 비영리단체",
+                "가계와 비영리단체"
+              ],
+              "natural_language_terms": [
+                "가계 및 비영리단체",
+                "가계와 비영리단체"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852624INSTITUTIONAL_SECTOR.T12000",
+              "value_name": "국외",
+              "normalized": "국외",
+              "aliases": [
+                "국외",
+                "해외",
+                "외국"
+              ],
+              "natural_language_terms": [
+                "국외",
+                "해외",
+                "외국"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            }
+          ]
+        }
+      ],
+      "aliases": [
+        "상세자금순환표 잔액표",
+        "상세 자금순환표 잔액표",
+        "상세자금순환 잔액",
+        "2008 SNA 상세자금순환 잔액",
+        "상세자금순환표(2018~) 잔액표"
+      ],
+      "semantic_aliases": [
+        "상세 자금순환 금융자산 부채 잔액",
+        "상세자금순환 자산 부채 보유액"
+      ],
+      "public_query_terms": [
+        "상세자금순환표 잔액 추이",
+        "제도부문별 상세자금순환 잔액"
+      ],
+      "keywords": [
+        "상세자금순환표",
+        "계정항목별",
+        "제도부문별",
+        "잔액"
+      ],
+      "api_endpoint": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
+      "api_call_params": {
+        "method": "getList",
+        "apiKey": "${KOSIS_API_KEY}",
+        "format": "json",
+        "jsonVD": "Y",
+        "orgId": "301",
+        "tblId": "DT_284Y001",
+        "itmId": "13103852624999",
+        "prdSe": "Y",
+        "newEstPrdCnt": "1",
+        "objL1": "13102852624ACC_ITEM.A1000+13102852624ACC_ITEM.A1100+13102852624ACC_ITEM.A1110+13102852624ACC_ITEM.A1120+13102852624ACC_ITEM.A1121+13102852624ACC_ITEM.A1122+13102852624ACC_ITEM.A1130+13102852624ACC_ITEM.A1140+13102852624ACC_ITEM.A1150+13102852624ACC_ITEM.A1200+13102852624ACC_ITEM.B1000+13102852624ACC_ITEM.C1000+13102852624ACC_ITEM.C1100+13102852624ACC_ITEM.C1110+13102852624ACC_ITEM.C1120+13102852624ACC_ITEM.C1121+13102852624ACC_ITEM.C1122+13102852624ACC_ITEM.C1130+13102852624ACC_ITEM.C1140+13102852624ACC_ITEM.C1150+13102852624ACC_ITEM.C1200+13102852624ACC_ITEM.C1300+13102852624ACC_ITEM.C1400+13102852624ACC_ITEM.D1000+13102852624ACC_ITEM.D1100+13102852624ACC_ITEM.D1110+13102852624ACC_ITEM.D1120+13102852624ACC_ITEM.D1121+13102852624ACC_ITEM.D1122+13102852624ACC_ITEM.D1130+13102852624ACC_ITEM.D1140+13102852624ACC_ITEM.D1150+13102852624ACC_ITEM.D1200+13102852624ACC_ITEM.D1300+13102852624ACC_ITEM.D1400+13102852624ACC_ITEM.D1500+13102852624ACC_ITEM.E1000+13102852624ACC_ITEM.F1000+13102852624ACC_ITEM.F1100+13102852624ACC_ITEM.F1110+13102852624ACC_ITEM.F1120+13102852624ACC_ITEM.F1121+13102852624ACC_ITEM.F1122+13102852624ACC_ITEM.F1130+13102852624ACC_ITEM.F1140+13102852624ACC_ITEM.F1150+13102852624ACC_ITEM.F1200+13102852624ACC_ITEM.F1300+13102852624ACC_ITEM.F1400+13102852624ACC_ITEM.F1500",
+        "objL2": "13102852624INSTITUTIONAL_SECTOR.T10000+13102852624INSTITUTIONAL_SECTOR.T11000+13102852624INSTITUTIONAL_SECTOR.T11100+13102852624INSTITUTIONAL_SECTOR.T11110+13102852624INSTITUTIONAL_SECTOR.T11120+13102852624INSTITUTIONAL_SECTOR.T11121+13102852624INSTITUTIONAL_SECTOR.T11122+13102852624INSTITUTIONAL_SECTOR.T11130+13102852624INSTITUTIONAL_SECTOR.T11140+13102852624INSTITUTIONAL_SECTOR.T11150+13102852624INSTITUTIONAL_SECTOR.T11200+13102852624INSTITUTIONAL_SECTOR.T11300+13102852624INSTITUTIONAL_SECTOR.T11400+13102852624INSTITUTIONAL_SECTOR.T12000"
+      },
+      "source_kind": "KOSIS live ITM/PRD/data verified 2026-10-01; aliases curated; exact codes unchanged",
+      "clarification_tags": []
+    },
+    {
+      "table_id": "DT_284Y002",
+      "table_name": "거래표",
+      "domains": [
+        "flow_of_funds"
+      ],
+      "org_id": "301",
+      "prd_se": "A",
+      "period_start_observed": "2018",
+      "period_end_observed": "2024",
+      "item_ids": [
+        "13103852623999"
+      ],
+      "item_names": [
+        "거래표"
+      ],
+      "units": [
+        "십억원"
+      ],
+      "dimensions": [
+        {
+          "level": 1,
+          "id_column": "C1",
+          "name_column": "C1_NM",
+          "api_param": "objL1",
+          "object_id": "13101852623ACC_ITEM",
+          "object_name": "계정항목별",
+          "dimension_name": "계정항목별",
+          "values": [
+            {
+              "value_id": "13102852623ACC_ITEM.A1000",
+              "value_name": "현금 발행 및 예수금 합계",
+              "normalized": "현금 발행 및 예수금 합계",
+              "aliases": [
+                "현금 발행 및 예수금 합계",
+                "현금 발행과 예수금 합계"
+              ],
+              "natural_language_terms": [
+                "현금 발행 및 예수금 합계",
+                "현금 발행과 예수금 합계"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.A1100",
+              "value_name": "금융법인 예수금",
+              "normalized": "금융법인 예수금",
+              "aliases": [
+                "금융법인 예수금"
+              ],
+              "natural_language_terms": [
+                "금융법인 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.A1110",
+              "value_name": "한국은행 현금 발행액 및 예수금",
+              "normalized": "한국은행 현금 발행액 및 예수금",
+              "aliases": [
+                "한국은행 현금 발행액 및 예수금",
+                "한은 현금 발행액 및 예수금"
+              ],
+              "natural_language_terms": [
+                "한국은행 현금 발행액 및 예수금",
+                "한은 현금 발행액 및 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.A1120",
+              "value_name": "예금취급기관 예수금",
+              "normalized": "예금취급기관 예수금",
+              "aliases": [
+                "예금취급기관 예수금"
+              ],
+              "natural_language_terms": [
+                "예금취급기관 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.A1121",
+              "value_name": "은행 예수금",
+              "normalized": "은행 예수금",
+              "aliases": [
+                "은행 예수금"
+              ],
+              "natural_language_terms": [
+                "은행 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.A1122",
+              "value_name": "비은행 예수금",
+              "normalized": "비은행 예수금",
+              "aliases": [
+                "비은행 예수금"
+              ],
+              "natural_language_terms": [
+                "비은행 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.A1130",
+              "value_name": "투자편드 예수금",
+              "normalized": "투자편드 예수금",
+              "aliases": [
+                "투자편드 예수금"
+              ],
+              "natural_language_terms": [
+                "투자편드 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.A1140",
+              "value_name": "보험 및 연금기관 예수금",
+              "normalized": "보험 및 연금기관 예수금",
+              "aliases": [
+                "보험 및 연금기관 예수금"
+              ],
+              "natural_language_terms": [
+                "보험 및 연금기관 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.A1150",
+              "value_name": "기타금융기관 예수금",
+              "normalized": "기타금융기관 예수금",
+              "aliases": [
+                "기타금융기관 예수금"
+              ],
+              "natural_language_terms": [
+                "기타금융기관 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.A1200",
+              "value_name": "일반정부 예수금",
+              "normalized": "일반정부 예수금",
+              "aliases": [
+                "일반정부 예수금"
+              ],
+              "natural_language_terms": [
+                "일반정부 예수금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.B1000",
+              "value_name": "보험 및 연금 준비금 합계",
+              "normalized": "보험 및 연금 준비금 합계",
+              "aliases": [
+                "보험 및 연금 준비금 합계"
+              ],
+              "natural_language_terms": [
+                "보험 및 연금 준비금 합계"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.C1000",
+              "value_name": "채권 합계",
+              "normalized": "채권 합계",
+              "aliases": [
+                "채권 합계"
+              ],
+              "natural_language_terms": [
+                "채권 합계"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.C1100",
+              "value_name": "금융법인 발행채",
+              "normalized": "금융법인 발행채",
+              "aliases": [
+                "금융법인 발행채"
+              ],
+              "natural_language_terms": [
+                "금융법인 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.C1110",
+              "value_name": "한국은행 발행채",
+              "normalized": "한국은행 발행채",
+              "aliases": [
+                "한국은행 발행채"
+              ],
+              "natural_language_terms": [
+                "한국은행 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.C1120",
+              "value_name": "예금취급기관 발행채",
+              "normalized": "예금취급기관 발행채",
+              "aliases": [
+                "예금취급기관 발행채"
+              ],
+              "natural_language_terms": [
+                "예금취급기관 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.C1121",
+              "value_name": "은행 발행채",
+              "normalized": "은행 발행채",
+              "aliases": [
+                "은행 발행채"
+              ],
+              "natural_language_terms": [
+                "은행 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.C1122",
+              "value_name": "비은행 발행채",
+              "normalized": "비은행 발행채",
+              "aliases": [
+                "비은행 발행채"
+              ],
+              "natural_language_terms": [
+                "비은행 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.C1130",
+              "value_name": "투자펀드 발행채",
+              "normalized": "투자펀드 발행채",
+              "aliases": [
+                "투자펀드 발행채"
+              ],
+              "natural_language_terms": [
+                "투자펀드 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.C1140",
+              "value_name": "보험 및 연금기관 발행채",
+              "normalized": "보험 및 연금기관 발행채",
+              "aliases": [
+                "보험 및 연금기관 발행채"
+              ],
+              "natural_language_terms": [
+                "보험 및 연금기관 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.C1150",
+              "value_name": "기타금융기관 발행채",
+              "normalized": "기타금융기관 발행채",
+              "aliases": [
+                "기타금융기관 발행채"
+              ],
+              "natural_language_terms": [
+                "기타금융기관 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.C1200",
+              "value_name": "일반정부 발행채",
+              "normalized": "일반정부 발행채",
+              "aliases": [
+                "일반정부 발행채"
+              ],
+              "natural_language_terms": [
+                "일반정부 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.C1300",
+              "value_name": "비금융법인 발행채",
+              "normalized": "비금융법인 발행채",
+              "aliases": [
+                "비금융법인 발행채"
+              ],
+              "natural_language_terms": [
+                "비금융법인 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.C1400",
+              "value_name": "비거주자 발행채",
+              "normalized": "비거주자 발행채",
+              "aliases": [
+                "비거주자 발행채"
+              ],
+              "natural_language_terms": [
+                "비거주자 발행채"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.D1000",
+              "value_name": "차입금 합계(정부융자포함)",
+              "normalized": "차입금 합계(정부융자포함)",
+              "aliases": [
+                "차입금 합계(정부융자포함)"
+              ],
+              "natural_language_terms": [
+                "차입금 합계(정부융자포함)"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.D1100",
+              "value_name": "금융법인 차입금",
+              "normalized": "금융법인 차입금",
+              "aliases": [
+                "금융법인 차입금"
+              ],
+              "natural_language_terms": [
+                "금융법인 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.D1110",
+              "value_name": "한국은행 차입금",
+              "normalized": "한국은행 차입금",
+              "aliases": [
+                "한국은행 차입금"
+              ],
+              "natural_language_terms": [
+                "한국은행 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.D1120",
+              "value_name": "예금취급기관 차입금",
+              "normalized": "예금취급기관 차입금",
+              "aliases": [
+                "예금취급기관 차입금"
+              ],
+              "natural_language_terms": [
+                "예금취급기관 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.D1121",
+              "value_name": "은행 차입금",
+              "normalized": "은행 차입금",
+              "aliases": [
+                "은행 차입금"
+              ],
+              "natural_language_terms": [
+                "은행 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.D1122",
+              "value_name": "비은행 차입금",
+              "normalized": "비은행 차입금",
+              "aliases": [
+                "비은행 차입금"
+              ],
+              "natural_language_terms": [
+                "비은행 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.D1130",
+              "value_name": "투자펀드 차입금",
+              "normalized": "투자펀드 차입금",
+              "aliases": [
+                "투자펀드 차입금"
+              ],
+              "natural_language_terms": [
+                "투자펀드 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.D1140",
+              "value_name": "보험 및 연금기관 차입금",
+              "normalized": "보험 및 연금기관 차입금",
+              "aliases": [
+                "보험 및 연금기관 차입금"
+              ],
+              "natural_language_terms": [
+                "보험 및 연금기관 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.D1150",
+              "value_name": "기타금융기관 차입금",
+              "normalized": "기타금융기관 차입금",
+              "aliases": [
+                "기타금융기관 차입금"
+              ],
+              "natural_language_terms": [
+                "기타금융기관 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.D1200",
+              "value_name": "일반정부 차입금",
+              "normalized": "일반정부 차입금",
+              "aliases": [
+                "일반정부 차입금"
+              ],
+              "natural_language_terms": [
+                "일반정부 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.D1300",
+              "value_name": "비금융법인 차입금",
+              "normalized": "비금융법인 차입금",
+              "aliases": [
+                "비금융법인 차입금"
+              ],
+              "natural_language_terms": [
+                "비금융법인 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.D1400",
+              "value_name": "가계 및 비영리단체 차입금",
+              "normalized": "가계 및 비영리단체 차입금",
+              "aliases": [
+                "가계 및 비영리단체 차입금"
+              ],
+              "natural_language_terms": [
+                "가계 및 비영리단체 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.D1500",
+              "value_name": "비거주자 차입금",
+              "normalized": "비거주자 차입금",
+              "aliases": [
+                "비거주자 차입금"
+              ],
+              "natural_language_terms": [
+                "비거주자 차입금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.E1000",
+              "value_name": "투자펀드 지분 합계",
+              "normalized": "투자펀드 지분 합계",
+              "aliases": [
+                "투자펀드 지분 합계"
+              ],
+              "natural_language_terms": [
+                "투자펀드 지분 합계"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.F1000",
+              "value_name": "총 금융상품 발행 채무 합계",
+              "normalized": "총 금융상품 발행 채무 합계",
+              "aliases": [
+                "총 금융상품 발행 채무 합계"
+              ],
+              "natural_language_terms": [
+                "총 금융상품 발행 채무 합계"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.F1100",
+              "value_name": "금융법인 발행 채무",
+              "normalized": "금융법인 발행 채무",
+              "aliases": [
+                "금융법인 발행 채무"
+              ],
+              "natural_language_terms": [
+                "금융법인 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.F1110",
+              "value_name": "한국은행 발행 채무",
+              "normalized": "한국은행 발행 채무",
+              "aliases": [
+                "한국은행 발행 채무"
+              ],
+              "natural_language_terms": [
+                "한국은행 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.F1120",
+              "value_name": "예금취급기관 발행 채무",
+              "normalized": "예금취급기관 발행 채무",
+              "aliases": [
+                "예금취급기관 발행 채무"
+              ],
+              "natural_language_terms": [
+                "예금취급기관 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.F1121",
+              "value_name": "은행 발행 채무",
+              "normalized": "은행 발행 채무",
+              "aliases": [
+                "은행 발행 채무"
+              ],
+              "natural_language_terms": [
+                "은행 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.F1122",
+              "value_name": "비은행 발행 채무",
+              "normalized": "비은행 발행 채무",
+              "aliases": [
+                "비은행 발행 채무"
+              ],
+              "natural_language_terms": [
+                "비은행 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.F1130",
+              "value_name": "투자펀드 발행 채무",
+              "normalized": "투자펀드 발행 채무",
+              "aliases": [
+                "투자펀드 발행 채무"
+              ],
+              "natural_language_terms": [
+                "투자펀드 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.F1140",
+              "value_name": "보험 및 연금기관 발행 채무",
+              "normalized": "보험 및 연금기관 발행 채무",
+              "aliases": [
+                "보험 및 연금기관 발행 채무"
+              ],
+              "natural_language_terms": [
+                "보험 및 연금기관 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.F1150",
+              "value_name": "기타금융기관 발행 채무",
+              "normalized": "기타금융기관 발행 채무",
+              "aliases": [
+                "기타금융기관 발행 채무"
+              ],
+              "natural_language_terms": [
+                "기타금융기관 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.F1200",
+              "value_name": "일반정부 발행 채무",
+              "normalized": "일반정부 발행 채무",
+              "aliases": [
+                "일반정부 발행 채무"
+              ],
+              "natural_language_terms": [
+                "일반정부 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.F1300",
+              "value_name": "비금융법인 발행 채무",
+              "normalized": "비금융법인 발행 채무",
+              "aliases": [
+                "비금융법인 발행 채무"
+              ],
+              "natural_language_terms": [
+                "비금융법인 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.F1400",
+              "value_name": "가계 및 비영리단체 발행 채무",
+              "normalized": "가계 및 비영리단체 발행 채무",
+              "aliases": [
+                "가계 및 비영리단체 발행 채무"
+              ],
+              "natural_language_terms": [
+                "가계 및 비영리단체 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623ACC_ITEM.F1500",
+              "value_name": "비거주자 발행 채무",
+              "normalized": "비거주자 발행 채무",
+              "aliases": [
+                "비거주자 발행 채무"
+              ],
+              "natural_language_terms": [
+                "비거주자 발행 채무"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            }
+          ]
+        },
+        {
+          "level": 2,
+          "id_column": "C2",
+          "name_column": "C2_NM",
+          "api_param": "objL2",
+          "object_id": "13101852623INSTITUTIONAL_SECTOR",
+          "object_name": "제도부문별",
+          "dimension_name": "제도부문별",
+          "values": [
+            {
+              "value_id": "13102852623INSTITUTIONAL_SECTOR.T10000",
+              "value_name": "합계",
+              "normalized": "합계",
+              "aliases": [
+                "합계",
+                "전체",
+                "총합",
+                "총계"
+              ],
+              "natural_language_terms": [
+                "합계",
+                "전체",
+                "총합",
+                "총계"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623INSTITUTIONAL_SECTOR.T11000",
+              "value_name": "국내",
+              "normalized": "국내",
+              "aliases": [
+                "국내",
+                "국내 전체",
+                "국내경제"
+              ],
+              "natural_language_terms": [
+                "국내",
+                "국내 전체",
+                "국내경제"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623INSTITUTIONAL_SECTOR.T11100",
+              "value_name": "금융법인",
+              "normalized": "금융법인",
+              "aliases": [
+                "금융법인",
+                "금융기관"
+              ],
+              "natural_language_terms": [
+                "금융법인",
+                "금융기관"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623INSTITUTIONAL_SECTOR.T11110",
+              "value_name": "한국은행",
+              "normalized": "한국은행",
+              "aliases": [
+                "한국은행",
+                "중앙은행",
+                "한은"
+              ],
+              "natural_language_terms": [
+                "한국은행",
+                "중앙은행",
+                "한은"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623INSTITUTIONAL_SECTOR.T11120",
+              "value_name": "예금취급기관",
+              "normalized": "예금취급기관",
+              "aliases": [
+                "예금취급기관"
+              ],
+              "natural_language_terms": [
+                "예금취급기관"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623INSTITUTIONAL_SECTOR.T11121",
+              "value_name": "은행",
+              "normalized": "은행",
+              "aliases": [
+                "은행"
+              ],
+              "natural_language_terms": [
+                "은행"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623INSTITUTIONAL_SECTOR.T11122",
+              "value_name": "비은행",
+              "normalized": "비은행",
+              "aliases": [
+                "비은행"
+              ],
+              "natural_language_terms": [
+                "비은행"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623INSTITUTIONAL_SECTOR.T11130",
+              "value_name": "투자펀드",
+              "normalized": "투자펀드",
+              "aliases": [
+                "투자펀드"
+              ],
+              "natural_language_terms": [
+                "투자펀드"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623INSTITUTIONAL_SECTOR.T11140",
+              "value_name": "보험 및 연금기관",
+              "normalized": "보험 및 연금기관",
+              "aliases": [
+                "보험 및 연금기관"
+              ],
+              "natural_language_terms": [
+                "보험 및 연금기관"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623INSTITUTIONAL_SECTOR.T11150",
+              "value_name": "기타금융기관",
+              "normalized": "기타금융기관",
+              "aliases": [
+                "기타금융기관"
+              ],
+              "natural_language_terms": [
+                "기타금융기관"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623INSTITUTIONAL_SECTOR.T11200",
+              "value_name": "일반정부",
+              "normalized": "일반정부",
+              "aliases": [
+                "일반정부",
+                "정부"
+              ],
+              "natural_language_terms": [
+                "일반정부",
+                "정부"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623INSTITUTIONAL_SECTOR.T11300",
+              "value_name": "비금융법인",
+              "normalized": "비금융법인",
+              "aliases": [
+                "비금융법인",
+                "비금융기업"
+              ],
+              "natural_language_terms": [
+                "비금융법인",
+                "비금융기업"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623INSTITUTIONAL_SECTOR.T11400",
+              "value_name": "가계 및 비영리단체",
+              "normalized": "가계 및 비영리단체",
+              "aliases": [
+                "가계 및 비영리단체",
+                "가계와 비영리단체"
+              ],
+              "natural_language_terms": [
+                "가계 및 비영리단체",
+                "가계와 비영리단체"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102852623INSTITUTIONAL_SECTOR.T12000",
+              "value_name": "국외",
+              "normalized": "국외",
+              "aliases": [
+                "국외",
+                "해외",
+                "외국"
+              ],
+              "natural_language_terms": [
+                "국외",
+                "해외",
+                "외국"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            }
+          ]
+        }
+      ],
+      "aliases": [
+        "상세자금순환표 거래표",
+        "상세 자금순환표 거래표",
+        "상세자금순환 거래",
+        "2008 SNA 상세자금순환 거래",
+        "상세자금순환표(2018~) 거래표"
+      ],
+      "semantic_aliases": [
+        "상세 자금순환 금융거래",
+        "상세자금순환 순거래",
+        "상세자금순환 거래액"
+      ],
+      "public_query_terms": [
+        "상세자금순환표 거래 추이",
+        "제도부문별 상세자금순환 거래"
+      ],
+      "keywords": [
+        "상세자금순환표",
+        "계정항목별",
+        "제도부문별",
+        "거래"
+      ],
+      "api_endpoint": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
+      "api_call_params": {
+        "method": "getList",
+        "apiKey": "${KOSIS_API_KEY}",
+        "format": "json",
+        "jsonVD": "Y",
+        "orgId": "301",
+        "tblId": "DT_284Y002",
+        "itmId": "13103852623999",
+        "prdSe": "Y",
+        "newEstPrdCnt": "1",
+        "objL1": "13102852623ACC_ITEM.A1000+13102852623ACC_ITEM.A1100+13102852623ACC_ITEM.A1110+13102852623ACC_ITEM.A1120+13102852623ACC_ITEM.A1121+13102852623ACC_ITEM.A1122+13102852623ACC_ITEM.A1130+13102852623ACC_ITEM.A1140+13102852623ACC_ITEM.A1150+13102852623ACC_ITEM.A1200+13102852623ACC_ITEM.B1000+13102852623ACC_ITEM.C1000+13102852623ACC_ITEM.C1100+13102852623ACC_ITEM.C1110+13102852623ACC_ITEM.C1120+13102852623ACC_ITEM.C1121+13102852623ACC_ITEM.C1122+13102852623ACC_ITEM.C1130+13102852623ACC_ITEM.C1140+13102852623ACC_ITEM.C1150+13102852623ACC_ITEM.C1200+13102852623ACC_ITEM.C1300+13102852623ACC_ITEM.C1400+13102852623ACC_ITEM.D1000+13102852623ACC_ITEM.D1100+13102852623ACC_ITEM.D1110+13102852623ACC_ITEM.D1120+13102852623ACC_ITEM.D1121+13102852623ACC_ITEM.D1122+13102852623ACC_ITEM.D1130+13102852623ACC_ITEM.D1140+13102852623ACC_ITEM.D1150+13102852623ACC_ITEM.D1200+13102852623ACC_ITEM.D1300+13102852623ACC_ITEM.D1400+13102852623ACC_ITEM.D1500+13102852623ACC_ITEM.E1000+13102852623ACC_ITEM.F1000+13102852623ACC_ITEM.F1100+13102852623ACC_ITEM.F1110+13102852623ACC_ITEM.F1120+13102852623ACC_ITEM.F1121+13102852623ACC_ITEM.F1122+13102852623ACC_ITEM.F1130+13102852623ACC_ITEM.F1140+13102852623ACC_ITEM.F1150+13102852623ACC_ITEM.F1200+13102852623ACC_ITEM.F1300+13102852623ACC_ITEM.F1400+13102852623ACC_ITEM.F1500",
+        "objL2": "13102852623INSTITUTIONAL_SECTOR.T10000+13102852623INSTITUTIONAL_SECTOR.T11000+13102852623INSTITUTIONAL_SECTOR.T11100+13102852623INSTITUTIONAL_SECTOR.T11110+13102852623INSTITUTIONAL_SECTOR.T11120+13102852623INSTITUTIONAL_SECTOR.T11121+13102852623INSTITUTIONAL_SECTOR.T11122+13102852623INSTITUTIONAL_SECTOR.T11130+13102852623INSTITUTIONAL_SECTOR.T11140+13102852623INSTITUTIONAL_SECTOR.T11150+13102852623INSTITUTIONAL_SECTOR.T11200+13102852623INSTITUTIONAL_SECTOR.T11300+13102852623INSTITUTIONAL_SECTOR.T11400+13102852623INSTITUTIONAL_SECTOR.T12000"
+      },
+      "source_kind": "KOSIS live ITM/PRD/data verified 2026-10-01; aliases curated; exact codes unchanged",
+      "clarification_tags": []
+    },
+    {
       "table_id": "DT_301Y013",
       "table_name": "국제수지",
       "domains": [
@@ -183625,9 +185892,28 @@
           "id_column": "C1",
           "name_column": "",
           "api_param": "objL1",
-          "object_id": "",
-          "object_name": "",
-          "values": []
+          "object_id": "13999000",
+          "object_name": "분류 1",
+          "values": [
+            {
+              "value_id": "DATA",
+              "value_name": "DATA",
+              "normalized": "DATA",
+              "aliases": [
+                "DATA"
+              ],
+              "natural_language_terms": [
+                "DATA"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            }
+          ],
+          "dimension_name": "분류 1",
+          "representative_value_id": "DATA",
+          "representative_verified_period": "196412"
         }
       ],
       "api_endpoint": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
@@ -225071,8 +227357,8 @@
           "id_column": "C1",
           "name_column": "C1_NM",
           "api_param": "objL1",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134685BZTYP_CD",
+          "object_name": "업종코드별",
           "values": [
             {
               "value_id": "13102134685BZTYP_CD.C",
@@ -225860,15 +228146,18 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "업종코드별",
+          "representative_value_id": "13102134685BZTYP_CD.C",
+          "representative_verified_period": "2024"
         },
         {
           "level": 2,
           "id_column": "C2",
           "name_column": "C2_NM",
           "api_param": "objL2",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134685BASE_YEAR_CD",
+          "object_name": "기준년도구분별",
           "values": [
             {
               "value_id": "13102134685BASE_YEAR_CD.12",
@@ -226091,15 +228380,18 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "기준년도구분별",
+          "representative_value_id": "13102134685BASE_YEAR_CD.24",
+          "representative_verified_period": "2024"
         },
         {
           "level": 3,
           "id_column": "C3",
           "name_column": "C3_NM",
           "api_param": "objL3",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134685ACC_ITEM",
+          "object_name": "계정항목별",
           "values": [
             {
               "value_id": "13102134685ACC_ITEM.1",
@@ -226719,8 +229011,56 @@
               "related_concepts": [],
               "negative_terms": [],
               "value_question_terms": []
+            },
+            {
+              "value_id": "13102134685ACC_ITEM.4",
+              "value_name": "Ⅳ. 순현금흐름(Ⅰ+Ⅱ+Ⅲ)",
+              "normalized": "Ⅳ. 순현금흐름(Ⅰ+Ⅱ+Ⅲ)",
+              "aliases": [
+                "Ⅳ. 순현금흐름(Ⅰ+Ⅱ+Ⅲ)"
+              ],
+              "natural_language_terms": [
+                "Ⅳ. 순현금흐름(Ⅰ+Ⅱ+Ⅲ)"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134685ACC_ITEM.5",
+              "value_name": "Ⅴ. 기초의 현금",
+              "normalized": "Ⅴ. 기초의 현금",
+              "aliases": [
+                "Ⅴ. 기초의 현금"
+              ],
+              "natural_language_terms": [
+                "Ⅴ. 기초의 현금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134685ACC_ITEM.6",
+              "value_name": "Ⅵ. 기말의 현금",
+              "normalized": "Ⅵ. 기말의 현금",
+              "aliases": [
+                "Ⅵ. 기말의 현금"
+              ],
+              "natural_language_terms": [
+                "Ⅵ. 기말의 현금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "계정항목별",
+          "representative_value_id": "13102134685ACC_ITEM.1",
+          "representative_verified_period": "2024"
         }
       ],
       "api_endpoint": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
@@ -226845,8 +229185,8 @@
           "id_column": "C1",
           "name_column": "C1_NM",
           "api_param": "objL1",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134725BZTYP_CD",
+          "object_name": "업종코드별",
           "values": [
             {
               "value_id": "13102134725BZTYP_CD.C",
@@ -227634,15 +229974,18 @@
                 "공장 업종 상황이 어때"
               ]
             }
-          ]
+          ],
+          "dimension_name": "업종코드별",
+          "representative_value_id": "13102134725BZTYP_CD.C",
+          "representative_verified_period": "2024"
         },
         {
           "level": 2,
           "id_column": "C2",
           "name_column": "C2_NM",
           "api_param": "objL2",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134725BASE_YEAR_CD",
+          "object_name": "기준년도구분별",
           "values": [
             {
               "value_id": "13102134725BASE_YEAR_CD.12",
@@ -227865,15 +230208,18 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "기준년도구분별",
+          "representative_value_id": "13102134725BASE_YEAR_CD.24",
+          "representative_verified_period": "2024"
         },
         {
           "level": 3,
           "id_column": "C3",
           "name_column": "C3_NM",
           "api_param": "objL3",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134725ACC_ITEM",
+          "object_name": "계정항목별",
           "values": [
             {
               "value_id": "13102134725ACC_ITEM.71",
@@ -227995,7 +230341,10 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "계정항목별",
+          "representative_value_id": "13102134725ACC_ITEM.71",
+          "representative_verified_period": "2024"
         }
       ],
       "api_endpoint": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
@@ -228117,8 +230466,8 @@
           "id_column": "C1",
           "name_column": "C1_NM",
           "api_param": "objL1",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134762BZTYP_CD",
+          "object_name": "업종코드별",
           "values": [
             {
               "value_id": "13102134762BZTYP_CD.C",
@@ -228906,15 +231255,18 @@
                 "공장 업종 상황이 어때"
               ]
             }
-          ]
+          ],
+          "dimension_name": "업종코드별",
+          "representative_value_id": "13102134762BZTYP_CD.C",
+          "representative_verified_period": "2024"
         },
         {
           "level": 2,
           "id_column": "C2",
           "name_column": "C2_NM",
           "api_param": "objL2",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134762BASE_YEAR_CD",
+          "object_name": "기준년도구분별",
           "values": [
             {
               "value_id": "13102134762BASE_YEAR_CD.12",
@@ -229137,15 +231489,18 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "기준년도구분별",
+          "representative_value_id": "13102134762BASE_YEAR_CD.24",
+          "representative_verified_period": "2024"
         },
         {
           "level": 3,
           "id_column": "C3",
           "name_column": "C3_NM",
           "api_param": "objL3",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134762ACC_ITEM",
+          "object_name": "계정항목별",
           "values": [
             {
               "value_id": "13102134762ACC_ITEM.81",
@@ -229267,7 +231622,10 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "계정항목별",
+          "representative_value_id": "13102134762ACC_ITEM.81",
+          "representative_verified_period": "2024"
         }
       ],
       "api_endpoint": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
@@ -241585,8 +243943,8 @@
           "id_column": "C1",
           "name_column": "C1_NM",
           "api_param": "objL1",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134601BZTYP_CD",
+          "object_name": "업종코드별",
           "values": [
             {
               "value_id": "13102134601BZTYP_CD.B",
@@ -245001,16 +247359,49 @@
               "related_concepts": [],
               "negative_terms": [],
               "value_question_terms": []
+            },
+            {
+              "value_id": "13102134601BZTYP_CD.ZZZ68",
+              "value_name": "기술수준별",
+              "normalized": "기술수준별",
+              "aliases": [
+                "기술수준별"
+              ],
+              "natural_language_terms": [
+                "기술수준별"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134601BZTYP_CD.ZZZ69",
+              "value_name": "산업형태별",
+              "normalized": "산업형태별",
+              "aliases": [
+                "산업형태별"
+              ],
+              "natural_language_terms": [
+                "산업형태별"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "업종코드별",
+          "representative_value_id": "13102134601BZTYP_CD.D37",
+          "representative_verified_period": "2008"
         },
         {
           "level": 2,
           "id_column": "C2",
           "name_column": "C2_NM",
           "api_param": "objL2",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134601ENTERPRISE_SCALE",
+          "object_name": "기업규모별",
           "values": [
             {
               "value_id": "13102134601ENTERPRISE_SCALE.A",
@@ -245108,16 +247499,34 @@
                 "중소기업 대출이 얼마나 돼",
                 "작은 회사들 상황이 어때"
               ]
+            },
+            {
+              "value_id": "13102134601ENTERPRISE_SCALE.J",
+              "value_name": "대기업_중견",
+              "normalized": "대기업_중견",
+              "aliases": [
+                "대기업_중견"
+              ],
+              "natural_language_terms": [
+                "대기업_중견"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "기업규모별",
+          "representative_value_id": "13102134601ENTERPRISE_SCALE.M",
+          "representative_verified_period": "2008"
         },
         {
           "level": 3,
           "id_column": "C3",
           "name_column": "C3_NM",
           "api_param": "objL3",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134601ACC_ITEM",
+          "object_name": "계정항목별",
           "values": [
             {
               "value_id": "13102134601ACC_ITEM.501",
@@ -245227,7 +247636,10 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "계정항목별",
+          "representative_value_id": "13102134601ACC_ITEM.501",
+          "representative_verified_period": "2008"
         }
       ],
       "api_endpoint": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
@@ -245241,8 +247653,8 @@
         "prdSe": "A",
         "newEstPrdCnt": "1",
         "itmId": "13103134601999",
-        "objL1": "13102134601BZTYP_CD.B+13102134601BZTYP_CD.C+13102134601BZTYP_CD.D+13102134601BZTYP_CD.D15+13102134601BZTYP_CD.D151+13102134601BZTYP_CD.D152+13102134601BZTYP_CD.D153+13102134601BZTYP_CD.D154+13102134601BZTYP_CD.D1541+13102134601BZTYP_CD.D1545+13102134601BZTYP_CD.D1549+13102134601BZTYP_CD.D155+13102134601BZTYP_CD.D1553+13102134601BZTYP_CD.D1554+13102134601BZTYP_CD.D17+13102134601BZTYP_CD.D171+13102134601BZTYP_CD.D172+13102134601BZTYP_CD.D179+13102134601BZTYP_CD.D18+13102134601BZTYP_CD.D19+13102134601BZTYP_CD.D192+13102134601BZTYP_CD.D193+13102134601BZTYP_CD.D20+13102134601BZTYP_CD.D21+13102134601BZTYP_CD.D22+13102134601BZTYP_CD.D221+13102134601BZTYP_CD.D223+13102134601BZTYP_CD.D23+13102134601BZTYP_CD.D24+13102134601BZTYP_CD.D241+13102134601BZTYP_CD.D2413+13102134601BZTYP_CD.D2414+13102134601BZTYP_CD.D2415+13102134601BZTYP_CD.D242+13102134601BZTYP_CD.D243+13102134601BZTYP_CD.D2431+13102134601BZTYP_CD.D2432+13102134601BZTYP_CD.D2433+13102134601BZTYP_CD.D2434+13102134601BZTYP_CD.D244+13102134601BZTYP_CD.D25+13102134601BZTYP_CD.D251+13102134601BZTYP_CD.D2511+13102134601BZTYP_CD.D2519+13102134601BZTYP_CD.D252+13102134601BZTYP_CD.D26+13102134601BZTYP_CD.D261+13102134601BZTYP_CD.D262+13102134601BZTYP_CD.D263+13102134601BZTYP_CD.D2631",
-        "objL2": "13102134601ENTERPRISE_SCALE.A+13102134601ENTERPRISE_SCALE.L+13102134601ENTERPRISE_SCALE.M",
+        "objL1": "13102134601BZTYP_CD.B+13102134601BZTYP_CD.C+13102134601BZTYP_CD.D+13102134601BZTYP_CD.D15+13102134601BZTYP_CD.D151+13102134601BZTYP_CD.D152+13102134601BZTYP_CD.D153+13102134601BZTYP_CD.D154+13102134601BZTYP_CD.D1541+13102134601BZTYP_CD.D1545+13102134601BZTYP_CD.D1549+13102134601BZTYP_CD.D155+13102134601BZTYP_CD.D1553+13102134601BZTYP_CD.D1554+13102134601BZTYP_CD.D17+13102134601BZTYP_CD.D171+13102134601BZTYP_CD.D172+13102134601BZTYP_CD.D179+13102134601BZTYP_CD.D18+13102134601BZTYP_CD.D19+13102134601BZTYP_CD.D192+13102134601BZTYP_CD.D193+13102134601BZTYP_CD.D20+13102134601BZTYP_CD.D21+13102134601BZTYP_CD.D22+13102134601BZTYP_CD.D221+13102134601BZTYP_CD.D223+13102134601BZTYP_CD.D23+13102134601BZTYP_CD.D24+13102134601BZTYP_CD.D241+13102134601BZTYP_CD.D2413+13102134601BZTYP_CD.D2414+13102134601BZTYP_CD.D2415+13102134601BZTYP_CD.D242+13102134601BZTYP_CD.D243+13102134601BZTYP_CD.D2431+13102134601BZTYP_CD.D2432+13102134601BZTYP_CD.D2433+13102134601BZTYP_CD.D2434+13102134601BZTYP_CD.D244+13102134601BZTYP_CD.D25+13102134601BZTYP_CD.D251+13102134601BZTYP_CD.D2511+13102134601BZTYP_CD.D2519+13102134601BZTYP_CD.D252+13102134601BZTYP_CD.D26+13102134601BZTYP_CD.D261+13102134601BZTYP_CD.D262+13102134601BZTYP_CD.D263+13102134601BZTYP_CD.D2631+13102134601BZTYP_CD.D2632+13102134601BZTYP_CD.D269+13102134601BZTYP_CD.D27+13102134601BZTYP_CD.D271+13102134601BZTYP_CD.D272+13102134601BZTYP_CD.D273+13102134601BZTYP_CD.D28+13102134601BZTYP_CD.D281+13102134601BZTYP_CD.D289+13102134601BZTYP_CD.D29+13102134601BZTYP_CD.D291+13102134601BZTYP_CD.D2916+13102134601BZTYP_CD.D2917+13102134601BZTYP_CD.D292+13102134601BZTYP_CD.D293+13102134601BZTYP_CD.D2931+13102134601BZTYP_CD.D2933+13102134601BZTYP_CD.D2939+13102134601BZTYP_CD.D295+13102134601BZTYP_CD.D30+13102134601BZTYP_CD.D31+13102134601BZTYP_CD.D311+13102134601BZTYP_CD.D312+13102134601BZTYP_CD.D313+13102134601BZTYP_CD.D319+13102134601BZTYP_CD.D32+13102134601BZTYP_CD.D321+13102134601BZTYP_CD.D322+13102134601BZTYP_CD.D323+13102134601BZTYP_CD.D33+13102134601BZTYP_CD.D34+13102134601BZTYP_CD.D341+13102134601BZTYP_CD.D343+13102134601BZTYP_CD.D35+13102134601BZTYP_CD.D351+13102134601BZTYP_CD.D359+13102134601BZTYP_CD.D36+13102134601BZTYP_CD.D361+13102134601BZTYP_CD.D369+13102134601BZTYP_CD.D37+13102134601BZTYP_CD.E+13102134601BZTYP_CD.E40+13102134601BZTYP_CD.E401+13102134601BZTYP_CD.E403+13102134601BZTYP_CD.F+13102134601BZTYP_CD.G+13102134601BZTYP_CD.G50+13102134601BZTYP_CD.G51+13102134601BZTYP_CD.G52+13102134601BZTYP_CD.G521+13102134601BZTYP_CD.G5211+13102134601BZTYP_CD.G5219+13102134601BZTYP_CD.G528+13102134601BZTYP_CD.G5280+13102134601BZTYP_CD.G5281+13102134601BZTYP_CD.H551+13102134601BZTYP_CD.I+13102134601BZTYP_CD.I60+13102134601BZTYP_CD.I602+13102134601BZTYP_CD.I603+13102134601BZTYP_CD.I61+13102134601BZTYP_CD.I62+13102134601BZTYP_CD.I63+13102134601BZTYP_CD.J642+13102134601BZTYP_CD.L70+13102134601BZTYP_CD.M+13102134601BZTYP_CD.M72+13102134601BZTYP_CD.M722+13102134601BZTYP_CD.M724+13102134601BZTYP_CD.M729+13102134601BZTYP_CD.M74+13102134601BZTYP_CD.M743+13102134601BZTYP_CD.M745+13102134601BZTYP_CD.M749+13102134601BZTYP_CD.M75+13102134601BZTYP_CD.Q+13102134601BZTYP_CD.Q87+13102134601BZTYP_CD.Q872+13102134601BZTYP_CD.Q873+13102134601BZTYP_CD.Q88+13102134601BZTYP_CD.R90+13102134601BZTYP_CD.ZZZ00+13102134601BZTYP_CD.ZZZ31+13102134601BZTYP_CD.ZZZ32+13102134601BZTYP_CD.ZZZ41+13102134601BZTYP_CD.ZZZ42+13102134601BZTYP_CD.ZZZ50+13102134601BZTYP_CD.ZZZ51+13102134601BZTYP_CD.ZZZ52+13102134601BZTYP_CD.ZZZ53+13102134601BZTYP_CD.ZZZ54+13102134601BZTYP_CD.ZZZ55+13102134601BZTYP_CD.ZZZ60+13102134601BZTYP_CD.ZZZ61+13102134601BZTYP_CD.ZZZ62+13102134601BZTYP_CD.ZZZ63+13102134601BZTYP_CD.ZZZ64+13102134601BZTYP_CD.ZZZ65+13102134601BZTYP_CD.ZZZ66+13102134601BZTYP_CD.ZZZ67+13102134601BZTYP_CD.ZZZ68+13102134601BZTYP_CD.ZZZ69",
+        "objL2": "13102134601ENTERPRISE_SCALE.A+13102134601ENTERPRISE_SCALE.L+13102134601ENTERPRISE_SCALE.M+13102134601ENTERPRISE_SCALE.J",
         "objL3": "13102134601ACC_ITEM.501+13102134601ACC_ITEM.502+13102134601ACC_ITEM.503+13102134601ACC_ITEM.504+13102134601ACC_ITEM.505+13102134601ACC_ITEM.506"
       },
       "source_kind": "source-derived metadata/codes; aliases are curated/inferred",
@@ -261987,8 +264399,8 @@
           "id_column": "C1",
           "name_column": "C1_NM",
           "api_param": "objL1",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134754BZTYP_CD",
+          "object_name": "업종코드별",
           "values": [
             {
               "value_id": "13102134754BZTYP_CD.B",
@@ -265403,16 +267815,49 @@
               "related_concepts": [],
               "negative_terms": [],
               "value_question_terms": []
+            },
+            {
+              "value_id": "13102134754BZTYP_CD.ZZZ68",
+              "value_name": "기술수준별",
+              "normalized": "기술수준별",
+              "aliases": [
+                "기술수준별"
+              ],
+              "natural_language_terms": [
+                "기술수준별"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134754BZTYP_CD.ZZZ69",
+              "value_name": "산업형태별",
+              "normalized": "산업형태별",
+              "aliases": [
+                "산업형태별"
+              ],
+              "natural_language_terms": [
+                "산업형태별"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "업종코드별",
+          "representative_value_id": "13102134754BZTYP_CD.B",
+          "representative_verified_period": "2007"
         },
         {
           "level": 2,
           "id_column": "C2",
           "name_column": "C2_NM",
           "api_param": "objL2",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134754ENTERPRISE_SCALE",
+          "object_name": "기업규모별",
           "values": [
             {
               "value_id": "13102134754ENTERPRISE_SCALE.A",
@@ -265510,16 +267955,34 @@
                 "중소기업 대출이 얼마나 돼",
                 "작은 회사들 상황이 어때"
               ]
+            },
+            {
+              "value_id": "13102134754ENTERPRISE_SCALE.J",
+              "value_name": "대기업_중견",
+              "normalized": "대기업_중견",
+              "aliases": [
+                "대기업_중견"
+              ],
+              "natural_language_terms": [
+                "대기업_중견"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "기업규모별",
+          "representative_value_id": "13102134754ENTERPRISE_SCALE.A",
+          "representative_verified_period": "2007"
         },
         {
           "level": 3,
           "id_column": "C3",
           "name_column": "C3_NM",
           "api_param": "objL3",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134754ACC_ITEM",
+          "object_name": "계정항목별",
           "values": [
             {
               "value_id": "13102134754ACC_ITEM.601",
@@ -266218,7 +268681,10 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "계정항목별",
+          "representative_value_id": "13102134754ACC_ITEM.6011",
+          "representative_verified_period": "2007"
         }
       ],
       "api_endpoint": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
@@ -266232,8 +268698,8 @@
         "prdSe": "A",
         "newEstPrdCnt": "1",
         "itmId": "13103134754999",
-        "objL1": "13102134754BZTYP_CD.B+13102134754BZTYP_CD.C+13102134754BZTYP_CD.D+13102134754BZTYP_CD.D15+13102134754BZTYP_CD.D151+13102134754BZTYP_CD.D152+13102134754BZTYP_CD.D153+13102134754BZTYP_CD.D154+13102134754BZTYP_CD.D1541+13102134754BZTYP_CD.D1545+13102134754BZTYP_CD.D1549+13102134754BZTYP_CD.D155+13102134754BZTYP_CD.D1553+13102134754BZTYP_CD.D1554+13102134754BZTYP_CD.D17+13102134754BZTYP_CD.D171+13102134754BZTYP_CD.D172+13102134754BZTYP_CD.D179+13102134754BZTYP_CD.D18+13102134754BZTYP_CD.D19+13102134754BZTYP_CD.D192+13102134754BZTYP_CD.D193+13102134754BZTYP_CD.D20+13102134754BZTYP_CD.D21+13102134754BZTYP_CD.D22+13102134754BZTYP_CD.D221+13102134754BZTYP_CD.D223+13102134754BZTYP_CD.D23+13102134754BZTYP_CD.D24+13102134754BZTYP_CD.D241+13102134754BZTYP_CD.D2413+13102134754BZTYP_CD.D2414+13102134754BZTYP_CD.D2415+13102134754BZTYP_CD.D242+13102134754BZTYP_CD.D243+13102134754BZTYP_CD.D2431+13102134754BZTYP_CD.D2432+13102134754BZTYP_CD.D2433+13102134754BZTYP_CD.D2434+13102134754BZTYP_CD.D244+13102134754BZTYP_CD.D25+13102134754BZTYP_CD.D251+13102134754BZTYP_CD.D2511+13102134754BZTYP_CD.D2519+13102134754BZTYP_CD.D252+13102134754BZTYP_CD.D26+13102134754BZTYP_CD.D261+13102134754BZTYP_CD.D262+13102134754BZTYP_CD.D263+13102134754BZTYP_CD.D2631",
-        "objL2": "13102134754ENTERPRISE_SCALE.A+13102134754ENTERPRISE_SCALE.L+13102134754ENTERPRISE_SCALE.M",
+        "objL1": "13102134754BZTYP_CD.B+13102134754BZTYP_CD.C+13102134754BZTYP_CD.D+13102134754BZTYP_CD.D15+13102134754BZTYP_CD.D151+13102134754BZTYP_CD.D152+13102134754BZTYP_CD.D153+13102134754BZTYP_CD.D154+13102134754BZTYP_CD.D1541+13102134754BZTYP_CD.D1545+13102134754BZTYP_CD.D1549+13102134754BZTYP_CD.D155+13102134754BZTYP_CD.D1553+13102134754BZTYP_CD.D1554+13102134754BZTYP_CD.D17+13102134754BZTYP_CD.D171+13102134754BZTYP_CD.D172+13102134754BZTYP_CD.D179+13102134754BZTYP_CD.D18+13102134754BZTYP_CD.D19+13102134754BZTYP_CD.D192+13102134754BZTYP_CD.D193+13102134754BZTYP_CD.D20+13102134754BZTYP_CD.D21+13102134754BZTYP_CD.D22+13102134754BZTYP_CD.D221+13102134754BZTYP_CD.D223+13102134754BZTYP_CD.D23+13102134754BZTYP_CD.D24+13102134754BZTYP_CD.D241+13102134754BZTYP_CD.D2413+13102134754BZTYP_CD.D2414+13102134754BZTYP_CD.D2415+13102134754BZTYP_CD.D242+13102134754BZTYP_CD.D243+13102134754BZTYP_CD.D2431+13102134754BZTYP_CD.D2432+13102134754BZTYP_CD.D2433+13102134754BZTYP_CD.D2434+13102134754BZTYP_CD.D244+13102134754BZTYP_CD.D25+13102134754BZTYP_CD.D251+13102134754BZTYP_CD.D2511+13102134754BZTYP_CD.D2519+13102134754BZTYP_CD.D252+13102134754BZTYP_CD.D26+13102134754BZTYP_CD.D261+13102134754BZTYP_CD.D262+13102134754BZTYP_CD.D263+13102134754BZTYP_CD.D2631+13102134754BZTYP_CD.D2632+13102134754BZTYP_CD.D269+13102134754BZTYP_CD.D27+13102134754BZTYP_CD.D271+13102134754BZTYP_CD.D272+13102134754BZTYP_CD.D273+13102134754BZTYP_CD.D28+13102134754BZTYP_CD.D281+13102134754BZTYP_CD.D289+13102134754BZTYP_CD.D29+13102134754BZTYP_CD.D291+13102134754BZTYP_CD.D2916+13102134754BZTYP_CD.D2917+13102134754BZTYP_CD.D292+13102134754BZTYP_CD.D293+13102134754BZTYP_CD.D2931+13102134754BZTYP_CD.D2933+13102134754BZTYP_CD.D2939+13102134754BZTYP_CD.D295+13102134754BZTYP_CD.D30+13102134754BZTYP_CD.D31+13102134754BZTYP_CD.D311+13102134754BZTYP_CD.D312+13102134754BZTYP_CD.D313+13102134754BZTYP_CD.D319+13102134754BZTYP_CD.D32+13102134754BZTYP_CD.D321+13102134754BZTYP_CD.D322+13102134754BZTYP_CD.D323+13102134754BZTYP_CD.D33+13102134754BZTYP_CD.D34+13102134754BZTYP_CD.D341+13102134754BZTYP_CD.D343+13102134754BZTYP_CD.D35+13102134754BZTYP_CD.D351+13102134754BZTYP_CD.D359+13102134754BZTYP_CD.D36+13102134754BZTYP_CD.D361+13102134754BZTYP_CD.D369+13102134754BZTYP_CD.D37+13102134754BZTYP_CD.E+13102134754BZTYP_CD.E40+13102134754BZTYP_CD.E401+13102134754BZTYP_CD.E403+13102134754BZTYP_CD.F+13102134754BZTYP_CD.G+13102134754BZTYP_CD.G50+13102134754BZTYP_CD.G51+13102134754BZTYP_CD.G52+13102134754BZTYP_CD.G521+13102134754BZTYP_CD.G5211+13102134754BZTYP_CD.G5219+13102134754BZTYP_CD.G528+13102134754BZTYP_CD.G5280+13102134754BZTYP_CD.G5281+13102134754BZTYP_CD.H551+13102134754BZTYP_CD.I+13102134754BZTYP_CD.I60+13102134754BZTYP_CD.I602+13102134754BZTYP_CD.I603+13102134754BZTYP_CD.I61+13102134754BZTYP_CD.I62+13102134754BZTYP_CD.I63+13102134754BZTYP_CD.J642+13102134754BZTYP_CD.L70+13102134754BZTYP_CD.M+13102134754BZTYP_CD.M72+13102134754BZTYP_CD.M722+13102134754BZTYP_CD.M724+13102134754BZTYP_CD.M729+13102134754BZTYP_CD.M74+13102134754BZTYP_CD.M743+13102134754BZTYP_CD.M745+13102134754BZTYP_CD.M749+13102134754BZTYP_CD.M75+13102134754BZTYP_CD.Q+13102134754BZTYP_CD.Q87+13102134754BZTYP_CD.Q872+13102134754BZTYP_CD.Q873+13102134754BZTYP_CD.Q88+13102134754BZTYP_CD.ZZZ31+13102134754BZTYP_CD.ZZZ32+13102134754BZTYP_CD.ZZZ41+13102134754BZTYP_CD.ZZZ42+13102134754BZTYP_CD.ZZZ50+13102134754BZTYP_CD.ZZZ51+13102134754BZTYP_CD.ZZZ52+13102134754BZTYP_CD.R90+13102134754BZTYP_CD.ZZZ53+13102134754BZTYP_CD.ZZZ54+13102134754BZTYP_CD.ZZZ55+13102134754BZTYP_CD.ZZZ00+13102134754BZTYP_CD.ZZZ60+13102134754BZTYP_CD.ZZZ61+13102134754BZTYP_CD.ZZZ62+13102134754BZTYP_CD.ZZZ63+13102134754BZTYP_CD.ZZZ64+13102134754BZTYP_CD.ZZZ65+13102134754BZTYP_CD.ZZZ66+13102134754BZTYP_CD.ZZZ67+13102134754BZTYP_CD.ZZZ68+13102134754BZTYP_CD.ZZZ69",
+        "objL2": "13102134754ENTERPRISE_SCALE.A+13102134754ENTERPRISE_SCALE.L+13102134754ENTERPRISE_SCALE.M+13102134754ENTERPRISE_SCALE.J",
         "objL3": "13102134754ACC_ITEM.601+13102134754ACC_ITEM.602+13102134754ACC_ITEM.603+13102134754ACC_ITEM.604+13102134754ACC_ITEM.605+13102134754ACC_ITEM.606+13102134754ACC_ITEM.607+13102134754ACC_ITEM.608+13102134754ACC_ITEM.609+13102134754ACC_ITEM.610+13102134754ACC_ITEM.611+13102134754ACC_ITEM.612+13102134754ACC_ITEM.613+13102134754ACC_ITEM.614+13102134754ACC_ITEM.615+13102134754ACC_ITEM.616+13102134754ACC_ITEM.617+13102134754ACC_ITEM.618+13102134754ACC_ITEM.619+13102134754ACC_ITEM.620+13102134754ACC_ITEM.621+13102134754ACC_ITEM.622+13102134754ACC_ITEM.623+13102134754ACC_ITEM.624+13102134754ACC_ITEM.625+13102134754ACC_ITEM.626+13102134754ACC_ITEM.627+13102134754ACC_ITEM.628+13102134754ACC_ITEM.629+13102134754ACC_ITEM.630+13102134754ACC_ITEM.631+13102134754ACC_ITEM.6011+13102134754ACC_ITEM.6031+13102134754ACC_ITEM.6051+13102134754ACC_ITEM.6071+13102134754ACC_ITEM.6091+13102134754ACC_ITEM.6144+13102134754ACC_ITEM.6161+13102134754ACC_ITEM.6171+13102134754ACC_ITEM.6194+13102134754ACC_ITEM.6204+13102134754ACC_ITEM.6244+13102134754ACC_ITEM.6271+13102134754ACC_ITEM.6284+13102134754ACC_ITEM.6134"
       },
       "source_kind": "source-derived metadata/codes; aliases are curated/inferred",
@@ -454489,8 +456955,8 @@
           "id_column": "C1",
           "name_column": "C1_NM",
           "api_param": "objL1",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134760BZTYP_CD",
+          "object_name": "업종코드별",
           "values": [
             {
               "value_id": "13102134760BZTYP_CD.C",
@@ -455313,15 +457779,18 @@
                 "공장 업종 상황이 어때"
               ]
             }
-          ]
+          ],
+          "dimension_name": "업종코드별",
+          "representative_value_id": "13102134760BZTYP_CD.C",
+          "representative_verified_period": "2011"
         },
         {
           "level": 2,
           "id_column": "C2",
           "name_column": "C2_NM",
           "api_param": "objL2",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134760BASE_YEAR_CD",
+          "object_name": "기준년도구분별",
           "values": [
             {
               "value_id": "13102134760BASE_YEAR_CD.08",
@@ -455391,15 +457860,18 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "기준년도구분별",
+          "representative_value_id": "13102134760BASE_YEAR_CD.11",
+          "representative_verified_period": "2011"
         },
         {
           "level": 3,
           "id_column": "C3",
           "name_column": "C3_NM",
           "api_param": "objL3",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134760ACC_ITEM",
+          "object_name": "계정항목별",
           "values": [
             {
               "value_id": "13102134760ACC_ITEM.1",
@@ -456079,8 +458551,56 @@
               "related_concepts": [],
               "negative_terms": [],
               "value_question_terms": []
+            },
+            {
+              "value_id": "13102134760ACC_ITEM.4",
+              "value_name": "Ⅳ. 현금증감액(Ⅰ+Ⅱ+Ⅲ)",
+              "normalized": "Ⅳ. 현금증감액(Ⅰ+Ⅱ+Ⅲ)",
+              "aliases": [
+                "Ⅳ. 현금증감액(Ⅰ+Ⅱ+Ⅲ)"
+              ],
+              "natural_language_terms": [
+                "Ⅳ. 현금증감액(Ⅰ+Ⅱ+Ⅲ)"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134760ACC_ITEM.5",
+              "value_name": "Ⅴ. 기초의 현금",
+              "normalized": "Ⅴ. 기초의 현금",
+              "aliases": [
+                "Ⅴ. 기초의 현금"
+              ],
+              "natural_language_terms": [
+                "Ⅴ. 기초의 현금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134760ACC_ITEM.6",
+              "value_name": "Ⅵ. 기말의 현금",
+              "normalized": "Ⅵ. 기말의 현금",
+              "aliases": [
+                "Ⅵ. 기말의 현금"
+              ],
+              "natural_language_terms": [
+                "Ⅵ. 기말의 현금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "계정항목별",
+          "representative_value_id": "13102134760ACC_ITEM.1",
+          "representative_verified_period": "2011"
         }
       ],
       "api_endpoint": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
@@ -456236,8 +458756,8 @@
           "id_column": "C1",
           "name_column": "C1_NM",
           "api_param": "objL1",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134686BZTYP_CD",
+          "object_name": "업종코드별",
           "values": [
             {
               "value_id": "13102134686BZTYP_CD.D",
@@ -457050,15 +459570,18 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "업종코드별",
+          "representative_value_id": "13102134686BZTYP_CD.D",
+          "representative_verified_period": "2007"
         },
         {
           "level": 2,
           "id_column": "C2",
           "name_column": "C2_NM",
           "api_param": "objL2",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134686BASE_YEAR_CD",
+          "object_name": "기준년도구분별",
           "values": [
             {
               "value_id": "13102134686BASE_YEAR_CD.95",
@@ -457263,16 +459786,34 @@
               "related_concepts": [],
               "negative_terms": [],
               "value_question_terms": []
+            },
+            {
+              "value_id": "13102134686BASE_YEAR_CD.0",
+              "value_name": "2000년기준",
+              "normalized": "2000년기준",
+              "aliases": [
+                "2000년기준"
+              ],
+              "natural_language_terms": [
+                "2000년기준"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "기준년도구분별",
+          "representative_value_id": "13102134686BASE_YEAR_CD.07",
+          "representative_verified_period": "2007"
         },
         {
           "level": 3,
           "id_column": "C3",
           "name_column": "C3_NM",
           "api_param": "objL3",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134686ACC_ITEM",
+          "object_name": "계정항목별",
           "values": [
             {
               "value_id": "13102134686ACC_ITEM.1",
@@ -457952,8 +460493,56 @@
               "related_concepts": [],
               "negative_terms": [],
               "value_question_terms": []
+            },
+            {
+              "value_id": "13102134686ACC_ITEM.14",
+              "value_name": "4. 영업활동으로 인한 자산・부채의 변동",
+              "normalized": "4. 영업활동으로 인한 자산・부채의 변동",
+              "aliases": [
+                "4. 영업활동으로 인한 자산・부채의 변동"
+              ],
+              "natural_language_terms": [
+                "4. 영업활동으로 인한 자산・부채의 변동"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134686ACC_ITEM.2234",
+              "value_name": "(건설중인 자산의 증가)",
+              "normalized": "(건설중인 자산의 증가)",
+              "aliases": [
+                "(건설중인 자산의 증가)"
+              ],
+              "natural_language_terms": [
+                "(건설중인 자산의 증가)"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134686ACC_ITEM.6",
+              "value_name": "Ⅵ. 기말의 현금",
+              "normalized": "Ⅵ. 기말의 현금",
+              "aliases": [
+                "Ⅵ. 기말의 현금"
+              ],
+              "natural_language_terms": [
+                "Ⅵ. 기말의 현금"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "계정항목별",
+          "representative_value_id": "13102134686ACC_ITEM.1",
+          "representative_verified_period": "2007"
         }
       ],
       "api_endpoint": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
@@ -457968,8 +460557,8 @@
         "newEstPrdCnt": "1",
         "itmId": "13103134686999",
         "objL1": "13102134686BZTYP_CD.D+13102134686BZTYP_CD.D15+13102134686BZTYP_CD.D17+13102134686BZTYP_CD.D18+13102134686BZTYP_CD.D19+13102134686BZTYP_CD.D20+13102134686BZTYP_CD.D21+13102134686BZTYP_CD.D22+13102134686BZTYP_CD.D23+13102134686BZTYP_CD.D24+13102134686BZTYP_CD.D25+13102134686BZTYP_CD.D26+13102134686BZTYP_CD.D27+13102134686BZTYP_CD.D28+13102134686BZTYP_CD.D29+13102134686BZTYP_CD.D30+13102134686BZTYP_CD.D31+13102134686BZTYP_CD.D32+13102134686BZTYP_CD.D33+13102134686BZTYP_CD.D34+13102134686BZTYP_CD.D35+13102134686BZTYP_CD.D36+13102134686BZTYP_CD.F+13102134686BZTYP_CD.G+13102134686BZTYP_CD.ZZZ21+13102134686BZTYP_CD.ZZZ22+13102134686BZTYP_CD.ZZZ41+13102134686BZTYP_CD.ZZZ42+13102134686BZTYP_CD.D37+13102134686BZTYP_CD.I+13102134686BZTYP_CD.J642",
-        "objL2": "13102134686BASE_YEAR_CD.95+13102134686BASE_YEAR_CD.96+13102134686BASE_YEAR_CD.97+13102134686BASE_YEAR_CD.98+13102134686BASE_YEAR_CD.99+13102134686BASE_YEAR_CD.01+13102134686BASE_YEAR_CD.02+13102134686BASE_YEAR_CD.03+13102134686BASE_YEAR_CD.04+13102134686BASE_YEAR_CD.05+13102134686BASE_YEAR_CD.06+13102134686BASE_YEAR_CD.07",
-        "objL3": "13102134686ACC_ITEM.1+13102134686ACC_ITEM.11+13102134686ACC_ITEM.12+13102134686ACC_ITEM.13+13102134686ACC_ITEM.2+13102134686ACC_ITEM.21+13102134686ACC_ITEM.211+13102134686ACC_ITEM.2111+13102134686ACC_ITEM.212+13102134686ACC_ITEM.2121+13102134686ACC_ITEM.213+13102134686ACC_ITEM.2131+13102134686ACC_ITEM.2132+13102134686ACC_ITEM.2133+13102134686ACC_ITEM.214+13102134686ACC_ITEM.22+13102134686ACC_ITEM.221+13102134686ACC_ITEM.2211+13102134686ACC_ITEM.222+13102134686ACC_ITEM.2221+13102134686ACC_ITEM.223+13102134686ACC_ITEM.2231+13102134686ACC_ITEM.2232+13102134686ACC_ITEM.2233+13102134686ACC_ITEM.224+13102134686ACC_ITEM.3+13102134686ACC_ITEM.31+13102134686ACC_ITEM.311+13102134686ACC_ITEM.3111+13102134686ACC_ITEM.312+13102134686ACC_ITEM.3121+13102134686ACC_ITEM.3122+13102134686ACC_ITEM.313+13102134686ACC_ITEM.314+13102134686ACC_ITEM.32+13102134686ACC_ITEM.321+13102134686ACC_ITEM.3211+13102134686ACC_ITEM.322+13102134686ACC_ITEM.3221+13102134686ACC_ITEM.3222+13102134686ACC_ITEM.323+13102134686ACC_ITEM.324+13102134686ACC_ITEM.325+13102134686ACC_ITEM.4+13102134686ACC_ITEM.5+13102134686ACC_ITEM.6+13102134686ACC_ITEM.14+13102134686ACC_ITEM.2234"
+        "objL2": "13102134686BASE_YEAR_CD.95+13102134686BASE_YEAR_CD.96+13102134686BASE_YEAR_CD.97+13102134686BASE_YEAR_CD.98+13102134686BASE_YEAR_CD.99+13102134686BASE_YEAR_CD.01+13102134686BASE_YEAR_CD.02+13102134686BASE_YEAR_CD.03+13102134686BASE_YEAR_CD.04+13102134686BASE_YEAR_CD.05+13102134686BASE_YEAR_CD.06+13102134686BASE_YEAR_CD.07+13102134686BASE_YEAR_CD.0",
+        "objL3": "13102134686ACC_ITEM.1+13102134686ACC_ITEM.11+13102134686ACC_ITEM.12+13102134686ACC_ITEM.13+13102134686ACC_ITEM.2+13102134686ACC_ITEM.21+13102134686ACC_ITEM.211+13102134686ACC_ITEM.2111+13102134686ACC_ITEM.212+13102134686ACC_ITEM.2121+13102134686ACC_ITEM.213+13102134686ACC_ITEM.2131+13102134686ACC_ITEM.2132+13102134686ACC_ITEM.2133+13102134686ACC_ITEM.214+13102134686ACC_ITEM.22+13102134686ACC_ITEM.221+13102134686ACC_ITEM.2211+13102134686ACC_ITEM.222+13102134686ACC_ITEM.2221+13102134686ACC_ITEM.223+13102134686ACC_ITEM.2231+13102134686ACC_ITEM.2232+13102134686ACC_ITEM.2233+13102134686ACC_ITEM.224+13102134686ACC_ITEM.3+13102134686ACC_ITEM.31+13102134686ACC_ITEM.311+13102134686ACC_ITEM.3111+13102134686ACC_ITEM.312+13102134686ACC_ITEM.3121+13102134686ACC_ITEM.3122+13102134686ACC_ITEM.313+13102134686ACC_ITEM.314+13102134686ACC_ITEM.32+13102134686ACC_ITEM.321+13102134686ACC_ITEM.3211+13102134686ACC_ITEM.322+13102134686ACC_ITEM.3221+13102134686ACC_ITEM.3222+13102134686ACC_ITEM.323+13102134686ACC_ITEM.324+13102134686ACC_ITEM.325+13102134686ACC_ITEM.4+13102134686ACC_ITEM.5+13102134686ACC_ITEM.14+13102134686ACC_ITEM.2234+13102134686ACC_ITEM.6"
       },
       "source_kind": "source-derived metadata/codes; aliases are curated/inferred",
       "public_query_terms": [],
@@ -458068,8 +460657,8 @@
           "id_column": "C1",
           "name_column": "C1_NM",
           "api_param": "objL1",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134761BZTYP_CD",
+          "object_name": "업종코드별",
           "values": [
             {
               "value_id": "13102134761BZTYP_CD.C",
@@ -458892,15 +461481,18 @@
                 "공장 업종 상황이 어때"
               ]
             }
-          ]
+          ],
+          "dimension_name": "업종코드별",
+          "representative_value_id": "13102134761BZTYP_CD.C",
+          "representative_verified_period": "2011"
         },
         {
           "level": 2,
           "id_column": "C2",
           "name_column": "C2_NM",
           "api_param": "objL2",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134761BASE_YEAR_CD",
+          "object_name": "기준년도구분별",
           "values": [
             {
               "value_id": "13102134761BASE_YEAR_CD.08",
@@ -458970,15 +461562,18 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "기준년도구분별",
+          "representative_value_id": "13102134761BASE_YEAR_CD.11",
+          "representative_verified_period": "2011"
         },
         {
           "level": 3,
           "id_column": "C3",
           "name_column": "C3_NM",
           "api_param": "objL3",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134761ACC_ITEM",
+          "object_name": "계정항목별",
           "values": [
             {
               "value_id": "13102134761ACC_ITEM.71",
@@ -459100,7 +461695,10 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "계정항목별",
+          "representative_value_id": "13102134761ACC_ITEM.71",
+          "representative_verified_period": "2011"
         }
       ],
       "api_endpoint": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
@@ -459222,8 +461820,8 @@
           "id_column": "C1",
           "name_column": "C1_NM",
           "api_param": "objL1",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134687BZTYP_CD",
+          "object_name": "업종코드별",
           "values": [
             {
               "value_id": "13102134687BZTYP_CD.D",
@@ -460036,15 +462634,18 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "업종코드별",
+          "representative_value_id": "13102134687BZTYP_CD.D",
+          "representative_verified_period": "2007"
         },
         {
           "level": 2,
           "id_column": "C2",
           "name_column": "C2_NM",
           "api_param": "objL2",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134687BASE_YEAR_CD",
+          "object_name": "기준년도구분별",
           "values": [
             {
               "value_id": "13102134687BASE_YEAR_CD.01",
@@ -460249,16 +462850,34 @@
               "related_concepts": [],
               "negative_terms": [],
               "value_question_terms": []
+            },
+            {
+              "value_id": "13102134687BASE_YEAR_CD.0",
+              "value_name": "2000년기준",
+              "normalized": "2000년기준",
+              "aliases": [
+                "2000년기준"
+              ],
+              "natural_language_terms": [
+                "2000년기준"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "기준년도구분별",
+          "representative_value_id": "13102134687BASE_YEAR_CD.07",
+          "representative_verified_period": "2007"
         },
         {
           "level": 3,
           "id_column": "C3",
           "name_column": "C3_NM",
           "api_param": "objL3",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134687ACC_ITEM",
+          "object_name": "계정항목별",
           "values": [
             {
               "value_id": "13102134687ACC_ITEM.71",
@@ -460380,7 +462999,10 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "계정항목별",
+          "representative_value_id": "13102134687ACC_ITEM.71",
+          "representative_verified_period": "2007"
         }
       ],
       "api_endpoint": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
@@ -460395,7 +463017,7 @@
         "newEstPrdCnt": "1",
         "itmId": "13103134687999",
         "objL1": "13102134687BZTYP_CD.D+13102134687BZTYP_CD.D15+13102134687BZTYP_CD.D17+13102134687BZTYP_CD.D18+13102134687BZTYP_CD.D19+13102134687BZTYP_CD.D20+13102134687BZTYP_CD.D21+13102134687BZTYP_CD.D22+13102134687BZTYP_CD.D23+13102134687BZTYP_CD.D24+13102134687BZTYP_CD.D25+13102134687BZTYP_CD.D26+13102134687BZTYP_CD.D27+13102134687BZTYP_CD.D28+13102134687BZTYP_CD.D29+13102134687BZTYP_CD.D30+13102134687BZTYP_CD.D31+13102134687BZTYP_CD.D32+13102134687BZTYP_CD.D33+13102134687BZTYP_CD.D34+13102134687BZTYP_CD.D35+13102134687BZTYP_CD.D36+13102134687BZTYP_CD.D37+13102134687BZTYP_CD.F+13102134687BZTYP_CD.G+13102134687BZTYP_CD.ZZZ21+13102134687BZTYP_CD.ZZZ22+13102134687BZTYP_CD.ZZZ41+13102134687BZTYP_CD.ZZZ42+13102134687BZTYP_CD.I+13102134687BZTYP_CD.J642",
-        "objL2": "13102134687BASE_YEAR_CD.01+13102134687BASE_YEAR_CD.95+13102134687BASE_YEAR_CD.96+13102134687BASE_YEAR_CD.97+13102134687BASE_YEAR_CD.98+13102134687BASE_YEAR_CD.99+13102134687BASE_YEAR_CD.02+13102134687BASE_YEAR_CD.03+13102134687BASE_YEAR_CD.04+13102134687BASE_YEAR_CD.05+13102134687BASE_YEAR_CD.06+13102134687BASE_YEAR_CD.07",
+        "objL2": "13102134687BASE_YEAR_CD.01+13102134687BASE_YEAR_CD.95+13102134687BASE_YEAR_CD.96+13102134687BASE_YEAR_CD.97+13102134687BASE_YEAR_CD.98+13102134687BASE_YEAR_CD.99+13102134687BASE_YEAR_CD.02+13102134687BASE_YEAR_CD.03+13102134687BASE_YEAR_CD.04+13102134687BASE_YEAR_CD.05+13102134687BASE_YEAR_CD.06+13102134687BASE_YEAR_CD.07+13102134687BASE_YEAR_CD.0",
         "objL3": "13102134687ACC_ITEM.71+13102134687ACC_ITEM.72+13102134687ACC_ITEM.73+13102134687ACC_ITEM.74+13102134687ACC_ITEM.75+13102134687ACC_ITEM.76+13102134687ACC_ITEM.77+13102134687ACC_ITEM.78"
       },
       "source_kind": "source-derived metadata/codes; aliases are curated/inferred",
@@ -460492,8 +463114,8 @@
           "id_column": "C1",
           "name_column": "C1_NM",
           "api_param": "objL1",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134726BZTYP_CD",
+          "object_name": "업종코드별",
           "values": [
             {
               "value_id": "13102134726BZTYP_CD.C",
@@ -461316,15 +463938,18 @@
                 "공장 업종 상황이 어때"
               ]
             }
-          ]
+          ],
+          "dimension_name": "업종코드별",
+          "representative_value_id": "13102134726BZTYP_CD.C",
+          "representative_verified_period": "2011"
         },
         {
           "level": 2,
           "id_column": "C2",
           "name_column": "C2_NM",
           "api_param": "objL2",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134726BASE_YEAR_CD",
+          "object_name": "기준년도구분별",
           "values": [
             {
               "value_id": "13102134726BASE_YEAR_CD.08",
@@ -461394,15 +464019,18 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "기준년도구분별",
+          "representative_value_id": "13102134726BASE_YEAR_CD.11",
+          "representative_verified_period": "2011"
         },
         {
           "level": 3,
           "id_column": "C3",
           "name_column": "C3_NM",
           "api_param": "objL3",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134726ACC_ITEM",
+          "object_name": "계정항목별",
           "values": [
             {
               "value_id": "13102134726ACC_ITEM.81",
@@ -461524,7 +464152,10 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "계정항목별",
+          "representative_value_id": "13102134726ACC_ITEM.81",
+          "representative_verified_period": "2011"
         }
       ],
       "api_endpoint": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
@@ -461638,8 +464269,8 @@
           "id_column": "C1",
           "name_column": "C1_NM",
           "api_param": "objL1",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134576BZTYP_CD",
+          "object_name": "업종코드별",
           "values": [
             {
               "value_id": "13102134576BZTYP_CD.D",
@@ -462452,15 +465083,18 @@
                 "공장 업종 상황이 어때"
               ]
             }
-          ]
+          ],
+          "dimension_name": "업종코드별",
+          "representative_value_id": "13102134576BZTYP_CD.D",
+          "representative_verified_period": "2007"
         },
         {
           "level": 2,
           "id_column": "C2",
           "name_column": "C2_NM",
           "api_param": "objL2",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134576BASE_YEAR_CD",
+          "object_name": "기준년도구분별",
           "values": [
             {
               "value_id": "13102134576BASE_YEAR_CD.01",
@@ -462580,16 +465214,109 @@
               "related_concepts": [],
               "negative_terms": [],
               "value_question_terms": []
+            },
+            {
+              "value_id": "13102134576BASE_YEAR_CD.04",
+              "value_name": "2004년기준",
+              "normalized": "2004년기준",
+              "aliases": [
+                "2004년기준"
+              ],
+              "natural_language_terms": [
+                "2004년기준"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134576BASE_YEAR_CD.0",
+              "value_name": "2000년기준",
+              "normalized": "2000년기준",
+              "aliases": [
+                "2000년기준"
+              ],
+              "natural_language_terms": [
+                "2000년기준"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134576BASE_YEAR_CD.98",
+              "value_name": "1998년기준",
+              "normalized": "1998년기준",
+              "aliases": [
+                "1998년기준"
+              ],
+              "natural_language_terms": [
+                "1998년기준"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134576BASE_YEAR_CD.97",
+              "value_name": "1997년기준",
+              "normalized": "1997년기준",
+              "aliases": [
+                "1997년기준"
+              ],
+              "natural_language_terms": [
+                "1997년기준"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134576BASE_YEAR_CD.96",
+              "value_name": "1996년기준",
+              "normalized": "1996년기준",
+              "aliases": [
+                "1996년기준"
+              ],
+              "natural_language_terms": [
+                "1996년기준"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
+            },
+            {
+              "value_id": "13102134576BASE_YEAR_CD.95",
+              "value_name": "1995년기준",
+              "normalized": "1995년기준",
+              "aliases": [
+                "1995년기준"
+              ],
+              "natural_language_terms": [
+                "1995년기준"
+              ],
+              "layman_terms": [],
+              "related_concepts": [],
+              "negative_terms": [],
+              "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "기준년도구분별",
+          "representative_value_id": "13102134576BASE_YEAR_CD.07",
+          "representative_verified_period": "2007"
         },
         {
           "level": 3,
           "id_column": "C3",
           "name_column": "C3_NM",
           "api_param": "objL3",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134576ACC_ITEM",
+          "object_name": "계정항목별",
           "values": [
             {
               "value_id": "13102134576ACC_ITEM.81",
@@ -462711,7 +465438,10 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "계정항목별",
+          "representative_value_id": "13102134576ACC_ITEM.81",
+          "representative_verified_period": "2007"
         }
       ],
       "api_endpoint": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
@@ -462726,7 +465456,7 @@
         "newEstPrdCnt": "1",
         "itmId": "13103134576999",
         "objL1": "13102134576BZTYP_CD.D+13102134576BZTYP_CD.D15+13102134576BZTYP_CD.D17+13102134576BZTYP_CD.D18+13102134576BZTYP_CD.D19+13102134576BZTYP_CD.D20+13102134576BZTYP_CD.D21+13102134576BZTYP_CD.D22+13102134576BZTYP_CD.D23+13102134576BZTYP_CD.D24+13102134576BZTYP_CD.D25+13102134576BZTYP_CD.D26+13102134576BZTYP_CD.D27+13102134576BZTYP_CD.D28+13102134576BZTYP_CD.D29+13102134576BZTYP_CD.D30+13102134576BZTYP_CD.D31+13102134576BZTYP_CD.D32+13102134576BZTYP_CD.D33+13102134576BZTYP_CD.D34+13102134576BZTYP_CD.D35+13102134576BZTYP_CD.D36+13102134576BZTYP_CD.D37+13102134576BZTYP_CD.F+13102134576BZTYP_CD.G+13102134576BZTYP_CD.I+13102134576BZTYP_CD.J642+13102134576BZTYP_CD.ZZZ21+13102134576BZTYP_CD.ZZZ22+13102134576BZTYP_CD.ZZZ41+13102134576BZTYP_CD.ZZZ42",
-        "objL2": "13102134576BASE_YEAR_CD.01+13102134576BASE_YEAR_CD.02+13102134576BASE_YEAR_CD.03+13102134576BASE_YEAR_CD.05+13102134576BASE_YEAR_CD.06+13102134576BASE_YEAR_CD.07+13102134576BASE_YEAR_CD.99",
+        "objL2": "13102134576BASE_YEAR_CD.01+13102134576BASE_YEAR_CD.02+13102134576BASE_YEAR_CD.03+13102134576BASE_YEAR_CD.05+13102134576BASE_YEAR_CD.06+13102134576BASE_YEAR_CD.07+13102134576BASE_YEAR_CD.99+13102134576BASE_YEAR_CD.04+13102134576BASE_YEAR_CD.0+13102134576BASE_YEAR_CD.98+13102134576BASE_YEAR_CD.97+13102134576BASE_YEAR_CD.96+13102134576BASE_YEAR_CD.95",
         "objL3": "13102134576ACC_ITEM.81+13102134576ACC_ITEM.82+13102134576ACC_ITEM.83+13102134576ACC_ITEM.84+13102134576ACC_ITEM.85+13102134576ACC_ITEM.86+13102134576ACC_ITEM.87+13102134576ACC_ITEM.88"
       },
       "source_kind": "source-derived metadata/codes; aliases are curated/inferred",
@@ -473203,8 +475933,8 @@
           "id_column": "C1",
           "name_column": "C1_NM",
           "api_param": "objL1",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134714BSI_CD",
+          "object_name": "BSI코드별",
           "values": [
             {
               "value_id": "13102134714BSI_CD.A",
@@ -473940,15 +476670,18 @@
                 "공장 업종 상황이 어때"
               ]
             }
-          ]
+          ],
+          "dimension_name": "BSI코드별",
+          "representative_value_id": "13102134714BSI_CD.AA",
+          "representative_verified_period": "201212"
         },
         {
           "level": 2,
           "id_column": "C2",
           "name_column": "C2_NM",
           "api_param": "objL2",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134714ORGANISATION_UNIT",
+          "object_name": "담당부서별",
           "values": [
             {
               "value_id": "13102134714ORGANISATION_UNIT.Z11",
@@ -474140,7 +476873,10 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "담당부서별",
+          "representative_value_id": "13102134714ORGANISATION_UNIT.Z11",
+          "representative_verified_period": "201212"
         }
       ],
       "api_endpoint": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
@@ -474263,8 +476999,8 @@
           "id_column": "C1",
           "name_column": "C1_NM",
           "api_param": "objL1",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134568BSI_CD",
+          "object_name": "BSI코드별",
           "values": [
             {
               "value_id": "13102134568BSI_CD.A",
@@ -475000,15 +477736,18 @@
                 "공장 업종 상황이 어때"
               ]
             }
-          ]
+          ],
+          "dimension_name": "BSI코드별",
+          "representative_value_id": "13102134568BSI_CD.AA",
+          "representative_verified_period": "201301"
         },
         {
           "level": 2,
           "id_column": "C2",
           "name_column": "C2_NM",
           "api_param": "objL2",
-          "object_id": "",
-          "object_name": "",
+          "object_id": "13101134568ORGANISATION_UNIT",
+          "object_name": "담당부서별",
           "values": [
             {
               "value_id": "13102134568ORGANISATION_UNIT.Z11",
@@ -475200,7 +477939,10 @@
               "negative_terms": [],
               "value_question_terms": []
             }
-          ]
+          ],
+          "dimension_name": "담당부서별",
+          "representative_value_id": "13102134568ORGANISATION_UNIT.Z11",
+          "representative_verified_period": "201301"
         }
       ],
       "api_endpoint": "https://kosis.kr/openapi/Param/statisticsParameterData.do",

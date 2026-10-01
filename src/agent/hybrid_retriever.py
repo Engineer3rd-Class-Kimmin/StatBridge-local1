@@ -17,7 +17,9 @@ class HybridStatRetriever:
     def __init__(self, resolver: Any, client: NcpRetrievalClient | None = None) -> None:
         self.resolver = resolver
         self.client = client or NcpRetrievalClient()
-        default_path = Path(__file__).resolve().parents[2] / "data" / "vector_store"
+        # Use the verified 349-table store; the obsolete legacy store was
+        # removed during cleanup after fresh-process retrieval checks passed.
+        default_path = Path(__file__).resolve().parents[2] / "data" / "vector_store_349"
         self.path = Path(os.getenv("STATBRIDGE_VECTOR_PATH", str(default_path)))
         self.vector_top_k = int(os.getenv("STATBRIDGE_VECTOR_TOP_K", "24"))
         self.rerank_top_k = int(os.getenv("STATBRIDGE_RERANK_TOP_K", "12"))
@@ -50,7 +52,7 @@ class HybridStatRetriever:
         if len(rule)>=1:
             first=float(rule[0].get("score") or 0)
             second=float(rule[1].get("score") or 0) if len(rule)>1 else 0.0
-            exact=any(str(reason) in {"table_name","exact_table_phrase"} or str(reason).startswith("confirmed:") for reason in rule[0].get("reasons",[]))
+            exact=any(str(reason) in {"table_id","table_name","exact_table_phrase"} or str(reason).startswith("confirmed:") for reason in rule[0].get("reasons",[]))
             fast_score=float(os.getenv("STATBRIDGE_FAST_RULE_SCORE","150"))
             fast_gap=float(os.getenv("STATBRIDGE_FAST_RULE_GAP","60"))
             if exact and first>=fast_score and first-second>=fast_gap:

@@ -224,3 +224,9 @@ main { width: min(1460px, 100%); margin: 0 auto; padding: 24px clamp(18px, 3vw, 
 .expandable-values button:hover { border-color:#afbcf3; background:#e8edff; }
 @media (max-width: 850px) { .intent-grid { grid-template-columns:1fr; } }
 @media (max-width: 680px) { .clarification-options,.clarification-trace,.clarification-progress,.period-form,.period-availability { margin-left: 0; } .clarification-options { display: grid; grid-template-columns: 1fr; } .clarification-options button,.period-form label,.period-form input,.period-form button,.date-input,.date-picker { width: 100%; } .completed-step { width:100%; } .period-form > span { display:none; } .intent-date-grid { grid-template-columns:1fr; } .intent-date-grid>span { display:none; } .date-popover{position:fixed;top:auto;right:14px;bottom:14px;left:14px;width:auto}.data-more{align-items:stretch;flex-direction:column}.data-more button{justify-content:center} }
+/* The catalog uses the same query / period / output-agent flow as free text. */
+.catalog-query-controls { display: grid; gap: 12px; margin-top: 20px; }
+.catalog-query-controls label { display: grid; gap: 6px; }
+.catalog-query-controls select { max-width: 100%; padding: 8px; }
+.catalog-query-controls button { padding: 12px; cursor: pointer; }
+.catalog-query-controls p { font-size: 13px; }

@@ -25,6 +25,15 @@ jobs:
           PYTHONPATH: src/backend:src/agent
         run: python -m pytest -q tests eval/table-discovery/v4.1/tests
 
+      - name: Verify 349-table planning and existing agent flows
+        run: |
+          python TEST_349_TABLES.py
+          python TEST_JEV_HYBRID.py
+          python TEST_AGENT_FLOW.py
+          python TEST_CLARIFY_REGRESSION.py
+          python TEST_LANGGRAPH_FLOW.py
+          python TEST_OUTPUT_AGENT.py
+
       - name: Validate v4.1 dataset
         run: python eval/table-discovery/v4.1/scripts/validate_v41.py
 

@@ -30,5 +30,5 @@ def test_empty_query_is_rejected():
 
 
 def test_catalog_and_health_show_supported_tables():
-    assert catalog()["total"] == 347
-    assert health()["dictionary_tables"] == 347
+    assert catalog()["total"] == 349
+    assert health()["dictionary_tables"] == 349

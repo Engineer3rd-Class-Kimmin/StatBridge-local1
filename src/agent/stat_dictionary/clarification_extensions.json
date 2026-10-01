@@ -1,6 +1,44 @@
 {
   "groups": [
     {
+      "id": "detailed_flow_of_funds_basis",
+      "priority": 1,
+      "trigger_terms": [
+        "상세자금순환",
+        "상세 자금순환"
+      ],
+      "skip_if_terms": [
+        "잔액",
+        "보유액",
+        "거래",
+        "순거래"
+      ],
+      "question": "상세자금순환표에서 보유 잔액과 기간 중 거래 중 무엇을 볼까요?",
+      "ui": "single_select_buttons",
+      "options": [
+        {
+          "label": "잔액표 · 보유 잔액",
+          "value": "잔액표",
+          "confirmed_terms": [
+            "상세자금순환표 잔액표"
+          ],
+          "table_name_any": [
+            "잔액표"
+          ]
+        },
+        {
+          "label": "거래표 · 기간 중 거래",
+          "value": "거래표",
+          "confirmed_terms": [
+            "상세자금순환표 거래표"
+          ],
+          "table_name_any": [
+            "거래표"
+          ]
+        }
+      ]
+    },
+    {
       "id": "industry_loan_institution",
       "priority": 11,
       "trigger_terms": ["산업별대출", "산업별 대출"],
@@ -162,8 +200,5 @@
       ]
     }
   ],
-  "catalog_only_tables": [
-    {"table_id": "DT_284Y001", "table_name": "상세자금순환표 잔액표", "terms": ["상세자금순환 잔액", "상세자금순환표 잔액", "2008 SNA 상세자금순환 잔액"]},
-    {"table_id": "DT_284Y002", "table_name": "상세자금순환표 거래표", "terms": ["상세자금순환 거래", "상세자금순환표 거래", "2008 SNA 상세자금순환 거래"]}
-  ]
+  "catalog_only_tables": []
 }

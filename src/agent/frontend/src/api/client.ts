@@ -1,7 +1,7 @@
 import { mockResponse } from "./mock";
 import type { CatalogResponse, OutputRenderRequest, QueryRequest, QueryResponse } from "./types";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000/api";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "/api";
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
 
 function localFallback(query: string, reason: string): QueryResponse {

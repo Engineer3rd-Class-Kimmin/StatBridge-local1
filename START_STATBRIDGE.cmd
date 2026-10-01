@@ -7,12 +7,12 @@ set "ROOT=%CD%"
 set "MCP=%ROOT%\data\statbridge_mcp_server"
 set "AGENT=%ROOT%\src\agent"
 set "FRONT=%AGENT%\frontend"
-set "RUN=%ROOT%\scripts\windows\runtime"
 set "VENV=%ROOT%\.venv_runtime"
 set "STATBRIDGE_DATA_DIR=%ROOT%\data\runtime_data\processed"
 set "STATBRIDGE_TABLES_DIR=%ROOT%\data\runtime_data\tables"
-set "STATBRIDGE_VECTOR_PATH=%ROOT%\data\vector_store"
+set "STATBRIDGE_VECTOR_PATH=%ROOT%\data\vector_store_349"
 set "PYTHONPATH=%AGENT%;%MCP%"
+set "PATH=%ProgramFiles%\nodejs;%LocalAppData%\Programs\Python\Python312;%LocalAppData%\Programs\Python\Launcher;%PATH%"
 cls
 echo ============================================================
 echo   StatBridge Portable Runtime
@@ -22,10 +22,11 @@ echo.
 if not exist "%MCP%\server.py" goto :MISSING
 if not exist "%AGENT%\bridge_api.py" goto :MISSING
 if not exist "%FRONT%\package.json" goto :MISSING
-if not exist "%RUN%\RUN_AGENT.cmd" goto :MISSING
+if not exist "%ROOT%\scripts\windows\portable_runtime.py" goto :MISSING
 if not exist "%STATBRIDGE_DATA_DIR%\bok_table_master.csv" goto :MISSING
 
 echo [1/7] Python 3.11+ detection
+:PYTHON_DETECT
 set "BASE_PY="
 for %%V in (3.13 3.12 3.11) do if not defined BASE_PY (
     py -%%V -c "import sys;raise SystemExit(0 if sys.version_info[:2] in [(3,11),(3,12),(3,13),(3,14)] else 1)" >nul 2>nul
@@ -41,9 +42,10 @@ if not defined BASE_PY (
     echo Python 3.12 is missing. Installing with Windows Package Manager...
     winget install --id Python.Python.3.12 -e --accept-package-agreements --accept-source-agreements
     if errorlevel 1 goto :NO_PYTHON
-    echo [INFO] Python installation finished. Restarting launcher...
-    start "" "%~f0"
-    exit /b 0
+    echo [INFO] Python installation finished. Refreshing detection...
+    set "PATH=%LocalAppData%\Programs\Python\Python312;%LocalAppData%\Programs\Python\Launcher;%PATH%"
+    if not exist "%LocalAppData%\Programs\Python\Python312\python.exe" goto :NO_PYTHON
+    goto :PYTHON_DETECT
 )
 echo [OK] !BASE_PY!
 
@@ -53,7 +55,7 @@ set "PYTHON_EXE=%VENV%\Scripts\python.exe"
 if exist "%PYTHON_EXE%" (
     "%PYTHON_EXE%" -c "import sys;raise SystemExit(0 if sys.version_info[:2] in [(3,11),(3,12),(3,13),(3,14)] else 1)" >nul 2>nul
     if errorlevel 1 (
-        set "BROKEN_VENV=%MCP%\.venv_runtime.invalid.!RANDOM!"
+        set "BROKEN_VENV=%ROOT%\.venv_runtime.invalid.!RANDOM!"
         echo [INFO] Incompatible environment found. Moving it aside...
         move "%VENV%" "!BROKEN_VENV!" >nul
     )
@@ -80,6 +82,8 @@ echo [OK] Python dependencies ready.
 echo.
 echo [4/7] API environment
 if not exist "%MCP%\.env" copy /y "%MCP%\.env.example" "%MCP%\.env" >nul
+"%PYTHON_EXE%" "%ROOT%\scripts\windows\portable_runtime.py" check-keys
+if errorlevel 1 goto :API_KEYS_REQUIRED
 set "KOSIS_VALUE="
 set "NCP_VALUE="
 for /f "tokens=1,* delims==" %%A in ('findstr /B /C:"KOSIS_API_KEY=" "%MCP%\.env" 2^>nul') do set "KOSIS_VALUE=%%B"
@@ -100,12 +104,18 @@ if errorlevel 1 (
     echo Node.js LTS is missing. Installing with Windows Package Manager...
     winget install --id OpenJS.NodeJS.LTS -e --accept-package-agreements --accept-source-agreements
     if errorlevel 1 goto :NO_NODE
-    echo [INFO] Node.js installation finished. Restarting launcher...
-    start "" "%~f0"
-    exit /b 0
+    echo [INFO] Node.js installation finished. Refreshing PATH...
+    set "PATH=%ProgramFiles%\nodejs;%PATH%"
+    if not exist "%ProgramFiles%\nodejs\node.exe" goto :NO_NODE
+    goto :NODE_SETUP
 )
 where npm.cmd >nul 2>nul
 if errorlevel 1 goto :NO_NODE
+node -e "const [a,b]=process.versions.node.split('.').map(Number);process.exit((a===20&&b>=19)||(a===22&&b>=12)||a>=24?0:1)"
+if errorlevel 1 (
+    echo [ERROR] Node.js 20.19+, 22.12+, or newer LTS is required. Update Node.js LTS and retry.
+    goto :NO_NODE
+)
 if not exist "%FRONT%\node_modules\.bin\vite.cmd" (
     echo Installing frontend packages. This can take several minutes on first run...
     pushd "%FRONT%"
@@ -117,45 +127,21 @@ echo [OK] Node.js and frontend dependencies ready.
 
 echo.
 echo [6/7] Starting services
-for %%T in ("StatBridge Agent API" "StatBridge MCP" "StatBridge Frontend") do taskkill /FI "WINDOWTITLE eq *%%~T*" /T /F >nul 2>nul
-call :STOP_PORT 8000
-call :STOP_PORT 5173
-start "StatBridge Agent API" /D "%AGENT%" cmd.exe /k call "%RUN%\RUN_AGENT.cmd"
-set "AGENT_READY="
-for /L %%I in (1,1,40) do if not defined AGENT_READY (
-    "%PYTHON_EXE%" -c "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/api/health',timeout=1)" >nul 2>nul
-    if !errorlevel! equ 0 (set "AGENT_READY=1") else timeout /t 1 /nobreak >nul
-)
-if not defined AGENT_READY goto :AGENT_FAILED
-start "StatBridge MCP" /D "%MCP%" cmd.exe /k call "%RUN%\RUN_MCP.cmd"
-start "StatBridge Frontend" /D "%FRONT%" cmd.exe /k call "%RUN%\RUN_FRONTEND.cmd"
-set "FRONT_READY="
-for /L %%I in (1,1,40) do if not defined FRONT_READY (
-    "%PYTHON_EXE%" -c "import urllib.request;urllib.request.urlopen('http://127.0.0.1:5173/',timeout=1)" >nul 2>nul
-    if !errorlevel! equ 0 (set "FRONT_READY=1") else timeout /t 1 /nobreak >nul
-)
-if not defined FRONT_READY goto :FRONT_FAILED
-
+if not defined STATBRIDGE_API_PORT set "STATBRIDGE_API_PORT=8000"
+if not defined STATBRIDGE_UI_PORT set "STATBRIDGE_UI_PORT=5173"
+set "BROWSER_OPTION="
+if defined STATBRIDGE_NO_BROWSER set "BROWSER_OPTION=--no-browser"
+set "VECTOR_SETUP="
+"%PYTHON_EXE%" "%ROOT%\scripts\windows\portable_runtime.py" check-index
+if errorlevel 1 set "VECTOR_SETUP=--build-index"
+"%PYTHON_EXE%" "%ROOT%\scripts\windows\portable_runtime.py" start --api-port %STATBRIDGE_API_PORT% --ui-port %STATBRIDGE_UI_PORT% !BROWSER_OPTION! !VECTOR_SETUP!
+if errorlevel 1 goto :FAIL
 echo.
-echo [7/7] Runtime verification
-"%PYTHON_EXE%" -c "import json,urllib.request;d=json.load(urllib.request.urlopen('http://127.0.0.1:8000/api/health',timeout=5));assert d.get('status')=='ok';print('[OK] Agent health:',d.get('status'))"
-if errorlevel 1 goto :AGENT_FAILED
-echo [OK] Frontend: http://127.0.0.1:5173/
-start "" "http://127.0.0.1:5173/"
-echo.
-echo ============================================================
-echo [OK] StatBridge is ready.
-echo UI:    http://127.0.0.1:5173/
-echo Agent: http://127.0.0.1:8000/api/health
+echo [7/7] Ready. UI: http://127.0.0.1:%STATBRIDGE_UI_PORT%/
 echo To stop: run STOP_STATBRIDGE.cmd
-echo ============================================================
-echo.
-pause
+if not defined STATBRIDGE_NO_PAUSE pause
 exit /b 0
 
-:STOP_PORT
-for /f "tokens=5" %%A in ('netstat -ano ^| findstr ":%~1 .*LISTENING"') do taskkill /PID %%A /F >nul 2>nul
-exit /b 0
 :MISSING
 echo [ERROR] Required package files are missing. Keep this CMD at the StatBridge package root.
 goto :FAIL
@@ -182,6 +168,11 @@ echo    %MCP%\.env
 echo 2. Enter both KOSIS_API_KEY and NCP_CLOVA_API_KEY.
 echo 3. Save the file, close Notepad, then press any key here.
 start "StatBridge API Keys" /wait notepad.exe "%MCP%\.env"
+"%PYTHON_EXE%" "%ROOT%\scripts\windows\portable_runtime.py" check-keys
+if errorlevel 1 (
+    echo [ERROR] Enter actual KOSIS and NCP keys, not placeholder text.
+    goto :FAIL
+)
 set "KOSIS_VALUE="
 set "NCP_VALUE="
 for /f "tokens=1,* delims==" %%A in ('findstr /B /C:"KOSIS_API_KEY=" "%MCP%\.env" 2^>nul') do set "KOSIS_VALUE=%%B"
@@ -196,12 +187,7 @@ if not defined NCP_VALUE (
 )
 echo [OK] API keys found. Continuing setup...
 goto :NODE_SETUP
-:AGENT_FAILED
-echo [ERROR] Agent API did not become healthy. Check the 'StatBridge Agent API' window.
-goto :FAIL
-:FRONT_FAILED
-echo [ERROR] Frontend did not start. Check the 'StatBridge Frontend' window.
 :FAIL
 echo.
-pause
+if not defined STATBRIDGE_NO_PAUSE pause
 exit /b 1

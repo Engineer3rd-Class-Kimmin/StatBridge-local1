@@ -69,6 +69,7 @@ class QueryRequest(BaseModel):
     state: dict[str, Any] | None = None
     clarification: ClarificationSelection | None = None
     selections: list[dict[str, Any]] | None = None
+    dimension_values: dict[str, str] | None = None
     execute: bool = True
     period_start: str | None = None
     period_end: str | None = None
@@ -95,12 +96,13 @@ def _table_card(table_id: str) -> dict[str, str]:
         meta = service.get_table_metadata(table_id, live_period_fallback=False)
         items = meta.get("items") or []
         item = str(items[0].get("item_name") or "통계표 후보") if items else "통계표 후보"
+        units = (agent.tables_by_id.get(table_id) or {}).get("units") or []
         return {
             "tableId": table_id,
             "name": str(meta.get("table_name") or table_id),
             "source": "한국은행 · KOSIS",
             "item": item,
-            "unit": "-",
+            "unit": " / ".join(str(unit) for unit in units) or "-",
         }
     except Exception:
         return {"tableId": table_id, "name": table_id, "source": "한국은행 · KOSIS", "item": "통계표", "unit": "-"}
@@ -111,10 +113,10 @@ DOMAIN_LABELS = {
     "payments": "지급결제", "trade_currency": "결제통화", "national_accounts": "국민계정",
     "prices_trade": "물가·무역", "producer_prices": "생산자물가", "corporate_finance": "기업금융",
     "business_sentiment": "기업경기", "consumer_sentiment": "소비자동향", "economic_sentiment": "경제심리",
-    "lending_survey": "대출행태", "balance_payments": "국제수지", "other": "기타"
+    "lending_survey": "대출행태", "balance_payments": "국제수지", "flow_of_funds": "상세자금순환", "other": "기타"
 }
 MAJOR_DOMAINS = {
-    "금융·통화": {"interest_rates", "money_liquidity", "deposits_loans", "payments", "trade_currency"},
+    "금융·통화": {"interest_rates", "money_liquidity", "deposits_loans", "payments", "trade_currency", "flow_of_funds"},
     "국민경제·물가": {"national_accounts", "prices_trade", "producer_prices"},
     "기업·가계 경기": {"corporate_finance", "business_sentiment", "consumer_sentiment", "economic_sentiment", "lending_survey"},
     "대외경제": {"balance_payments"},
@@ -161,6 +163,9 @@ def _catalog_card(table: dict[str, Any], metadata: Any | None = None) -> dict[st
             "name": _friendly_dimension_name(raw_name, dimension_values, index),
             "count": len(meta_values) if meta_values else len(values),
             "values": dimension_values,
+            "apiParam": str(dimension.get("api_param") or ""),
+            "valueOptions": [{"id": str(v["value_id"]), "name": str(v.get("value_name") or v["value_id"])} for v in values],
+            "defaultValueId": str(dimension.get("representative_value_id") or (values[0]["value_id"] if values else "")),
         })
 
     return {
@@ -434,6 +439,26 @@ def query(payload: QueryRequest) -> dict[str, Any]:
             "warnings": ["일부 지표를 다른 표현으로 바꾸거나 지원되는 지표만 선택해 주세요."],
         }
 
+    dimension_selection = payload.dimension_values if payload.dimension_values is not None else (payload.state or {}).get("_dimension_values", {})
+    if dimension_selection:
+        if len(result.get("api_plans") or [result["api_plan"]]) != 1:
+            raise HTTPException(status_code=400, detail="분류 직접 선택은 단일 통계표 조회에만 사용할 수 있습니다.")
+        table = agent.tables_by_id[result["api_plan"]["table_id"]]
+        valid = {d["api_param"]: {v["value_id"]: v for v in d["values"]} for d in table["dimensions"]}
+        selected = dict(result["selected_table"])
+        # Explicit catalog selections outrank the conversation comparison default.
+        selected.pop("_comparison_default", None)
+        hits = {h["api_param"]: h for h in selected.get("dimension_hits", [])}
+        for param, value_id in dimension_selection.items():
+            if param not in valid or value_id not in valid[param]:
+                raise HTTPException(status_code=400, detail="선택한 통계표에 존재하지 않는 분류 코드입니다.")
+            value = valid[param][value_id]
+            hits[param] = {"api_param": param, "value_id": value_id, "value_name": value["value_name"]}
+        selected["dimension_hits"] = list(hits.values())
+        result["selected_table"] = selected
+        result["api_plan"] = agent.build_api_plan(q, selected).as_dict()
+        result["api_plans"] = [result["api_plan"]]
+        result.setdefault("state", {})["_dimension_values"] = dimension_selection
     plan = result["api_plan"]
     plans = result.get("api_plans") or [plan]
     table_name = " · ".join(str(x.get("series_label") or x["table_name"]) for x in plans)
@@ -554,7 +579,7 @@ def query(payload: QueryRequest) -> dict[str, Any]:
         warnings = [str(execution.get("error") or "KOSIS API 실행 오류")]
 
     return {
-        "status": "data_unavailable" if execution_status not in {"success", "planned_only"} else "resolved",
+        "status": "resolved" if execution_status in {"success", "planned_only"} else "data_unavailable",
         "query": q,
         "interpretedQuery": table_name,
         "summary": summary,
@@ -573,7 +598,7 @@ def query(payload: QueryRequest) -> dict[str, Any]:
         "lineage": [
             {"id": "ui", "title": "UI 자연어 수신", "description": q, "status": "complete"},
             {"id": "hcx003", "title": "HCX-003 자연어 → 통계언어", "description": str((result.get("classification") or {}).get("normalized_query") or result.get("dictionary_query") or q), "status": "complete"},
-            {"id": "dictionary", "title": "통계언어 사전 검색", "description": f"347개 통계표 사전에서 {len(candidates)}개 후보 평가", "status": "complete"},
+            {"id": "dictionary", "title": "통계언어 사전 검색", "description": f"{len(agent.resolver.tables)}개 통계표 사전에서 {len(candidates)}개 후보 평가", "status": "complete"},
             {"id": "hcx007", "title": "HCX-007 메인 Agent", "description": f"{len(plans)}개 비교 계열 확정 및 답변 처리", "status": "complete"},
             {"id": "mcp", "title": "MCP 통계 서비스", "description": "검증된 table/item/objL/기간 파라미터 전달", "status": "complete" if execution_status in {"success", "planned_only"} else "active"},
             {"id": "kosis", "title": "KOSIS API", "description": execution_status or "unknown", "status": "complete" if execution_status == "success" else "active"},

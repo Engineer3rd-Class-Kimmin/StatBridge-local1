@@ -24,7 +24,7 @@ def main() -> None:
         port = sock.getsockname()[1]
     env = os.environ.copy()
     env["PYTHONPATH"] = os.pathsep.join([str(ROOT / "src" / "agent"), str(ROOT / "data" / "statbridge_mcp_server")])
-    env["STATBRIDGE_VECTOR_PATH"] = str(ROOT / "data" / "vector_store")
+    env["STATBRIDGE_VECTOR_PATH"] = str(ROOT / "data" / "vector_store_349")
     env["STATBRIDGE_DATA_DIR"] = str(ROOT / "data" / "runtime_data" / "processed")
     env["STATBRIDGE_TABLES_DIR"] = str(ROOT / "data" / "runtime_data" / "tables")
     server = subprocess.Popen([sys.executable, "-m", "uvicorn", "bridge_api:app", "--host", "127.0.0.1", "--port", str(port)], cwd=ROOT / "src" / "agent", env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)

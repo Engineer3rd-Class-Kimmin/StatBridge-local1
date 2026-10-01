@@ -59,7 +59,7 @@ def main():
     args = parser.parse_args()
     dictionary_path = AGENT / "stat_dictionary" / "stat_language_dictionary.json"
     data = json.loads(dictionary_path.read_text(encoding="utf-8"))
-    store = Path(__import__("os").getenv("STATBRIDGE_VECTOR_PATH", str(ROOT / "data" / "vector_store")))
+    store = Path(__import__("os").getenv("STATBRIDGE_VECTOR_PATH", str(ROOT / "data" / "vector_store_349")))
     manifest_dir = ROOT / "data" / "vector_documents"
     manifest_dir.mkdir(parents=True, exist_ok=True)
     docs = documents(data)

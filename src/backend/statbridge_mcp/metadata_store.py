@@ -29,7 +29,9 @@ FREQ_MAP = {
     "IR": "IR",
 }
 
-KNOWN_OPENAPI_EXCEPTIONS = {"DT_284Y001", "DT_284Y002"}
+# Both detailed flow-of-funds tables returned metadata and numeric data on
+# 2026-10-01. Do not retain their obsolete September OpenAPI exclusion.
+KNOWN_OPENAPI_EXCEPTIONS: set[str] = set()
 
 
 def normalize_frequency(value: str) -> str:

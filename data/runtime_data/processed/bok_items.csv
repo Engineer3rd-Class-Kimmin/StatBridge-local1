@@ -1,4 +1,4 @@
-﻿OBJ_NM_ENG,ITM_NM_ENG,ITM_ID,TBL_ID,OBJ_NM,ITM_NM,ORG_ID,OBJ_ID,ORG_ID_BASE,TBL_ID_BASE
+OBJ_NM_ENG,ITM_NM_ENG,ITM_ID,TBL_ID,OBJ_NM,ITM_NM,ORG_ID,OBJ_ID,ORG_ID_BASE,TBL_ID_BASE
 Item code list,Economic Sentiment Index,13103134473999,DT_513Y001,항목,경제심리지수,301,ITEM,301,DT_513Y001
 Item code list,International Investment Position,13103134486999,DT_311Y001,항목,국제투자대조표(IIP),301,ITEM,301,DT_311Y001
 Item code list,IIP for Nations,13103134564999,DT_311Y002,항목,지역별 국제투자대조표,301,ITEM,301,DT_311Y002
@@ -27,9 +27,6 @@ Item code list,Statement of Appropriation of Retained Earnings(11th revised KSIC
 Item code list,Statement of Appropriation of Retained Earnings(Framework Act on SMEs 2015~2016 complete enumeration),13103134535999,DT_501Y068,항목,이익잉여금 처분계산서(중소기업기본법 2015~2016),301,ITEM,301,DT_501Y068
 Item code list,Composition of Gross Value Added(11th revised KSIC 2009~ complete enumeration),13103134602999,DT_501Y010,항목,부가가치 구성(제11차 한국표준산업분류 2009~),301,ITEM,301,DT_501Y010
 Item code list,Composition of Gross Value Added(Framework Act on SMEs 2015~2016 complete enumeration),13103134683999,DT_501Y073,항목,부가가치 구성(중소기업기본법 2015~2016),301,ITEM,301,DT_501Y073
-Item code list,Statement of Cash Flow(2012~),13103134685999,DT_501Y013,항목,현금흐름표(2012~),301,ITEM,301,DT_501Y013
-Item code list,Other Major Financial Items(2012~),13103134725999,DT_501Y014,항목,현금흐름관련 기타 주요 재무항목(2012~),301,ITEM,301,DT_501Y014
-Item code list,Cash Flow Ratios(2012~),13103134762999,DT_501Y015,항목,현금흐름비율(2012~),301,ITEM,301,DT_501Y015
 Item code list,External Assets,13103134763999,DT_311Y005,항목,대외채권,301,ITEM,301,DT_311Y005
 Item code list,External Debt,13103134499999,DT_311Y004,항목,대외채무,301,ITEM,301,DT_311Y004
 Item code list,Net External Assets,13103134539999,DT_311Y006,항목,순대외채권,301,ITEM,301,DT_311Y006
@@ -37,7 +34,6 @@ Item code list,Domestic Supply Price Indices (2020＝100),13103134640999,DT_405Y
 Item code list,Producer Price Indices  (Basic Groups),13103134604999,DT_404Y014,항목,생산자물가지수(기본분류),301,ITEM,301,DT_404Y014
 Item code list,Producer Price Indices  (Special Groups),13103134727999,DT_404Y015,항목,생산자물가지수(특수분류),301,ITEM,301,DT_404Y015
 Item code list,Producer Price Indices  (Item Groups),13103134764999,DT_404Y016,항목,생산자물가지수(품목별),301,ITEM,301,DT_404Y016
-Item code list,Producer Price Index(All 1910~1964),13103134500999,DT_404Y017,항목,생산자물가지수-총지수(1910~1964),301,ITEM,301,DT_404Y017
 Item code list,Total Output Price Indices (2020＝100),13103134577999,DT_405Y007,항목,총산출물가지수,301,ITEM,301,DT_405Y007
 Item code list,Consumer Tendency Survey(Expected Inflation)(National),13103134728999,DT_511Y003,항목,기대인플레이션율(전국 월),301,ITEM,301,DT_511Y003
 Item code list,Consumer Survey Index(BOK National)(Quarterly)(1995.3/4~2008.2/4),13103134540999,DT_511Y001,항목,소비자동향조사(전국 분기 1995.3/4~2008.2/4),301,ITEM,301,DT_511Y001
@@ -67,8 +63,6 @@ Item code list,National Future Tendency(2009.9~),13103134600999,DT_512Y002,항�
 Item code list,operational difficulties,13103135843999,DT_512Y021,항목,경영애로사항,301,ITEM,301,DT_512Y021
 Item code list,Tendency(Regional)(2013.1~),13103134492999,DT_512Y019,항목,지역별 기업경기조사(실적(2013.1~)),301,ITEM,301,DT_512Y019
 Item code list,Future Tendency(Regional)(2013.2~),13103134713999,DT_512Y020,항목,지역별 기업경기조사(전망(2013.2~)),301,ITEM,301,DT_512Y020
-Item code list,Tendency(Regional)(~2012.12),13103134714999,DT_512Y011,항목,지역별 기업경기실사지수(실적(~2012.12)),301,ITEM,301,DT_512Y011
-Item code list,Future Tendency(Regional)(~2013.1),13103134568999,DT_512Y012,항목,지역별 기업경기실사지수(전망(~2013.1)),301,ITEM,301,DT_512Y012
 Item code list,Indicators concerning Growth(The Restriction of Special Taxation Act 2009~2014 complete enumeration),13103134629999,DT_501Y020,항목,성장성 지표(조세특례제한법 2009~2014),301,ITEM,301,DT_501Y020
 Item code list,Relationship Ratios of Income and Expenses(The Restriction of Special Taxation Act 2009~2014 complete enumeration),13103134495999,DT_501Y025,항목,수익성 지표(조세특례제한법 2009~2014),301,ITEM,301,DT_501Y025
 Item code list,Relationship Ratios of Assets Liabilities and Stockholder's Equity(The Restriction of Special Taxation Act 2009~2014 complete enumeration),13103134755999,DT_501Y030,항목,자산/자본 지표(조세특례제한법 2009~2014),301,ITEM,301,DT_501Y030
@@ -90,9 +84,6 @@ Item code list,Balance Sheet(2008~2010 sample survey),13103134720999,DT_501Y051,
 Item code list,Income Statement(2008~2010 sample survey),13103134681999,DT_501Y058,항목,손익계산서(2008~2010 표본조사),301,ITEM,301,DT_501Y058
 Item code list,Statement of Cost of Goods Manufactured(2007~2010 sample survey),13103134637999,DT_501Y065,항목,제조원가명세서(2007~2010 표본조사),301,ITEM,301,DT_501Y065
 Item code list,Statement of Appropriation of Retained Earnings(2007~2010 sample survey),13103134536999,DT_501Y070,항목,이익잉여금 처분계산서(2007~2010 표본조사),301,ITEM,301,DT_501Y070
-Item code list,Statement of Cash Flow(2008~2011),13103134760999,DT_501Y079,항목,현금흐름표(2008~2011),301,ITEM,301,DT_501Y079
-Item code list,Other Major Financial Items(2008~2011),13103134761999,DT_501Y081,항목,현금흐름관련 기타 주요 재무항목(2008~2011),301,ITEM,301,DT_501Y081
-Item code list,Cash Flow Ratios(2008~2011),13103134726999,DT_501Y083,항목,현금흐름비율(2008~2011),301,ITEM,301,DT_501Y083
 Item code list,Indicators of Financial Statement Analysis(~2007),13103134628999,DT_501Y018,항목,기업경영분석지표(~2007),301,ITEM,301,DT_501Y018
 Item code list,Composition of Gross Value Added(1990~1997 sample survey),13103134537999,DT_501Y078,항목,부가가치 구성(1990~1997 표본조사),301,ITEM,301,DT_501Y078
 Item code list,Composition of Gross Value Added(1998~2006 sample survey),13103134684999,DT_501Y077,항목,부가가치 구성(1998~2006 표본조사),301,ITEM,301,DT_501Y077
@@ -101,9 +92,7 @@ Item code list,Indicators concerning Productivity(1990~1997 sample survey),13103
 Item code list,Indicators concerning Productivity(1998~2006 sample survey),13103134757999,DT_501Y043,항목,생산성 지표(1998~2006 표본조사),301,ITEM,301,DT_501Y043
 Item code list,Indicators concerning Productivity(2002~2007 sample survey),13103134676999,DT_501Y042,항목,생산성 지표(2002~2007 표본조사),301,ITEM,301,DT_501Y042
 Item code list,Indicators concerning Growth(1990~1997 sample survey),13103134630999,DT_501Y023,항목,성장성 지표(1990~1997 표본조사),301,ITEM,301,DT_501Y023
-Item code list,Indicators concerning Growth(1998~2007 sample survey),13103134601999,DT_501Y022,항목,성장성 지표(1998~2007 표본조사),301,ITEM,301,DT_501Y022
 Item code list,Relationship Ratios of Income and Expenses(1990~1997 sample survey),13103134716999,DT_501Y028,항목,수익성 지표(1990~1997 표본조사),301,ITEM,301,DT_501Y028
-Item code list,Relationship Ratios of Income and Expenses(1998~2007 sample survey),13103134754999,DT_501Y027,항목,수익성 지표(1998~2007 표본조사),301,ITEM,301,DT_501Y027
 Item code list,Income Statement(1990~1996 sample survey),13103134603999,DT_501Y062,항목,손익계산서(1990~1996 표본조사),301,ITEM,301,DT_501Y062
 Item code list,Income Statement(1997~1998 sample survey),13103134636999,DT_501Y061,항목,손익계산서(1997~1998 표본조사),301,ITEM,301,DT_501Y061
 Item code list,Income Statement(2000~2007 sample survey),13103134721999,DT_501Y059,항목,손익계산서(2000~2007 표본조사),301,ITEM,301,DT_501Y059
@@ -118,9 +107,6 @@ Item code list,Balance Sheet(1997~1998 sample survey),13103134533999,DT_501Y054,
 Item code list,Balance Sheet(2000~2007 sample survey),13103134680999,DT_501Y052,항목,재무상태표(2000~2007 표본조사),301,ITEM,301,DT_501Y052
 Item code list,Statement of Cost of Goods Manufactured(1990~1999 sample survey),13103134575999,DT_501Y067,항목,제조원가명세서(1990~1999 표본조사),301,ITEM,301,DT_501Y067
 Item code list,Statement of Cost of Goods Manufactured(2000~2007 sample survey),13103134574999,DT_501Y066,항목,제조원가명세서(2000~2007 표본조사),301,ITEM,301,DT_501Y066
-Item code list,Other Major Financial Items(1995~2007),13103134687999,DT_501Y082,항목,현금흐름관련 기타 주요 재무항목(1995~2007),301,ITEM,301,DT_501Y082
-Item code list,Cash Flow Ratios(1995~2007),13103134576999,DT_501Y084,항목,현금흐름비율(1995~2007),301,ITEM,301,DT_501Y084
-Item code list,Statement of Cash Flow(1995~2007),13103134686999,DT_501Y080,항목,현금흐름표(1995~2007),301,ITEM,301,DT_501Y080
 Item code list,Balance Sheet(1999 sample survey),13103134634999,DT_501Y053,항목,재무상태표(1999 표본조사),301,ITEM,301,DT_501Y053
 Item code list,Income Statement(1999 sample survey),13103134722999,DT_501Y060,항목,손익계산서(1999 표본조사),301,ITEM,301,DT_501Y060
 Item code list,Import Price Indices(Basic Groups),13103134643999,DT_401Y015,항목,수입물가지수(기본분류),301,ITEM,301,DT_401Y015
@@ -259,7 +245,6 @@ Item code list,Share by Outstanding Mortgage Loans,13103852637999,DT_181Y014,항
 Item code list,Shares of Deposits and Loans By Interest Rates Level (Newly Extended),13103134589999,DT_121Y008,항목,예금은행 금리수준별 여수신 비중(신규취급액 기준),301,ITEM,301,DT_121Y008
 Item code list,Based on Newly Extended,13103134554999,DT_121Y010,항목,예금은행 고정 및 변동금리대출 비중(신규취급액 기준),301,ITEM,301,DT_121Y010
 Item code list,Based on Outstanding,13103134655999,DT_121Y011,항목,예금은행 고정 및 변동금리대출 비중(잔액 기준),301,ITEM,301,DT_121Y011
-Item code list,Interest Rates on Loans and Discounts,13103134773999,DT_121Y007,항목,비은행금융기관 대출금리(신규취급액 기준),301,ITEM,301,DT_121Y007
 Item code list,Interest Rates on Deposits,13103134590999,DT_121Y004,항목,비은행금융기관 수신금리(신규취급액 기준),301,ITEM,301,DT_121Y004
 Item code list,Knowledge-based Services Trade Balance (by sector),13103836578999,DT_304Y101,항목,지식서비스 무역통계(유형별),301,ITEM,301,DT_304Y101
 Item code list,Knowledge-based Services Trade Balance (by industrial types),13103836580999,DT_304Y102,항목,지식서비스 무역통계(산업별),301,ITEM,301,DT_304Y102
@@ -346,3 +331,20 @@ Item code list,Lf By Type(End of SA),13103134695999,DT_111Y001,항목,Lf 상품�
 Item code list,Lf By Type(End of),13103130873999,DT_111Y002,항목,Lf 상품별 구성내역(말잔 원계열),301,ITEM,301,DT_111Y002
 Item code list,Lf By Type(Average SA),13103130866999,DT_111Y003,항목,Lf 상품별 구성내역(평잔 계절조정계열),301,ITEM,301,DT_111Y003
 Item code list,Lf By Type(Average),13103130867999,DT_111Y004,항목,Lf 상품별 구성내역(평잔 원계열),301,ITEM,301,DT_111Y004
+Item code list,Stocks,13103852624999,DT_284Y001,항목,잔액표,301,ITEM,301,DT_284Y001
+Item code list,Net Transactions,13103852623999,DT_284Y002,항목,거래표,301,ITEM,301,DT_284Y002
+Item code list,Interest Rates on Loans and Discounts,13103134773999,DT_121Y007,항목,비은행금융기관 대출금리(신규취급액 기준),301,ITEM,301,DT_121Y007
+Item code list,Producer Price Index(All 1910~1964),13103134500999,DT_404Y017,항목,생산자물가지수-총지수(1910~1964),301,ITEM,301,DT_404Y017
+Item code list,Statement of Cash Flow(2012~),13103134685999,DT_501Y013,항목,현금흐름표(2012~),301,ITEM,301,DT_501Y013
+Item code list,Other Major Financial Items(2012~),13103134725999,DT_501Y014,항목,현금흐름관련 기타 주요 재무항목(2012~),301,ITEM,301,DT_501Y014
+Item code list,Cash Flow Ratios(2012~),13103134762999,DT_501Y015,항목,현금흐름비율(2012~),301,ITEM,301,DT_501Y015
+Item code list,Indicators concerning Growth(1998~2007 sample survey),13103134601999,DT_501Y022,항목,성장성 지표(1998~2007 표본조사),301,ITEM,301,DT_501Y022
+Item code list,Relationship Ratios of Income and Expenses(1998~2007 sample survey),13103134754999,DT_501Y027,항목,수익성 지표(1998~2007 표본조사),301,ITEM,301,DT_501Y027
+Item code list,Statement of Cash Flow(2008~2011),13103134760999,DT_501Y079,항목,현금흐름표(2008~2011),301,ITEM,301,DT_501Y079
+Item code list,Statement of Cash Flow(1995~2007),13103134686999,DT_501Y080,항목,현금흐름표(1995~2007),301,ITEM,301,DT_501Y080
+Item code list,Other Major Financial Items(2008~2011),13103134761999,DT_501Y081,항목,현금흐름관련 기타 주요 재무항목(2008~2011),301,ITEM,301,DT_501Y081
+Item code list,Other Major Financial Items(1995~2007),13103134687999,DT_501Y082,항목,현금흐름관련 기타 주요 재무항목(1995~2007),301,ITEM,301,DT_501Y082
+Item code list,Cash Flow Ratios(2008~2011),13103134726999,DT_501Y083,항목,현금흐름비율(2008~2011),301,ITEM,301,DT_501Y083
+Item code list,Cash Flow Ratios(1995~2007),13103134576999,DT_501Y084,항목,현금흐름비율(1995~2007),301,ITEM,301,DT_501Y084
+Item code list,Tendency(Regional)(~2012.12),13103134714999,DT_512Y011,항목,지역별 기업경기실사지수(실적(~2012.12)),301,ITEM,301,DT_512Y011
+Item code list,Future Tendency(Regional)(~2013.1),13103134568999,DT_512Y012,항목,지역별 기업경기실사지수(전망(~2013.1)),301,ITEM,301,DT_512Y012
