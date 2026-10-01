@@ -10,7 +10,7 @@ os.environ.setdefault('STATBRIDGE_DATA_DIR', str(ROOT / 'data' / 'processed'))
 os.environ.setdefault('STATBRIDGE_TABLES_DIR', str(ROOT / 'data' / 'tables'))
 sys.path[:0] = [str(AGENT), str(MCP)]
 
-from statbridge_agent import StatBridgeAgent
+from agent_runtime import StatBridgeAgent
 
 class CaptureMcpGateway:
     def __init__(self): self.calls=[]

@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 def _load_env() -> None:
     here = Path(__file__).resolve()
     candidates = [
-        here.parents[2] / ".env",
+        here.parents[2] / "data" / "statbridge_mcp_server" / ".env",
         Path.cwd() / ".env",
     ]
     for path in candidates:

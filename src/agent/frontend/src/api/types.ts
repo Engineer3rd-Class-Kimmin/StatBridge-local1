@@ -11,6 +11,8 @@ export type ChartSeries = {
   points: ChartPoint[];
 };
 
+export type ChartType = "line" | "bar" | "area" | "scatter";
+
 export type SelectedTable = {
   tableId: string;
   name: string;
@@ -49,7 +51,7 @@ export type QueryState = {
 };
 
 export type QueryResponse = {
-  status?: "need_clarification" | "need_period" | "need_chart_mode" | "resolved" | "no_match" | "catalog_only" | "data_unavailable";
+  status?: "need_clarification" | "need_period" | "need_output_config" | "resolved" | "no_match";
   query: string;
   interpretedQuery: string;
   summary: string;
@@ -58,7 +60,35 @@ export type QueryResponse = {
   frequency: string;
   chart: ChartSeries[];
   chartMode?: "combined" | "separate" | null;
+  chartType?: ChartType;
+  outputSpec?: {
+    status: "ready" | "empty";
+    agent: string;
+    visualization: {
+      chartType: ChartType;
+      layout: "combined" | "separate";
+      editable: boolean;
+      editOptions: {
+        title?: string | null;
+        showLegend?: boolean;
+        xAxisLabel?: string | null;
+        yAxisLabel?: string | null;
+        supportedChartTypes?: ChartType[];
+        supportedLayouts?: Array<"combined" | "separate">;
+      };
+    };
+  };
   seriesCount?: number;
+  outputSessionId?: string;
+  outputSessionIds?: string[];
+  outputOptions?: {
+    seriesCount: number;
+    pointCount: number;
+    recommendedChartType: ChartType;
+    supportedChartTypes: ChartType[];
+    supportedLayouts: Array<"combined" | "separate">;
+    editableFields: string[];
+  };
   tables: SelectedTable[];
   insights: string[];
   lineage: LineageStep[];
@@ -75,6 +105,16 @@ export type QueryResponse = {
   };
 };
 
+export type OutputRenderRequest = {
+  session_ids: string[];
+  chart_type: ChartType;
+  chart_mode: "combined" | "separate";
+  title?: string;
+  show_legend: boolean;
+  x_axis_label?: string;
+  y_axis_label?: string;
+};
+
 export type QueryRequest = {
   query: string;
   state?: QueryState;
@@ -87,6 +127,13 @@ export type QueryRequest = {
   period_start?: string;
   period_end?: string;
   chart_mode?: "combined" | "separate";
+  chart_type?: "auto" | ChartType;
+  chart_options?: {
+    title?: string;
+    show_legend?: boolean;
+    x_axis_label?: string;
+    y_axis_label?: string;
+  };
 };
 
 export type CatalogTable = {

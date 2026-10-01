@@ -487755,6 +487755,7 @@
         "물건값"
       ],
       "skip_if_terms": [
+        "소비자물가",
         "생산자물가",
         "수출물가",
         "수입물가",
@@ -487764,6 +487765,16 @@
       "question": "어떤 물가를 보고 싶으신가요?",
       "ui": "single_select_buttons",
       "options": [
+        {
+          "label": "소비자물가",
+          "value": "소비자물가",
+          "confirmed_terms": [
+            "소비자물가지수"
+          ],
+          "table_name_any": [
+            "소비자물가지수"
+          ]
+        },
         {
           "label": "생산자물가",
           "value": "생산자물가",

@@ -72,7 +72,7 @@ def main():
     try:
         import chromadb
     except ImportError as exc:
-        raise SystemExit("chromadb is required. Install src/backend/requirements.txt") from exc
+        raise SystemExit("chromadb is required. Install statbridge_mcp_server/requirements.txt") from exc
     if args.rebuild and store.exists():
         shutil.rmtree(store)
     store.mkdir(parents=True, exist_ok=True)

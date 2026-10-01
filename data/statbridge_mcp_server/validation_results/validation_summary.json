@@ -1,0 +1,25 @@
+{
+  "total_available": 349,
+  "tested": 349,
+  "success": 347,
+  "fallback_success": 31,
+  "failed": 2,
+  "success_rate": 99.43,
+  "next_index": 349,
+  "finished_all": true,
+  "elapsed_total_sec": 1304.92,
+  "failed_tables": [
+    {
+      "table_id": "DT_284Y001",
+      "table_name": "잔액표",
+      "reason": "no_rows",
+      "errors": "[{\"attempt\": \"requested\", \"error\": \"21:잘못된 요청 변수를 호출 하였습니다.\"}]"
+    },
+    {
+      "table_id": "DT_284Y002",
+      "table_name": "거래표",
+      "reason": "no_rows",
+      "errors": "[{\"attempt\": \"requested\", \"error\": \"21:잘못된 요청 변수를 호출 하였습니다.\"}]"
+    }
+  ]
+}

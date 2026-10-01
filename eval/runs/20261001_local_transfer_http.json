@@ -1,0 +1,33 @@
+{
+  "health": {
+    "status": "ok",
+    "mode": "ui-agent-dictionary-mcp",
+    "agent": "StatBridgeAgent-v6-ncp",
+    "orchestration_engine": "langgraph",
+    "orchestration_nodes": [
+      "resolve_request",
+      "await_clarification",
+      "finish_unresolved",
+      "execute_statistics",
+      "await_output_selection",
+      "prepare_output"
+    ],
+    "ncp_api_key_configured": true,
+    "jev_enabled": true,
+    "jev_api_key_configured": true,
+    "jev_model": "jev-preview",
+    "classifier_model": "HCX-003",
+    "main_model": "HCX-007",
+    "dictionary_tables": 347,
+    "clarification_groups": 23,
+    "supported_tables": 347,
+    "kosis_api_key_configured": true,
+    "data_dir": "C:\\Users\\김민\\Desktop\\경진대회\\StatBridge-local1\\data\\runtime_data\\processed"
+  },
+  "query_status": "need_output_config",
+  "execution_status": null,
+  "series_count": 1,
+  "rows_preview": null,
+  "output_status": "resolved",
+  "chart_series": 1
+}

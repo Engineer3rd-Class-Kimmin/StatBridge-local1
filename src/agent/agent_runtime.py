@@ -11,6 +11,10 @@ from typing import Any
 from stat_dictionary.stat_language_resolver import StatLanguageResolver
 from ncp_clova_client import NcpClovaClient
 from hybrid_retriever import HybridStatRetriever
+from langgraph_workflow import StatBridgeWorkflow
+from output_agent import OutputAgent
+from jev_series_client import JevSeriesClient
+from jev_series_hybrid import apply_jev_series_decision
 
 
 @dataclass(slots=True)
@@ -50,18 +54,21 @@ class StatBridgeAgent:
       5) MCP StatisticsService.get_statistics를 호출
     """
 
-    def __init__(self, service: Any, dictionary_path: str | Path | None = None, ncp_client: NcpClovaClient | None = None) -> None:
+    def __init__(self, service: Any, dictionary_path: str | Path | None = None, ncp_client: NcpClovaClient | None = None, jev_client: JevSeriesClient | None = None) -> None:
         self.service = service
         base = Path(__file__).resolve().parent
         self.dictionary_path = Path(dictionary_path or base / "stat_dictionary" / "stat_language_dictionary.json")
         self.resolver = StatLanguageResolver(self.dictionary_path)
         self.tables_by_id = {str(t["table_id"]): t for t in self.resolver.tables}
         self.ncp = ncp_client or NcpClovaClient()
+        self.jev = jev_client or JevSeriesClient()
         self.hybrid = HybridStatRetriever(self.resolver)
         # Explicit client injection is used by offline tests/custom deployments;
         # do not silently create a second network client behind that boundary.
         if ncp_client is not None:
             self.hybrid.enabled = False
+        self.output_agent = OutputAgent()
+        self.workflow = StatBridgeWorkflow(self, self.output_agent)
 
     @staticmethod
     def _subtract_months(yyyymm: str, months: int) -> str:
@@ -270,6 +277,30 @@ class StatBridgeAgent:
             return query, {"status": "disabled", "model": self.ncp.settings.classifier_model}
         try:
             classification = self.ncp.classify_stat_language(query)
+            hcx_series_count = len(classification.get("series") or []) if isinstance(classification.get("series"), list) else 0
+            trace = {
+                "jev_enabled": self.jev.settings.enabled,
+                "jev_model": self.jev.settings.model,
+                "jev_status": "disabled" if not self.jev.settings.enabled else "not_configured",
+                "jev_latency_ms": None,
+                "jev_series_count": None,
+                "jev_probability": None,
+                "hcx_series_count_before": hcx_series_count,
+                "final_series_count": hcx_series_count,
+                "series_action": "kept",
+                "jev_fallback_used": False,
+            }
+            if self.jev.settings.enabled and self.jev.settings.api_key:
+                try:
+                    decision = self.jev.classify_series_count(query, classification)
+                    classification, repair_trace = apply_jev_series_decision(classification, decision)
+                    trace.update(repair_trace)
+                    trace.update(jev_status="success", jev_latency_ms=decision.get("latency_ms"))
+                except Exception as exc:
+                    trace.update(jev_status="error", jev_fallback_used=True, error=str(exc))
+            elif self.jev.settings.enabled:
+                trace["jev_fallback_used"] = True
+            classification["_jev_trace"] = trace
             terms = self._classification_terms(classification)
             expanded = " ".join([query, *terms]).strip()
             return expanded, {"status": "success", **classification}
@@ -313,8 +344,9 @@ class StatBridgeAgent:
                 dictionary_query, classification = self._classify(effective_query)
                 result["state"]["original_query"] = dictionary_query
             elif preflight.get("status") == "no_match" and preflight.get("missing_series"):
-                # 명시한 지표가 신뢰 사전에 없으면 HCX/벡터 유사도로 다른
-                # 통계(예: 기준금리 -> 대출금리)를 대신 선택하지 않는다.
+                # An explicitly named metric that is absent from the trusted
+                # dictionary must not be replaced by HCX/vector similarity with
+                # a different statistic (for example 기준금리 -> 대출금리).
                 dictionary_query, classification = self._classify(effective_query)
                 result = preflight
                 result["state"]["original_query"] = dictionary_query
@@ -325,6 +357,14 @@ class StatBridgeAgent:
                 if deterministic_fast:
                     dictionary_query=effective_query
                     classification={"status":"deterministic_fast_path","normalized_query":effective_query,"series":[]}
+                    if self.jev.settings.enabled:
+                        classification["_jev_trace"] = {
+                            "jev_enabled": True, "jev_model": self.jev.settings.model,
+                            "jev_status": "skipped_deterministic_fast_path", "jev_latency_ms": 0,
+                            "jev_series_count": None, "jev_probability": None,
+                            "hcx_series_count_before": 0, "final_series_count": 0,
+                            "series_action": "kept", "jev_fallback_used": False,
+                        }
                 else:
                     dictionary_query, classification = self._classify(effective_query)
                 comparison = self._resolve_comparison(classification, dictionary_query)
@@ -341,6 +381,13 @@ class StatBridgeAgent:
                         result["retrieval_confident"] = self.hybrid.confident(hybrid_candidates)
 
         confirmed_choices = dict((result.get("state") or {}).get("confirmed") or (state or {}).get("confirmed") or {})
+        # Explicit UI choices are hard constraints. HCX may suggest speculative
+        # comparison series for the original broad question, but those must not
+        # replace the table selected by the user's clarification buttons.
+        if not confirmed_choices and result.get("status") == "resolved" and not result.get("api_plans"):
+            comparison = self._resolve_comparison(classification, dictionary_query)
+            if comparison:
+                result = comparison
 
         if prior_user_query and result.get("status") != "need_clarification":
             followup_series=self.resolver.rank_followup(prior_user_query,query,top_k=12)
@@ -355,9 +402,9 @@ class StatBridgeAgent:
                     "state":{"original_query":dictionary_query,"confirmed":{},"asked_clarifications":[],"status":"resolved"},
                 }
 
-        # HCX series has already been handled once in the initial classification
-        # branch above. This is only the deterministic fallback for unavailable or
-        # empty HCX series, and confirmed UI choices always bypass it.
+        # Deterministic comparison fallback: when HCX is unavailable or does not emit
+        # series, split only explicitly expressed concepts and select IDs from the
+        # dictionary. This never manufactures table/item/dimension identifiers.
         if not confirmed_choices and result.get("status") == "resolved" and not result.get("api_plans"):
             series = self.resolver.rank_many(dictionary_query, top_k=12)
             if len(series) >= 2:
@@ -402,12 +449,33 @@ class StatBridgeAgent:
         end_period: str | None = None,
         period_overrides: dict[str, tuple[str, str]] | None = None,
         generate_answer: bool = True,
+        output_request: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
-        resolution = self.resolve(query=query, state=state, clarification=clarification)
-        if resolution.get("status") != "resolved":
-            return resolution
+        return self.workflow.invoke(
+            query=query,
+            conversation_state=state,
+            clarification=clarification,
+            execute=execute,
+            start_period=start_period,
+            end_period=end_period,
+            period_overrides=period_overrides,
+            generate_answer=generate_answer,
+            output_request=output_request,
+        )
 
-        return self.execute_resolution(
+    def run_resolution(
+        self,
+        query: str,
+        resolution: dict[str, Any],
+        execute: bool = True,
+        start_period: str | None = None,
+        end_period: str | None = None,
+        period_overrides: dict[str, tuple[str, str]] | None = None,
+        generate_answer: bool = True,
+        output_request: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        """Resume orchestration from a previously resolved, user-confirmed plan."""
+        return self.workflow.invoke(
             query=query,
             resolution=resolution,
             execute=execute,
@@ -415,6 +483,7 @@ class StatBridgeAgent:
             end_period=end_period,
             period_overrides=period_overrides,
             generate_answer=generate_answer,
+            output_request=output_request,
         )
 
     def execute_resolution(
@@ -454,14 +523,13 @@ class StatBridgeAgent:
                     allow_fallback=False,
                 )
                 if data.get("status") != "success":
-                    errors = "; ".join(str(item.get("error") or item.get("message") or item)
-                                       for item in data.get("errors") or [])
-                    raise RuntimeError(f"{plan['table_id']} 수치 조회 실패: {errors or data.get('status', 'unknown')}")
+                    errors = data.get("errors") or []
+                    detail = "; ".join(str(item.get("error") or item) for item in errors if item)
+                    raise RuntimeError(detail or f"{plan['table_name']} 수치 데이터를 가져오지 못했습니다.")
                 label = str(plan.get("series_label") or plan["table_name"])
                 for row in data.get("rows") or []:
                     enriched=dict(row); enriched["_SERIES_LABEL"] = label; all_rows.append(enriched)
-                sources.append({"table_id": plan["table_id"], "source": data.get("source"),
-                                "row_count": len(data.get("rows") or [])})
+                sources.append({"table_id": plan["table_id"], "source": data.get("source"), "row_count": len(data.get("rows") or [])})
             execution = {"status": "success", "rows": all_rows, "row_count": len(all_rows), "sources": sources}
             answer = ""
             if generate_answer and os.getenv("STATBRIDGE_GENERATE_NARRATIVE", "1").lower() in {"1", "true", "on"}:
@@ -482,3 +550,7 @@ class StatBridgeAgent:
                     "row_count": 0,
                 },
             }
+
+    def render_output(self, result: dict[str, Any], output_request: dict[str, Any]) -> dict[str, Any]:
+        """Resume the same LangGraph at the output boundary without re-running MCP."""
+        return self.workflow.invoke_output(result=result, output_request=output_request)

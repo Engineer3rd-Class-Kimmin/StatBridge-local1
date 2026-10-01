@@ -1,0 +1,348 @@
+﻿OBJ_NM_ENG,ITM_NM_ENG,ITM_ID,TBL_ID,OBJ_NM,ITM_NM,ORG_ID,OBJ_ID,ORG_ID_BASE,TBL_ID_BASE
+Item code list,Economic Sentiment Index,13103134473999,DT_513Y001,항목,경제심리지수,301,ITEM,301,DT_513Y001
+Item code list,International Investment Position,13103134486999,DT_311Y001,항목,국제투자대조표(IIP),301,ITEM,301,DT_311Y001
+Item code list,IIP for Nations,13103134564999,DT_311Y002,항목,지역별 국제투자대조표,301,ITEM,301,DT_311Y002
+Item code list,IIP for Currencies,13103134524999,DT_311Y003,항목,통화별 국제투자대조표,301,ITEM,301,DT_311Y003
+Item code list,Demand for loans,13103134487999,DT_514Y003,항목,대출행태서베이(대출수요),301,ITEM,301,DT_514Y003
+Item code list,Lending attitude,13103134672999,DT_514Y001,항목,대출행태서베이(대출태도),301,ITEM,301,DT_514Y001
+Item code list,Credit risks,13103134565999,DT_514Y002,항목,대출행태서베이(신용위험),301,ITEM,301,DT_514Y002
+Item code list,Indicators concerning Growth(11th revised KSIC 2009~ complete enumeration),13103134632999,DT_501Y005,항목,성장성 지표(제11차 한국표준산업분류 2009~),301,ITEM,301,DT_501Y005
+Item code list,Indicators concerning Growth(Framework Act on SMEs 2015~2016 complete enumeration),13103134569999,DT_501Y019,항목,성장성 지표(중소기업기본법 2015~2016),301,ITEM,301,DT_501Y019
+Item code list,Relationship Ratios of Income and Expenses(11th revised KSIC 2009~ complete enumeration),13103134573999,DT_501Y006,항목,손익 지표(제11차 한국표준산업분류 2009~),301,ITEM,301,DT_501Y006
+Item code list,Relationship Ratios of Income and Expenses(Framework Act on SMEs 2015~2016 complete enumeration),13103134674999,DT_501Y024,항목,수익성 지표(중소기업기본법 2015~2016),301,ITEM,301,DT_501Y024
+Item code list,Relationship Ratios of Assets Liabilities and Stockholder's Equity(11th revised KSIC 2009~ complete enumeration),13103134678999,DT_501Y007,항목,자산/자본 지표(제11차 한국표준산업분류 2009~),301,ITEM,301,DT_501Y007
+Item code list,Relationship Ratios of Assets Liabilities and Stockholder's Equity(Framework Act on SMEs 2015~2016 complete enumeration),13103134717999,DT_501Y029,항목,자산/자본 지표(중소기업기본법 2015~2016),301,ITEM,301,DT_501Y029
+Item code list,Turnover Ratios of Assets Liabilities and Stockholder's Equity(11th revised KSIC 2009~ complete enumeration),13103134718999,DT_501Y008,항목,자산/자본 회전율(제11차 한국표준산업분류 2009~),301,ITEM,301,DT_501Y008
+Item code list,Turnover Ratios of Assets Liabilities and Stockholder's Equity(Framework Act on SMEs 2015~2016 complete enumeration),13103134526999,DT_501Y034,항목,자산/자본 회전율(중소기업기본법 2015~2016),301,ITEM,301,DT_501Y034
+Item code list,Indicators concerning Productivity(11th revised KSIC 2009~ complete enumeration),13103134679999,DT_501Y009,항목,생산성 지표(제11차 한국표준산업분류 2009~),301,ITEM,301,DT_501Y009
+Item code list,Indicators concerning Productivity(Framework Act on SMEs 2015~2016 complete enumeration),13103134571999,DT_501Y039,항목,생산성 지표(중소기업기본법 2015~2016),301,ITEM,301,DT_501Y039
+Item code list,FSA Quartiles Statistics(11th revised KSIC 2013~ complete enumeration),13103136024999,DT_501Y086,항목,분위수(제11차 한국표준산업분류 2013~),301,ITEM,301,DT_501Y086
+Item code list,Balance Sheet(11th revised KSIC 2009~ complete enumeration),13103134531999,DT_501Y001,항목,재무상태표(제11차 한국표준산업분류 2009~),301,ITEM,301,DT_501Y001
+Item code list,Balance Sheet(Framework Act on SMEs 2015~2016 complete enumeration),13103134532999,DT_501Y049,항목,재무상태표(중소기업기본법 2015~2016),301,ITEM,301,DT_501Y049
+Item code list,Income Statement(11th revised KSIC 2009~ complete enumeration),13103134633999,DT_501Y002,항목,손익계산서(제11차 한국표준산업분류 2009~),301,ITEM,301,DT_501Y002
+Item code list,Income Statement(Framework Act on SMEs 2015~2016 complete enumeration),13103134758999,DT_501Y056,항목,손익계산서(중소기업기본법 2015~2016),301,ITEM,301,DT_501Y056
+Item code list,Statement of Cost of Goods Manufactured(11th revised KSIC 2009~ complete enumeration),13103134497999,DT_501Y003,항목,제조원가명세서(제11차 한국표준산업분류 2009~),301,ITEM,301,DT_501Y003
+Item code list,Statement of Cost of Goods Manufactured(Framework Act on SMEs 2015~2016 complete enumeration),13103134493999,DT_501Y063,항목,제조원가명세서(중소기업기본법 2015~2016),301,ITEM,301,DT_501Y063
+Item code list,Statement of Appropriation of Retained Earnings(11th revised KSIC 2009~ complete enumeration),13103134572999,DT_501Y004,항목,이익잉여금 처분계산서(제11차 한국표준산업분류 2009~),301,ITEM,301,DT_501Y004
+Item code list,Statement of Appropriation of Retained Earnings(Framework Act on SMEs 2015~2016 complete enumeration),13103134535999,DT_501Y068,항목,이익잉여금 처분계산서(중소기업기본법 2015~2016),301,ITEM,301,DT_501Y068
+Item code list,Composition of Gross Value Added(11th revised KSIC 2009~ complete enumeration),13103134602999,DT_501Y010,항목,부가가치 구성(제11차 한국표준산업분류 2009~),301,ITEM,301,DT_501Y010
+Item code list,Composition of Gross Value Added(Framework Act on SMEs 2015~2016 complete enumeration),13103134683999,DT_501Y073,항목,부가가치 구성(중소기업기본법 2015~2016),301,ITEM,301,DT_501Y073
+Item code list,Statement of Cash Flow(2012~),13103134685999,DT_501Y013,항목,현금흐름표(2012~),301,ITEM,301,DT_501Y013
+Item code list,Other Major Financial Items(2012~),13103134725999,DT_501Y014,항목,현금흐름관련 기타 주요 재무항목(2012~),301,ITEM,301,DT_501Y014
+Item code list,Cash Flow Ratios(2012~),13103134762999,DT_501Y015,항목,현금흐름비율(2012~),301,ITEM,301,DT_501Y015
+Item code list,External Assets,13103134763999,DT_311Y005,항목,대외채권,301,ITEM,301,DT_311Y005
+Item code list,External Debt,13103134499999,DT_311Y004,항목,대외채무,301,ITEM,301,DT_311Y004
+Item code list,Net External Assets,13103134539999,DT_311Y006,항목,순대외채권,301,ITEM,301,DT_311Y006
+Item code list,Domestic Supply Price Indices (2020＝100),13103134640999,DT_405Y006,항목,국내공급물가지수,301,ITEM,301,DT_405Y006
+Item code list,Producer Price Indices  (Basic Groups),13103134604999,DT_404Y014,항목,생산자물가지수(기본분류),301,ITEM,301,DT_404Y014
+Item code list,Producer Price Indices  (Special Groups),13103134727999,DT_404Y015,항목,생산자물가지수(특수분류),301,ITEM,301,DT_404Y015
+Item code list,Producer Price Indices  (Item Groups),13103134764999,DT_404Y016,항목,생산자물가지수(품목별),301,ITEM,301,DT_404Y016
+Item code list,Producer Price Index(All 1910~1964),13103134500999,DT_404Y017,항목,생산자물가지수-총지수(1910~1964),301,ITEM,301,DT_404Y017
+Item code list,Total Output Price Indices (2020＝100),13103134577999,DT_405Y007,항목,총산출물가지수,301,ITEM,301,DT_405Y007
+Item code list,Consumer Tendency Survey(Expected Inflation)(National),13103134728999,DT_511Y003,항목,기대인플레이션율(전국 월),301,ITEM,301,DT_511Y003
+Item code list,Consumer Survey Index(BOK National)(Quarterly)(1995.3/4~2008.2/4),13103134540999,DT_511Y001,항목,소비자동향조사(전국 분기 1995.3/4~2008.2/4),301,ITEM,301,DT_511Y001
+Item code list,Consumer Tendency Survey(BOK National)(Monthly)(2008.9~),13103134688999,DT_511Y002,항목,소비자동향조사(전국 월 2008.9~),301,ITEM,301,DT_511Y002
+Item code list,Consumer Tendency Survey(BOK Regional)(Monthly),13103134641999,DT_511Y004,항목,소비자동향조사(지역 월),301,ITEM,301,DT_511Y004
+Item code list,Other Payment Systems,13103134691999,DT_605Y012,항목,금융공동망,301,ITEM,301,DT_605Y012
+Item code list,Credit Cards,13103134583999,DT_601Y003,항목,신용카드,301,ITEM,301,DT_601Y003
+Item code list,Check Clearing System,13103134545999,DT_801Y002,항목,어음교환 및 부도,301,ITEM,301,DT_801Y002
+Item code list,Bank Giro,13103134505999,DT_604Y003,항목,지로시스템,301,ITEM,301,DT_604Y003
+Item code list,Dishonored Ratios by Province,13103134767999,DT_801Y003,항목,지역별 어음부도율,301,ITEM,301,DT_801Y003
+Item code list,BOK-Wire,13103134735999,DT_606Y002,항목,한은금융망,301,ITEM,301,DT_606Y002
+Item code list,Current Account(S.A.),13103134664999,DT_301Y017,항목,경상수지(계절조정),301,ITEM,301,DT_301Y017
+Item code list,Balance of Payments,13103134519999,DT_301Y013,항목,국제수지,301,ITEM,301,DT_301Y013
+Item code list,EBOPS,13103134560999,DT_301Y014,항목,서비스무역세분류통계,301,ITEM,301,DT_301Y014
+Item code list,Regional Current Account,13103134752999,DT_301Y015,항목,지역별 경상수지,301,ITEM,301,DT_301Y015
+Item code list,Regional Capital ＆ Financial Account,13103134709999,DT_301Y016,항목,지역별 자본수지/금융계정,301,ITEM,301,DT_301Y016
+Item code list,National Tendency,13103134673999,DT_512Y013,항목,기업경기조사(실적),301,ITEM,301,DT_512Y013
+Item code list,National Future Tendency,13103134488999,DT_512Y014,항목,기업경기조사(전망),301,ITEM,301,DT_512Y014
+Item code list,(size weighted)National Tendency,13103134712999,DT_512Y015,항목,기업경기조사(매출액가중 실적),301,ITEM,301,DT_512Y015
+Item code list,(size weighted)National Future Tendency,13103134489999,DT_512Y016,항목,기업경기조사(매출액가중 전망),301,ITEM,301,DT_512Y016
+Item code list,(discontinued series)National Tendency,13103134490999,DT_512Y017,항목,기업경기실사지수((구)실적(~2012.6)),301,ITEM,301,DT_512Y017
+Item code list,(discontinued series)National Future Tendency,13103134599999,DT_512Y018,항목,기업경기실사지수((구)전망(~2012.7)),301,ITEM,301,DT_512Y018
+Item code list,National Tendency(2009.8~),13103134491999,DT_512Y007,항목,업종별 기업경기실사지수 2009.8~(실적),301,ITEM,301,DT_512Y007
+Item code list,National Future Tendency(2009.9~),13103134566999,DT_512Y008,항목,업종별 기업경기실사지수 2009.9~(전망),301,ITEM,301,DT_512Y008
+Item code list,National Tendency(2009.8~),13103134567999,DT_512Y001,항목,업종별 기업경기실사지수 ~2009.8(실적),301,ITEM,301,DT_512Y001
+Item code list,National Future Tendency(2009.9~),13103134600999,DT_512Y002,항목,업종별 기업경기실사지수 ~2009.8(전망),301,ITEM,301,DT_512Y002
+Item code list,operational difficulties,13103135843999,DT_512Y021,항목,경영애로사항,301,ITEM,301,DT_512Y021
+Item code list,Tendency(Regional)(2013.1~),13103134492999,DT_512Y019,항목,지역별 기업경기조사(실적(2013.1~)),301,ITEM,301,DT_512Y019
+Item code list,Future Tendency(Regional)(2013.2~),13103134713999,DT_512Y020,항목,지역별 기업경기조사(전망(2013.2~)),301,ITEM,301,DT_512Y020
+Item code list,Tendency(Regional)(~2012.12),13103134714999,DT_512Y011,항목,지역별 기업경기실사지수(실적(~2012.12)),301,ITEM,301,DT_512Y011
+Item code list,Future Tendency(Regional)(~2013.1),13103134568999,DT_512Y012,항목,지역별 기업경기실사지수(전망(~2013.1)),301,ITEM,301,DT_512Y012
+Item code list,Indicators concerning Growth(The Restriction of Special Taxation Act 2009~2014 complete enumeration),13103134629999,DT_501Y020,항목,성장성 지표(조세특례제한법 2009~2014),301,ITEM,301,DT_501Y020
+Item code list,Relationship Ratios of Income and Expenses(The Restriction of Special Taxation Act 2009~2014 complete enumeration),13103134495999,DT_501Y025,항목,수익성 지표(조세특례제한법 2009~2014),301,ITEM,301,DT_501Y025
+Item code list,Relationship Ratios of Assets Liabilities and Stockholder's Equity(The Restriction of Special Taxation Act 2009~2014 complete enumeration),13103134755999,DT_501Y030,항목,자산/자본 지표(조세특례제한법 2009~2014),301,ITEM,301,DT_501Y030
+Item code list,Turnover Ratios of Assets Liabilities and Stockholder's Equity(The Restriction of Special Taxation Act 2009~2014 complete enumeration),13103134527999,DT_501Y035,항목,자산/자본 회전율(조세특례제한법 2009~2014),301,ITEM,301,DT_501Y035
+Item code list,Composition of Gross Value Added(The Restriction of Special Taxation Act 2009~2014 complete enumeration),13103134498999,DT_501Y074,항목,부가가치 구성(조세특례제한법 2009~2014),301,ITEM,301,DT_501Y074
+Item code list,Balance Sheet(The Restriction of Special Taxation Act 2009~2014 complete enumeration),13103134719999,DT_501Y050,항목,재무상태표(조세특례제한법 2009~2014),301,ITEM,301,DT_501Y050
+Item code list,Income Statement(The Restriction of Special Taxation Act 2009~2014 complete enumeration),13103134635999,DT_501Y057,항목,손익계산서(조세특례제한법 2009~2014),301,ITEM,301,DT_501Y057
+Item code list,Statement of Cost of Goods Manufactured(The Restriction of Special Taxation Act 2009~2014 complete enumeration),13103134682999,DT_501Y064,항목,제조원가명세서(조세특례제한법 2009~2014),301,ITEM,301,DT_501Y064
+Item code list,Statement of Appropriation of Retained Earnings(The Restriction of Special Taxation Act 2009~2014 complete enumeration),13103134638999,DT_501Y069,항목,이익잉여금 처분계산서(조세특례제한법 2009~2014),301,ITEM,301,DT_501Y069
+Item code list,Indicators concerning Productivity(The Restriction of Special Taxation Act 2009~2014 complete enumeration),13103134496999,DT_501Y040,항목,생산성 지표(조세특례제한법 2009~2014),301,ITEM,301,DT_501Y040
+Item code list,Indicators of Financial Statement Analysis(2007~2010),13103134715999,DT_501Y017,항목,기업경영분석지표(2007~2010),301,ITEM,301,DT_501Y017
+Item code list,Indicators concerning Growth(2007~2010 sample survey),13103134753999,DT_501Y021,항목,성장성 지표(2007~2010 표본조사),301,ITEM,301,DT_501Y021
+Item code list,Relationship Ratios of Income and Expenses(2007~2010 sample survey),13103134570999,DT_501Y026,항목,수익성 지표(2007~2010 표본조사),301,ITEM,301,DT_501Y026
+Item code list,Relationship Ratios of Assets Liabilities and Stockholder's Equity(2007~2010 sample survey),13103134675999,DT_501Y031,항목,자산/자본 지표(2007~2010 표본조사),301,ITEM,301,DT_501Y031
+Item code list,Turnover Ratios of Assets Liabilities and Stockholder's Equity(2007~2010 sample survey),13103134528999,DT_501Y036,항목,자산/자본 회전율(2007~2010 표본조사),301,ITEM,301,DT_501Y036
+Item code list,Indicators concerning Productivity(2007~2010 sample survey),13103134756999,DT_501Y041,항목,생산성 지표(2007~2010 표본조사),301,ITEM,301,DT_501Y041
+Item code list,Composition of Gross Value Added(2007~2010 sample survey),13103134759999,DT_501Y075,항목,부가가치 구성(2007~2010 표본조사),301,ITEM,301,DT_501Y075
+Item code list,Balance Sheet(2008~2010 sample survey),13103134720999,DT_501Y051,항목,재무상태표(2008~2010 표본조사),301,ITEM,301,DT_501Y051
+Item code list,Income Statement(2008~2010 sample survey),13103134681999,DT_501Y058,항목,손익계산서(2008~2010 표본조사),301,ITEM,301,DT_501Y058
+Item code list,Statement of Cost of Goods Manufactured(2007~2010 sample survey),13103134637999,DT_501Y065,항목,제조원가명세서(2007~2010 표본조사),301,ITEM,301,DT_501Y065
+Item code list,Statement of Appropriation of Retained Earnings(2007~2010 sample survey),13103134536999,DT_501Y070,항목,이익잉여금 처분계산서(2007~2010 표본조사),301,ITEM,301,DT_501Y070
+Item code list,Statement of Cash Flow(2008~2011),13103134760999,DT_501Y079,항목,현금흐름표(2008~2011),301,ITEM,301,DT_501Y079
+Item code list,Other Major Financial Items(2008~2011),13103134761999,DT_501Y081,항목,현금흐름관련 기타 주요 재무항목(2008~2011),301,ITEM,301,DT_501Y081
+Item code list,Cash Flow Ratios(2008~2011),13103134726999,DT_501Y083,항목,현금흐름비율(2008~2011),301,ITEM,301,DT_501Y083
+Item code list,Indicators of Financial Statement Analysis(~2007),13103134628999,DT_501Y018,항목,기업경영분석지표(~2007),301,ITEM,301,DT_501Y018
+Item code list,Composition of Gross Value Added(1990~1997 sample survey),13103134537999,DT_501Y078,항목,부가가치 구성(1990~1997 표본조사),301,ITEM,301,DT_501Y078
+Item code list,Composition of Gross Value Added(1998~2006 sample survey),13103134684999,DT_501Y077,항목,부가가치 구성(1998~2006 표본조사),301,ITEM,301,DT_501Y077
+Item code list,Composition of Gross Value Added(2002~2007 sample survey),13103134639999,DT_501Y076,항목,부가가치 구성(2002~2007 표본조사),301,ITEM,301,DT_501Y076
+Item code list,Indicators concerning Productivity(1990~1997 sample survey),13103134677999,DT_501Y044,항목,생산성 지표(1990~1997 표본조사),301,ITEM,301,DT_501Y044
+Item code list,Indicators concerning Productivity(1998~2006 sample survey),13103134757999,DT_501Y043,항목,생산성 지표(1998~2006 표본조사),301,ITEM,301,DT_501Y043
+Item code list,Indicators concerning Productivity(2002~2007 sample survey),13103134676999,DT_501Y042,항목,생산성 지표(2002~2007 표본조사),301,ITEM,301,DT_501Y042
+Item code list,Indicators concerning Growth(1990~1997 sample survey),13103134630999,DT_501Y023,항목,성장성 지표(1990~1997 표본조사),301,ITEM,301,DT_501Y023
+Item code list,Indicators concerning Growth(1998~2007 sample survey),13103134601999,DT_501Y022,항목,성장성 지표(1998~2007 표본조사),301,ITEM,301,DT_501Y022
+Item code list,Relationship Ratios of Income and Expenses(1990~1997 sample survey),13103134716999,DT_501Y028,항목,수익성 지표(1990~1997 표본조사),301,ITEM,301,DT_501Y028
+Item code list,Relationship Ratios of Income and Expenses(1998~2007 sample survey),13103134754999,DT_501Y027,항목,수익성 지표(1998~2007 표본조사),301,ITEM,301,DT_501Y027
+Item code list,Income Statement(1990~1996 sample survey),13103134603999,DT_501Y062,항목,손익계산서(1990~1996 표본조사),301,ITEM,301,DT_501Y062
+Item code list,Income Statement(1997~1998 sample survey),13103134636999,DT_501Y061,항목,손익계산서(1997~1998 표본조사),301,ITEM,301,DT_501Y061
+Item code list,Income Statement(2000~2007 sample survey),13103134721999,DT_501Y059,항목,손익계산서(2000~2007 표본조사),301,ITEM,301,DT_501Y059
+Item code list,Statement of Appropriation of Retained Earnings(1990~1999 sample survey),13103134724999,DT_501Y072,항목,이익잉여금 처분계산서(1990~1999 표본조사),301,ITEM,301,DT_501Y072
+Item code list,Statement of Appropriation of Retained Earnings(2000~2007 sample survey),13103134723999,DT_501Y071,항목,이익잉여금 처분계산서(2000~2007 표본조사),301,ITEM,301,DT_501Y071
+Item code list,Relationship Ratios of Assets Liabilities and Stockholder's Equity(1990~1997 sample survey),13103134525999,DT_501Y033,항목,자산/자본 지표(1990~1997 표본조사),301,ITEM,301,DT_501Y033
+Item code list,Relationship Ratios of Assets Liabilities and Stockholder's Equity(1998~2007 sample survey),13103134631999,DT_501Y032,항목,자산/자본 지표(1998~2007 표본조사),301,ITEM,301,DT_501Y032
+Item code list,Turnover Ratios of Assets Liabilities and Stockholder's Equity(1990~1997 sample survey),13103134530999,DT_501Y038,항목,자산/자본 회전율(1990~1997 표본조사),301,ITEM,301,DT_501Y038
+Item code list,Turnover Ratios of Assets Liabilities and Stockholder's Equity(1998~2007 sample survey),13103134529999,DT_501Y037,항목,자산/자본 회전율(1998~2007 표본조사),301,ITEM,301,DT_501Y037
+Item code list,Balance Sheet(1990~1996 sample survey),13103134534999,DT_501Y055,항목,재무상태표(1990~1996 표본조사),301,ITEM,301,DT_501Y055
+Item code list,Balance Sheet(1997~1998 sample survey),13103134533999,DT_501Y054,항목,재무상태표(1997~1998 표본조사),301,ITEM,301,DT_501Y054
+Item code list,Balance Sheet(2000~2007 sample survey),13103134680999,DT_501Y052,항목,재무상태표(2000~2007 표본조사),301,ITEM,301,DT_501Y052
+Item code list,Statement of Cost of Goods Manufactured(1990~1999 sample survey),13103134575999,DT_501Y067,항목,제조원가명세서(1990~1999 표본조사),301,ITEM,301,DT_501Y067
+Item code list,Statement of Cost of Goods Manufactured(2000~2007 sample survey),13103134574999,DT_501Y066,항목,제조원가명세서(2000~2007 표본조사),301,ITEM,301,DT_501Y066
+Item code list,Other Major Financial Items(1995~2007),13103134687999,DT_501Y082,항목,현금흐름관련 기타 주요 재무항목(1995~2007),301,ITEM,301,DT_501Y082
+Item code list,Cash Flow Ratios(1995~2007),13103134576999,DT_501Y084,항목,현금흐름비율(1995~2007),301,ITEM,301,DT_501Y084
+Item code list,Statement of Cash Flow(1995~2007),13103134686999,DT_501Y080,항목,현금흐름표(1995~2007),301,ITEM,301,DT_501Y080
+Item code list,Balance Sheet(1999 sample survey),13103134634999,DT_501Y053,항목,재무상태표(1999 표본조사),301,ITEM,301,DT_501Y053
+Item code list,Income Statement(1999 sample survey),13103134722999,DT_501Y060,항목,손익계산서(1999 표본조사),301,ITEM,301,DT_501Y060
+Item code list,Import Price Indices(Basic Groups),13103134643999,DT_401Y015,항목,수입물가지수(기본분류),301,ITEM,301,DT_401Y015
+Item code list,Import Price Indices(Group by use),13103134729999,DT_401Y018,항목,수입물가지수(용도별),301,ITEM,301,DT_401Y018
+Item code list,Import Prices Indices(Special Groups),13103134482999,DT_401Y016,항목,수입물가지수(특수분류),301,ITEM,301,DT_401Y016
+Item code list,Import Price Indices(Item Groups),13103134644999,DT_401Y017,항목,수입물가지수(품목별),301,ITEM,301,DT_401Y017
+Item code list,Export Price Indices (Basic Groups),13103134642999,DT_402Y014,항목,수출물가지수(기본분류),301,ITEM,301,DT_402Y014
+Item code list,Export Price Indices(Special groups),13103134541999,DT_402Y015,항목,수출물가지수(특수분류),301,ITEM,301,DT_402Y015
+Item code list,Export Prices Indices(Item Groups),13103134578999,DT_402Y016,항목,수출물가지수(품목별),301,ITEM,301,DT_402Y016
+Item code list,Terms of Trade Indices,13103134627999,DT_403Y005,항목,교역조건지수,301,ITEM,301,DT_403Y005
+Item code list,Import value Indices,13103134563999,DT_403Y003,항목,수입금액지수,301,ITEM,301,DT_403Y003
+Item code list,Import volume Indices,13103134626999,DT_403Y004,항목,수입물량지수,301,ITEM,301,DT_403Y004
+Item code list,Export Value Indices,13103134671999,DT_403Y001,항목,수출금액지수,301,ITEM,301,DT_403Y001
+Item code list,Export Volume Indices,13103134523999,DT_403Y002,항목,수출물량지수,301,ITEM,301,DT_403Y002
+Item code list,Financial Transaction(2009~),13103134730999,DT_281Y001,항목,금융거래표(2009~),301,ITEM,301,DT_281Y001
+Item code list,Financial Assets and Liabilities Outstanding(2008~),13103134605999,DT_281Y002,항목,금융자산부채잔액표(2008~),301,ITEM,301,DT_281Y002
+Item code list,Financial Transaction(2003~2013),13103134501999,DT_281Y006,항목,금융거래표(2003~2013),301,ITEM,301,DT_281Y006
+Item code list,Financial Assets and Liabilities Outstanding(2002~2013),13103134689999,DT_281Y007,항목,금융자산부채잔액표(2002~),301,ITEM,301,DT_281Y007
+Item code list,Financial Transactions (1975~2005),13103134502999,DT_281Y004,항목,금융거래표(1975~2005),301,ITEM,301,DT_281Y004
+Item code list,Financial Assets and Liabilities Outstanding (1975~2005),13103134609999,DT_281Y005,항목,금융자산부채잔액표(1975~2005),301,ITEM,301,DT_281Y005
+Item code list,Escrow,13103134649999,DT_633Y003,항목,결제대금예치,301,ITEM,301,DT_633Y003
+Item code list,Electronic Pre-paid Payment Instruments,13103134506999,DT_633Y004,항목,선불전자지급수단,301,ITEM,301,DT_633Y004
+Item code list,Electronic Bill Presentment and Payment(EBPP),13103134584999,DT_633Y005,항목,전자고지결제,301,ITEM,301,DT_633Y005
+Item code list,Payment Gateway(PG),13103134692999,DT_633Y002,항목,전자지급결제대행,301,ITEM,301,DT_633Y002
+Item code list,Electronic Debit Payment Instruments,13103134547999,DT_633Y006,항목,직불전자지급수단,301,ITEM,301,DT_633Y006
+Item code list,Statistics by Payment System,13103134648999,DT_602Y001,항목,결제시스템별 통계,301,ITEM,301,DT_602Y001
+Item code list,Statistics by Payment Instrument,13103134546999,DT_602Y002,항목,지급수단별 통계,301,ITEM,301,DT_602Y002
+Item code list,Daily Trends of Payments and Settlement,13103134582999,DT_603Y010,항목,지급결제동향,301,ITEM,301,DT_603Y010
+Item code list,Payments through BOK-Wire,13103134768999,DT_603Y001,항목,한은금융망결제통계표,301,ITEM,301,DT_603Y001
+Item code list,Loans and Discounts in Won of the BOK(End of),13103134702999,DT_641Y001,항목,한국은행 원화대출금,301,ITEM,301,DT_641Y001
+Item code list,Main Accounts of the Bank of Korea(End of),13103134613999,DT_103Y002,항목,한국은행 주요계정(말잔),301,ITEM,301,DT_103Y002
+Item code list,Main Annual Indicators (reference year 2020),13103136288999,DT_200Y101,항목,주요지표(연간지표),301,ITEM,301,DT_200Y101
+Item code list,Main Quarterly Indicators  (reference year 2020),13103136269999,DT_200Y102,항목,주요지표(분기지표),301,ITEM,301,DT_200Y102
+Item code list,GDP and GNI by Economic Activities (seasonally adjusted current prices quarterly),13103136258999,DT_200Y103,항목,경제활동별 GDP 및 GNI(계절조정 명목 분기),301,ITEM,301,DT_200Y103
+Item code list,GDP and GNI by Economic Activities (seasonally adjusted chained 2020 year prices quarterly),13103136259999,DT_200Y104,항목,경제활동별 GDP 및 GNI(계절조정 실질 분기),301,ITEM,301,DT_200Y104
+Item code list,GDP and GNI by Economic Activities (not seasonally adjusted current prices quarterly ＆ annual),13103136260999,DT_200Y105,항목,경제활동별 GDP 및 GNI(원계열 명목 분기 및 연간),301,ITEM,301,DT_200Y105
+Item code list,GDP and GNI by Economic Activities (not seasonally adjusted chained 2020 year prices quarterly ＆ annual),13103136275999,DT_200Y106,항목,경제활동별 GDP 및 GNI(원계열 실질 분기 및 연간),301,ITEM,301,DT_200Y106
+Item code list,Expenditures on GDP (seasonally adjusted current prices quarterly),13103136276999,DT_200Y107,항목,국내총생산에 대한 지출(계절조정 명목 분기),301,ITEM,301,DT_200Y107
+Item code list,Expenditures on GDP (seasonally adjusted chained 2020 year prices quarterly),13103136297999,DT_200Y108,항목,국내총생산에 대한 지출(계절조정 실질 분기),301,ITEM,301,DT_200Y108
+Item code list,Expenditures on GDP (not seasonally adjusted current prices quarterly ＆ annual),13103136270999,DT_200Y109,항목,국내총생산에 대한 지출(원계열 명목 분기 및 연간),301,ITEM,301,DT_200Y109
+Item code list,Expenditures on GDP (not seasonally adjusted chained 2020 year prices quarterly ＆ annual),13103136261999,DT_200Y110,항목,국내총생산에 대한 지출(원계열 실질 분기 및 연간),301,ITEM,301,DT_200Y110
+Item code list,Nominal GDP by components of value added(seasonally adjusted current prices quarterly),13103844574999,DT_200Y160,항목,부가가치 항목별 명목 GDP(계절조정 명목 분기),301,ITEM,301,DT_200Y160
+Item code list,Nominal GDP by components of value added(not seasonally adjusted current prices quarterly and annual),13103844573999,DT_200Y161,항목,부가가치 항목별 명목 GDP(원계열 명목 분기 및 연간),301,ITEM,301,DT_200Y161
+Item code list,GDP Deflator by Economic Activities (not seasonally adjusted quarterly ＆ annual),13103136277999,DT_200Y111,항목,경제활동별 국내총생산 디플레이터(분기 및 연간),301,ITEM,301,DT_200Y111
+Item code list,GDP Deflator by Expenditures on GDP (not seasonally adjusted quarterly ＆ annual),13103136282999,DT_200Y112,항목,국내총생산에 대한 지출 디플레이터(분기 및 연간),301,ITEM,301,DT_200Y112
+Item code list,Gross Domestic Product and Expenditure (current prices annual),13103136289999,DT_200Y113,항목,국내총생산과 지출(명목 연간),301,ITEM,301,DT_200Y113
+Item code list,Gross Value Added and Factor Income by Economic Activities (current prices annual),13103136298999,DT_200Y114,항목,경제활동별 국내총부가가치와 요소소득(명목 연간),301,ITEM,301,DT_200Y114
+Item code list,National Disposable Income and Its Appropriation (current prices annual),13103136290999,DT_200Y115,항목,국민처분가능소득과 처분(명목 연간),301,ITEM,301,DT_200Y115
+Item code list,National Income and National Disposable Income (current prices annual),13103136299999,DT_200Y116,항목,국민소득과 부문별 국민처분가능소득(명목 연간),301,ITEM,301,DT_200Y116
+Item code list,Capital Transactions (current prices annual),13103136291999,DT_200Y117,항목,자본거래(명목 연간),301,ITEM,301,DT_200Y117
+Item code list,Current Transactions (current prices annual),13103136292999,DT_200Y118,항목,경상거래(명목 연간),301,ITEM,301,DT_200Y118
+Item code list,Capital Transactions (current prices annual),13103136283999,DT_200Y119,항목,자본거래(명목 연간),301,ITEM,301,DT_200Y119
+Item code list,Production Accounts by Institutional Sectors (current prices annual),13103136262999,DT_200Y120,항목,제도부문별 생산계정(명목 연간),301,ITEM,301,DT_200Y120
+Item code list,Income Accounts by Institutional Sectors (current prices annual),13103136278999,DT_200Y121,항목,제도부문별 소득계정(명목 연간),301,ITEM,301,DT_200Y121
+Item code list,Income Accounts by Institutional Sectors(current prices quarterly),13103844575999,DT_200Y162,항목,제도부문별 소득계정(명목 분기),301,ITEM,301,DT_200Y162
+Item code list,Capital Accounts by Institutional Sectors (current prices annual),13103136279999,DT_200Y122,항목,제도부문별 자본계정(명목 연간),301,ITEM,301,DT_200Y122
+Item code list,Contributions to Real GDP Growth by Economic Activities (seasonally adjusted quarterly),13103136284999,DT_200Y123,항목,경제활동별 성장기여도(계절조정 실질 분기),301,ITEM,301,DT_200Y123
+Item code list,Contributions to Real GDP Growth by Economic Activities (not seasonally adjusted quarterly ＆ annual),13103136255999,DT_200Y124,항목,경제활동별 성장기여도(원계열 실질 분기 및 연간),301,ITEM,301,DT_200Y124
+Item code list,Contributions to Real GDP Growth by Expenditures (seasonally adjusted quarterly),13103136303999,DT_200Y125,항목,지출항목별 성장기여도(계절조정 실질 분기),301,ITEM,301,DT_200Y125
+Item code list,Contributions to Real GDP Growth by Expenditures (not seasonally adjusted quarterly ＆ annual),13103136256999,DT_200Y126,항목,지출항목별 성장기여도(원계열 실질 분기 및 연간),301,ITEM,301,DT_200Y126
+Item code list,Gross Capital Formation by Type of Capital Goods (seasonally adjusted current prices quarterly),13103136293999,DT_200Y127,항목,자본재형태별 총자본형성(계절조정 명목 분기),301,ITEM,301,DT_200Y127
+Item code list,Gross Capital Formation by Type of Capital Goods (seasonally adjusted chained 2020 year prices quarterly),13103136294999,DT_200Y128,항목,자본재형태별 총자본형성(계절조정 실질 분기),301,ITEM,301,DT_200Y128
+Item code list,Gross Capital Formation by Type of Capital Goods (not seasonally adjusted current prices quarterly ＆ annual),13103136271999,DT_200Y129,항목,자본재형태별 총자본형성(원계열 명목 분기 및 연간),301,ITEM,301,DT_200Y129
+Item code list,Gross Capital Formation by Type of Capital Goods (not seasonally adjusted chained 2020 year prices quarterly ＆ annual),13103136263999,DT_200Y130,항목,자본재형태별 총자본형성(원계열 실질 분기 및 연간),301,ITEM,301,DT_200Y130
+Item code list,Gross Capital Formation by Sectors (not seasonally adjusted current prices quarterly ＆ annual),13103136285999,DT_200Y131,항목,주체별 총자본형성(원계열 명목 분기 및 연간),301,ITEM,301,DT_200Y131
+Item code list,Gross Capital Formation by Sectors (not seasonally adjusted chained 2020 year prices quarterly ＆ annual),13103136264999,DT_200Y132,항목,주체별 총자본형성(원계열 실질 분기 및 연간),301,ITEM,301,DT_200Y132
+Item code list,Gross Fixed Capital Formation by Sectors (seasonally adjusted current prices quarterly),13103136257999,DT_200Y133,항목,주체별 총고정자본형성(계절조정 명목 분기),301,ITEM,301,DT_200Y133
+Item code list,Gross Fixed Capital Formation by Sectors (seasonally adjusted chained 2020 year prices quarterly),13103136304999,DT_200Y134,항목,주체별 총고정자본형성(계절조정 실질 분기),301,ITEM,301,DT_200Y134
+Item code list,Gross Fixed Capital Formation by Economic Activities (current prices annual),13103136935999,DT_200Y135,항목,경제활동별 총고정자본형성(명목 연간),301,ITEM,301,DT_200Y135
+Item code list,Gross Fixed Capital Formation by Economic Activities (chained 2020 year prices annual),13103136939999,DT_200Y136,항목,경제활동별 총고정자본형성(실질 연간),301,ITEM,301,DT_200Y136
+Item code list,Gross Fixed Capital Formation by Type and Economic Activities (current prices annual),13103136936999,DT_200Y137,항목,경제활동별 자본재형태별 총고정자본형성(명목 연간),301,ITEM,301,DT_200Y137
+Item code list,Facilities Investments by Economic Activities (current prices annual),13103136937999,DT_200Y138,항목,경제활동별 설비투자(명목 연간),301,ITEM,301,DT_200Y138
+Item code list,Facilities Investments by Economic Activities (chained 2020 year prices annual),13103136938999,DT_200Y139,항목,경제활동별 설비투자(실질 연간),301,ITEM,301,DT_200Y139
+Item code list,Final Consumption Expenditure of Resident Households by Purpose (seasonally adjusted current prices quarterly),13103136265999,DT_200Y140,항목,가계의 목적별 최종소비지출(계절조정 명목 분기),301,ITEM,301,DT_200Y140
+Item code list,Final Consumption Expenditure of Resident Households by Purpose (seasonally adjusted chained 2020 year prices quarterly),13103136305999,DT_200Y141,항목,가계의 목적별 최종소비지출(계절조정 실질 분기),301,ITEM,301,DT_200Y141
+Item code list,Final Consumption Expenditure of Resident Households by Purpose (not seasonally adjusted current prices quarterly ＆ annual),13103136295999,DT_200Y142,항목,가계의 목적별 최종소비지출(원계열 명목 분기 및 연간),301,ITEM,301,DT_200Y142
+Item code list,Final Consumption Expenditure of Resident Households by Purpose (not seasonally adjusted chained 2020 year prices quarterly ＆ annual),13103136266999,DT_200Y143,항목,가계의 목적별 최종소비지출(원계열 실질 분기 및 연간),301,ITEM,301,DT_200Y143
+Item code list,Final Consumption Expenditure of Resident Households by Type (seasonally adjusted current prices quarterly),13103136300999,DT_200Y144,항목,가계의 형태별 최종소비지출(계절조정 명목 분기),301,ITEM,301,DT_200Y144
+Item code list,Final Consumption Expenditure of Resident Households by Type (seasonally adjusted chained 2020 year prices quarterly),13103136286999,DT_200Y145,항목,가계의 형태별 최종소비지출(계절조정 실질 분기),301,ITEM,301,DT_200Y145
+Item code list,Final Consumption Expenditure of Resident Households by Type (not seasonally adjusted current prices quarterly ＆ annual),13103136287999,DT_200Y146,항목,가계의 형태별 최종소비지출(원계열 명목 분기 및 연간),301,ITEM,301,DT_200Y146
+Item code list,Final Consumption Expenditure of Resident Households by Type (not seasonally adjusted chained 2020 year prices quarterly ＆ annual),13103136296999,DT_200Y147,항목,가계의 형태별 최종소비지출(원계열 실질 분기 및 연간),301,ITEM,301,DT_200Y147
+Item code list,Final Consumption Expenditure of NPISH by Purpose (not seasonally adjusted current prices quarterly ＆ annual),13103136272999,DT_200Y148,항목,가계에 봉사하는 비영리단체의 목적별 최종소비지출(원계열 명목 분기 및 연간),301,ITEM,301,DT_200Y148
+Item code list,Final Consumption Expenditure of NPISH by Purpose (not seasonally adjusted chained 2020 year prices quarterly ＆ annual),13103136280999,DT_200Y149,항목,가계에 봉사하는 비영리단체의 목적별 최종소비지출(원계열 실질 분기 및 연간),301,ITEM,301,DT_200Y149
+Item code list,General Government Final Consumption Expenditure by Function (current prices annual),13103136273999,DT_200Y151,항목,일반정부의 부문별 기능별 최종소비지출(명목 연간),301,ITEM,301,DT_200Y151
+Item code list,General Government Total Expenditure by Function (current prices annual),13103136281999,DT_200Y152,항목,일반정부의 부문별 기능별 총지출 (명목 연간),301,ITEM,301,DT_200Y152
+Item code list,General Government Total Revenue and Total Expenditure (current prices annual),13103136306999,DT_200Y153,항목,일반정부의 부문별 총수입 총지출 저축투자차액(명목 연간),301,ITEM,301,DT_200Y153
+Item code list,Public Sector Total Revenue and Total Expenditure (current prices annual),13103136301999,DT_200Y154,항목,공공부문의 부문별 총수입 총지출 저축투자차액(명목 연간),301,ITEM,301,DT_200Y154
+Item code list,Gross Savings and Gross Investments (seasonally adjusted current prices quarterly),13103136302999,DT_200Y155,항목,총저축과 총투자(계절조정 명목 분기),301,ITEM,301,DT_200Y155
+Item code list,Gross Savings and Gross Investments (not seasonally adjusted current prices quarterly ＆ annual),13103136267999,DT_200Y156,항목,총저축과 총투자(원계열 명목 분기 및 연간),301,ITEM,301,DT_200Y156
+Item code list,Information and Communication Technologies (seasonally adjusted chained 2020 year prices quarterly),13103136274999,DT_200Y157,항목,정보통신산업(계절조정 실질 분기),301,ITEM,301,DT_200Y157
+Item code list,Information and Communication Technologies (not seasonally adjusted chained 2020 year prices quarterly ＆ annual),13103136268999,DT_200Y158,항목,정보통신산업(원계열 실질 분기 및 연간),301,ITEM,301,DT_200Y158
+Item code list,Settlement currency by region(Export),13103134484999,DT_303Y001,항목,지역별 결제통화(수출),301,ITEM,301,DT_303Y001
+Item code list,Settlement currency by country(Export),13103134625999,DT_303Y002,항목,국가별 결제통화(수출),301,ITEM,301,DT_303Y002
+Item code list,Korean Won settlement by region/country(Export),13103134668999,DT_303Y003,항목,지역별국가별 원화결제(수출),301,ITEM,301,DT_303Y003
+Item code list,Settlement currency by region(Import),13103134711999,DT_303Y004,항목,지역별 결제통화(수입),301,ITEM,301,DT_303Y004
+Item code list,Settlement currency by country(Import),13103134669999,DT_303Y005,항목,국가별 결제통화(수입),301,ITEM,301,DT_303Y005
+Item code list,Korean Won settlement by region/country(Import),13103134670999,DT_303Y006,항목,지역별국가별 원화결제(수입),301,ITEM,301,DT_303Y006
+Item code list,Stocks(Nominal Value),13103135849999,DT_282Y001,항목,발행잔액(명목),301,ITEM,301,DT_282Y001
+Item code list,Stocks(Market Value),13103135845999,DT_282Y002,항목,발행잔액(시가),301,ITEM,301,DT_282Y002
+Item code list,Net Transactions(Market Value),13103135844999,DT_282Y003,항목,순발행액(시가),301,ITEM,301,DT_282Y003
+Item code list,Stocks(Market Value),13103135846999,DT_282Y004,항목,보유잔액(시가),301,ITEM,301,DT_282Y004
+Item code list,Net Transactions(Market Value),13103135847999,DT_282Y005,항목,순취득액(시가),301,ITEM,301,DT_282Y005
+Item code list,Debt Securities Issues and Holdings(Stocks Market Value),13103135848999,DT_282Y006,항목,채권발행-보유관계표(잔액 시가),301,ITEM,301,DT_282Y006
+Item code list,Other Depository Corporations Survey (End of),13103844601999,DT_161Y017,항목,기타예금취급기관 개관표(말잔),301,ITEM,301,DT_161Y017
+Item code list,Depository Corporations Survey(End of),13103852620999,DT_161Y015,항목,예금취급기관 개관표(말잔),301,ITEM,301,DT_161Y015
+Item code list,Central Bank Survey (End of),13103844598999,DT_161Y016,항목,중앙은행 개관표(말잔),301,ITEM,301,DT_161Y016
+Item code list,L(Liquidity Aggregates)(End of SA),13103852610999,DT_172Y001,항목,L(광의유동성) 구성내역(말잔 계절조정계열),301,ITEM,301,DT_172Y001
+Item code list,L(Liquidity Aggregates)(End of),13103852597999,DT_172Y002,항목,L(광의유동성) 구성내역(말잔 원계열),301,ITEM,301,DT_172Y002
+Item code list,Deposits in Domestic Currency at CBs and SBs By Depositors (End Of),13103860880999,DT_104Y009,항목,예금은행 원화예금(예금주별말잔),301,ITEM,301,DT_104Y009
+Item code list,Deposits in Domestic Currency at CBs and SBs By Type (End of),13103860875999,DT_104Y015,항목,예금은행 원화예금(종별 말잔),301,ITEM,301,DT_104Y015
+Item code list,Deposits in Domestic Currency at CBs and SBs By Type (Average),13103860891999,DT_104Y008,항목,예금은행 원화예금(종별 평잔),301,ITEM,301,DT_104Y008
+Item code list,Time Deposits in Domestic Currency at CBs and SBs By Term (End Of),13103860888999,DT_104Y010,항목,예금은행 정기예금(기간별 말잔),301,ITEM,301,DT_104Y010
+Item code list,Loans to Enterprise by Region (End of),13103134654999,DT_141Y004,항목,예금은행 지역별 기업대출(말잔),301,ITEM,301,DT_141Y004
+Item code list,Loans ＆ Discounts by Region (End of),13103134696999,DT_141Y003,항목,예금은행 지역별 대출금(말잔),301,ITEM,301,DT_141Y003
+Item code list,Total Deposits at CBs and SBs (End of),13103134548999,DT_141Y002,항목,예금은행 지역별 수신(말잔),301,ITEM,301,DT_141Y002
+Item code list,Total Deposits(End of),13103860881999,DT_104Y013,항목,예금은행 총수신(말잔),301,ITEM,301,DT_104Y013
+Item code list,Total Deposits(Average),13103860882999,DT_104Y014,항목,예금은행 총수신(평잔),301,ITEM,301,DT_104Y014
+Item code list,Loans ＆ Discounts of CBs and SBs (End of),13103860883999,DT_104Y016,항목,예금은행 대출금(말잔),301,ITEM,301,DT_104Y016
+Item code list,Deposits at Non-Bank Financial Corporations (End of),13103134586999,DT_111Y007,항목,비은행금융기관 수신(말잔),301,ITEM,301,DT_111Y007
+Item code list,Deposits at Non-Bank Financial Corporations (Average),13103134511999,DT_111Y008,항목,비은행금융기관 수신(평잔),301,ITEM,301,DT_111Y008
+Item code list,Loans ＆ Discounts of Non-Bank Financial Corporations (End of),13103134512999,DT_111Y009,항목,비은행금융기관 여신(말잔),301,ITEM,301,DT_111Y009
+Item code list,By Section,13103134771999,DT_151Y001,항목,가계신용(업권별 분기),301,ITEM,301,DT_151Y001
+Item code list,By Purpose,13103134772999,DT_151Y004,항목,가계신용(용도별 분기),301,ITEM,301,DT_151Y004
+Item code list,Loans to Households of Non-Bank Financial Corporations by Region (End of),13103134789999,DT_151Y006,항목,비은행금융기관 지역별 가계대출(말잔),301,ITEM,301,DT_151Y006
+Item code list,Loans to Households by Region (End of),13103134697999,DT_151Y003,항목,예금은행 지역별 가계대출(말잔),301,ITEM,301,DT_151Y003
+Item code list,By Section,13103134549999,DT_151Y002,항목,예금취급기관 가계대출(업권별 월),301,ITEM,301,DT_151Y002
+Item code list,By Purpose,13103134699999,DT_151Y005,항목,예금취급기관 가계대출(용도별 월),301,ITEM,301,DT_151Y005
+Item code list,Household Loans Newly issued per Borrower,13103852633999,DT_181Y001,항목,차주당 가계대출 신규취급액,301,ITEM,301,DT_181Y001
+Item code list,Mortgage Loans Newly Issued per Borrower,13103852628999,DT_181Y011,항목,차주당 주택담보대출 신규취급액,301,ITEM,301,DT_181Y011
+Item code list,Outstanding Household Loans per Borrower,13103852635999,DT_181Y002,항목,차주당 가계대출 잔액,301,ITEM,301,DT_181Y002
+Item code list,Outstanding Mortgage Loans per Borrower,13103852632999,DT_181Y012,항목,차주당 주택담보대출 잔액,301,ITEM,301,DT_181Y012
+Item code list,Share by Newly Issued Household Loans,13103852625999,DT_181Y013,항목,가계대출 신규취급액 비중,301,ITEM,301,DT_181Y013
+Item code list,Share by Newly Issued Mortgage Loans,13103852639999,DT_181Y015,항목,주택담보대출 신규취급액 비중,301,ITEM,301,DT_181Y015
+Item code list,Share by Outstanding Household Loans,13103852640999,DT_181Y016,항목,가계대출 잔액 비중,301,ITEM,301,DT_181Y016
+Item code list,Share by Outstanding Mortgage Loans,13103852637999,DT_181Y014,항목,주택담보대출 잔액 비중,301,ITEM,301,DT_181Y014
+Item code list,Shares of Deposits and Loans By Interest Rates Level (Newly Extended),13103134589999,DT_121Y008,항목,예금은행 금리수준별 여수신 비중(신규취급액 기준),301,ITEM,301,DT_121Y008
+Item code list,Based on Newly Extended,13103134554999,DT_121Y010,항목,예금은행 고정 및 변동금리대출 비중(신규취급액 기준),301,ITEM,301,DT_121Y010
+Item code list,Based on Outstanding,13103134655999,DT_121Y011,항목,예금은행 고정 및 변동금리대출 비중(잔액 기준),301,ITEM,301,DT_121Y011
+Item code list,Interest Rates on Loans and Discounts,13103134773999,DT_121Y007,항목,비은행금융기관 대출금리(신규취급액 기준),301,ITEM,301,DT_121Y007
+Item code list,Interest Rates on Deposits,13103134590999,DT_121Y004,항목,비은행금융기관 수신금리(신규취급액 기준),301,ITEM,301,DT_121Y004
+Item code list,Knowledge-based Services Trade Balance (by sector),13103836578999,DT_304Y101,항목,지식서비스 무역통계(유형별),301,ITEM,301,DT_304Y101
+Item code list,Knowledge-based Services Trade Balance (by industrial types),13103836580999,DT_304Y102,항목,지식서비스 무역통계(산업별),301,ITEM,301,DT_304Y102
+Item code list,Knowledge-based Services Trade Balance (by enterprise size),13103836576999,DT_304Y103,항목,지식서비스 무역통계(기관형태별),301,ITEM,301,DT_304Y103
+Item code list,Knowledge-based Services Trade Balance (by region),13103836577999,DT_304Y104,항목,지식서비스 무역통계(지역별),301,ITEM,301,DT_304Y104
+Item code list,Knowledge-based Services Trade Balance - ICT Classification,13103836575999,DT_304Y105,항목,ICT 산업 특수분류(ICT산업별),301,ITEM,301,DT_304Y105
+Item code list,Knowledge-based Services Trade Balance - Content Classification,13103836579999,DT_304Y106,항목,콘텐츠 산업 특수분류(콘텐츠산업별),301,ITEM,301,DT_304Y106
+Item code list,Intellectual Property Right Trade Balance,13103836574999,DT_304Y107,항목,지식재산권 무역수지(유형별),301,ITEM,301,DT_304Y107
+Item code list,Components of Monetary Base(End of SA),13103134792999,DT_102Y003,항목,본원통화 구성내역(말잔 계절조정계열),301,ITEM,301,DT_102Y003
+Item code list,Components of Monetary Base(End of),13103134736999,DT_102Y001,항목,본원통화 구성내역(말잔 원계열),301,ITEM,301,DT_102Y001
+Item code list,Components of Monetary Base(Average SA),13103134791999,DT_102Y004,항목,본원통화 구성내역(평잔 계절조정계열),301,ITEM,301,DT_102Y004
+Item code list,Components of Monetary Base(Average),13103860813999,DT_102Y002,항목,본원통화 구성내역(평잔 원계열),301,ITEM,301,DT_102Y002
+Item code list,M1 By Type (End of SA),13103852606999,DT_161Y003,항목,M1 상품별 구성내역(말잔 계절조정계열),301,ITEM,301,DT_161Y003
+Item code list,M1 By Type (End of),13103852607999,DT_161Y004,항목,M1 상품별 구성내역(말잔 원계열),301,ITEM,301,DT_161Y004
+Item code list,M1 By Type (Average SA),13103852602999,DT_161Y001,항목,M1 상품별 구성내역(평잔 계절조정계열),301,ITEM,301,DT_161Y001
+Item code list,M1 By Type (Average),13103852614999,DT_161Y002,항목,M1 상품별 구성내역(평잔 원계열),301,ITEM,301,DT_161Y002
+Item code list,M2 By Type (End of SA),13103852611999,DT_161Y007,항목,M2 상품별 구성내역(말잔 계절조정계열),301,ITEM,301,DT_161Y007
+Item code list,M2 By Type (End of),13103844599999,DT_161Y008,항목,M2 상품별 구성내역(말잔 원계열),301,ITEM,301,DT_161Y008
+Item code list,M2 By Type (Average SA),13103852615999,DT_161Y005,항목,M2 상품별 구성내역(평잔 계절조정계열),301,ITEM,301,DT_161Y005
+Item code list,M2 By Type (Average),13103852603999,DT_161Y006,항목,M2 상품별 구성내역(평잔 원계열),301,ITEM,301,DT_161Y006
+Item code list,Sectoral Money Holdings(End of S.A.),13103844600999,DT_161Y011,항목,M2 경제주체별 보유현황(말잔 계절조정계열),301,ITEM,301,DT_161Y011
+Item code list,Sectoral Money Holdings(End of),13103852609999,DT_161Y012,항목,M2 경제주체별 보유현황(말잔 원계열),301,ITEM,301,DT_161Y012
+Item code list,Sectoral Money Holdings(Average S.A.),13103852612999,DT_161Y009,항목,M2 경제주체별 보유현황(평잔 계절조정계열),301,ITEM,301,DT_161Y009
+Item code list,Sectoral Money Holdings(Average),13103852608999,DT_161Y010,항목,M2 경제주체별 보유현황(평잔 원계열),301,ITEM,301,DT_161Y010
+Item code list,M2 By Money Issuers (End of),13103852616999,DT_161Y014,항목,M2 기관별 구성내역(말잔),301,ITEM,301,DT_161Y014
+Item code list,M2 By Money Issuers (Average),13103852600999,DT_161Y013,항목,M2 기관별 구성내역(평잔),301,ITEM,301,DT_161Y013
+Item code list,Lf By Type(End of SA),13103844597999,DT_171Y001,항목,Lf 상품별 구성내역(말잔 계절조정계열),301,ITEM,301,DT_171Y001
+Item code list,Lf By Type(End of),13103852617999,DT_171Y002,항목,Lf 상품별 구성내역(말잔 원계열),301,ITEM,301,DT_171Y002
+Item code list,Lf By Type(Average SA),13103852605999,DT_171Y003,항목,Lf 구성내역(평잔 계절조정계열),301,ITEM,301,DT_171Y003
+Item code list,Lf By Type(Average),13103852613999,DT_171Y004,항목,Lf 구성내역(평잔 원계열),301,ITEM,301,DT_171Y004
+Item code list,Other Depository Corporations Survey (End of),13103134739999,DT_101Y011,항목,기타예금취급기관 개관표(말잔),301,ITEM,301,DT_101Y011
+Item code list,Depository Corporations Survey(End of),13103134652999,DT_101Y009,항목,예금취급기관 개관표(말잔),301,ITEM,301,DT_101Y009
+Item code list,Central Bank Survey (End of),13103134653999,DT_101Y010,항목,중앙은행 개관표(말잔),301,ITEM,301,DT_101Y010
+Item code list,L(Liquidity Aggregates)(End of SA),13103134651999,DT_112Y001,항목,L(광의유동성) 구성내역(말잔 계절조정계열),301,ITEM,301,DT_112Y001
+Item code list,L(Liquidity Aggregates)(End of),13103134738999,DT_112Y002,항목,L(광의유동성) 구성내역(말잔 원계열),301,ITEM,301,DT_112Y002
+Item code list,By Purpose (Working Capital Facilities Investment),13103134611999,DT_131Y017,항목,산업별대출금(예금취급기관 용도별),301,ITEM,301,DT_131Y017
+Item code list,All Industries,13103134514999,DT_131Y016,항목,산업별대출금(예금취급기관 전산업),301,ITEM,301,DT_131Y016
+Item code list,By Size,13103136163999,DT_131Y018,항목,산업별대출금(예금은행 기업규모별),301,ITEM,301,DT_131Y018
+Item code list,By Type (Incorporation Unincorporation),13103134700999,DT_131Y010,항목,산업별대출금(예금은행 기업형태별),301,ITEM,301,DT_131Y010
+Item code list,By Purpose (Working Capital Facilities Investment),13103134742999,DT_131Y011,항목,산업별대출금(예금은행 용도별),301,ITEM,301,DT_131Y011
+Item code list,All Industries,13103134741999,DT_131Y013,항목,산업별대출금(예금은행 전산업),301,ITEM,301,DT_131Y013
+Item code list,By Region ＆ Purpose,13103134551999,DT_132Y003,항목,산업별대출금(예금은행 지역별 용도별),301,ITEM,301,DT_132Y003
+Item code list,By Region,13103134550999,DT_132Y001,항목,산업별대출금(예금은행 지역별 전산업),301,ITEM,301,DT_132Y001
+Item code list,By Purpose (Working Capital Facilities Investment),13103134587999,DT_131Y015,항목,산업별대출금(비은행예금취급기관 용도별),301,ITEM,301,DT_131Y015
+Item code list,All Industries,13103134552999,DT_131Y014,항목,산업별대출금(비은행예금취급기관 전산업),301,ITEM,301,DT_131Y014
+Item code list,Loans to Enterprise of Non-Bank Financial Corporations by Region (End of),13103134698999,DT_141Y010,항목,비은행금융기관 지역별 기업대출(말잔),301,ITEM,301,DT_141Y010
+Item code list,Total Deposits at Non-Bank Financial Corporations (End of),13103134769999,DT_141Y006,항목,비은행금융기관 지역별 수신(말잔),301,ITEM,301,DT_141Y006
+Item code list,Loans ＆ Discounts of Non-Bank Financial Corporations by Region (End of),13103134770999,DT_141Y007,항목,비은행금융기관 지역별 여신(말잔),301,ITEM,301,DT_141Y007
+Item code list,Total Deposits of Life Insurance Companies (End of),13103134513999,DT_141Y008,항목,생명보험회사 지역별 수신(말잔),301,ITEM,301,DT_141Y008
+Item code list,Loans ＆ Discounts of Life Insurance Companies (End of),13103134740999,DT_141Y009,항목,생명보험회사 지역별 여신(말잔),301,ITEM,301,DT_141Y009
+Item code list,The number of accounts and Outstanding amount by Size,13103134743999,DT_105Y001,항목,예금규모별 계좌수 및 금액,301,ITEM,301,DT_105Y001
+Item code list,Turnover Ratios of Deposits of CBs ＆ SBs,13103860889999,DT_104Y017,항목,예금은행 예금회전율,301,ITEM,301,DT_104Y017
+Item code list,By Age Group and Region,13103852626999,DT_181Y003,항목,연령별 지역별,301,ITEM,301,DT_181Y003
+Item code list,By Age Group and Financial Institution Type,13103852638999,DT_181Y005,항목,연령별 업권별,301,ITEM,301,DT_181Y005
+Item code list,By Age Group and Loan Type,13103852634999,DT_181Y007,항목,연령별 상품별,301,ITEM,301,DT_181Y007
+Item code list,By Loan Type and Financial Institution Type,13103852627999,DT_181Y009,항목,상품별 업권별,301,ITEM,301,DT_181Y009
+Item code list,By Age Group and Region,13103852631999,DT_181Y004,항목,연령별 지역별,301,ITEM,301,DT_181Y004
+Item code list,By Age Group and Financial Institution Type,13103852636999,DT_181Y006,항목,연령별 업권별,301,ITEM,301,DT_181Y006
+Item code list,By Age Group and Loan Type,13103852629999,DT_181Y008,항목,연령별 상품별,301,ITEM,301,DT_181Y008
+Item code list,By Loan Type and Financial Institution Type,13103852630999,DT_181Y010,항목,상품별 업권별,301,ITEM,301,DT_181Y010
+Item code list,Based on Newly Extended,13103134588999,DT_121Y002,항목,예금은행 수신금리(신규취급액 기준),301,ITEM,301,DT_121Y002
+Item code list,Based on Outstanding,13103134701999,DT_121Y013,항목,예금은행 수신금리(잔액 기준),301,ITEM,301,DT_121Y013
+Item code list,Based on Newly Extended,13103134553999,DT_121Y006,항목,예금은행 대출금리(신규취급액 기준),301,ITEM,301,DT_121Y006
+Item code list,Based on Outstanding,13103134612999,DT_121Y015,항목,예금은행 대출금리(잔액 기준),301,ITEM,301,DT_121Y015
+Item code list,Components of Monetary Base(End of SA),13103852618999,DT_102Y103,항목,본원통화 구성내역(말잔 계절조정계열),301,ITEM,301,DT_102Y103
+Item code list,Components of Monetary Base(End of),13103852598999,DT_102Y101,항목,본원통화 구성내역(말잔 원계열),301,ITEM,301,DT_102Y101
+Item code list,Components of Monetary Base(Average SA),13103852619999,DT_102Y104,항목,본원통화 구성내역(평잔 계절조정계열),301,ITEM,301,DT_102Y104
+Item code list,Components of Monetary Base(Average),13103852599999,DT_102Y102,항목,본원통화 구성내역(평잔 원계열),301,ITEM,301,DT_102Y102
+Item code list,M1 By Type (End of SA),13103852604999,DT_101Y016,항목,M1 상품별 구성내역(말잔 계절조정계열),301,ITEM,301,DT_101Y016
+Item code list,M1 By Type (End of),13103852621999,DT_101Y017,항목,M1 상품별 구성내역(말잔 원계열),301,ITEM,301,DT_101Y017
+Item code list,M1 By Type (Average SA),13103852601999,DT_101Y018,항목,M1 상품별 구성내역(평잔 계절조정계열),301,ITEM,301,DT_101Y018
+Item code list,M1 By Type (Average),13103852622999,DT_101Y019,항목,M1 상품별 구성내역(평잔 원계열),301,ITEM,301,DT_101Y019
+Item code list,M2 By Type (End of SA),13103134693999,DT_101Y001,항목,M2 상품별 구성내역(말잔 계절조정계열),301,ITEM,301,DT_101Y001
+Item code list,M2 By Type (End of),13103134509999,DT_101Y002,항목,M2 상품별 구성내역(말잔 원계열),301,ITEM,301,DT_101Y002
+Item code list,M2 By Type (Average SA),13103134507999,DT_101Y003,항목,M2 상품별 구성내역(평잔 계절조정계열),301,ITEM,301,DT_101Y003
+Item code list,M2 By Type (Average),13103134508999,DT_101Y004,항목,M2 상품별 구성내역(평잔 원계열),301,ITEM,301,DT_101Y004
+Item code list,Sectoral Money Holdings(End of S.A.),13103134485999,DT_101Y005,항목,M2 경제주체별 보유현황(말잔 계절조정계열),301,ITEM,301,DT_101Y005
+Item code list,Sectoral Money Holdings(End of),13103134585999,DT_101Y014,항목,M2 경제주체별 보유현황(말잔 원계열),301,ITEM,301,DT_101Y014
+Item code list,Sectoral Money Holdings(Average S.A.),13103134610999,DT_101Y006,항목,M2 경제주체별 보유현황(평잔 계절조정계열),301,ITEM,301,DT_101Y006
+Item code list,Sectoral Money Holdings(Average),13103134650999,DT_101Y015,항목,M2 경제주체별 보유현황(평잔 원계열),301,ITEM,301,DT_101Y015
+Item code list,M2 By Money Issuers (End of),13103134694999,DT_101Y007,항목,M2 기관별구성내역(말잔),301,ITEM,301,DT_101Y007
+Item code list,M2 By Money Issuers (Average),13103134737999,DT_101Y008,항목,M2 기관별구성내역(평잔),301,ITEM,301,DT_101Y008
+Item code list,Lf By Type(End of SA),13103134695999,DT_111Y001,항목,Lf 상품별 구성내역(말잔 계절조정계열),301,ITEM,301,DT_111Y001
+Item code list,Lf By Type(End of),13103130873999,DT_111Y002,항목,Lf 상품별 구성내역(말잔 원계열),301,ITEM,301,DT_111Y002
+Item code list,Lf By Type(Average SA),13103130866999,DT_111Y003,항목,Lf 상품별 구성내역(평잔 계절조정계열),301,ITEM,301,DT_111Y003
+Item code list,Lf By Type(Average),13103130867999,DT_111Y004,항목,Lf 상품별 구성내역(평잔 원계열),301,ITEM,301,DT_111Y004

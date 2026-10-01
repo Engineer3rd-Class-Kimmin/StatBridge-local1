@@ -1,6 +1,6 @@
 import { FormEvent, ReactNode, useEffect, useMemo, useState } from "react";
-import { fetchCatalog, submitQuery } from "./api/client";
-import type { CatalogResponse, CatalogTable, ChartSeries, QueryResponse } from "./api/types";
+import { fetchCatalog, submitOutput, submitQuery } from "./api/client";
+import type { CatalogResponse, CatalogTable, ChartSeries, ChartType, QueryResponse } from "./api/types";
 
 type IconName =
   | "logo" | "home" | "chat" | "chart" | "compare" | "lineage" | "search"
@@ -186,14 +186,14 @@ function Hero({ query, setQuery, submit, loading }: { query: string; setQuery: (
 function FeatureStrip() {
   const items: { icon: IconName; title: string; text: string }[] = [
     { icon: "chat", title: "자연어 분석", text: "질문을 통계 구조로 변환" },
-    { icon: "compare", title: "다중 지표 비교", text: "주기·단위·시점을 자동 정합" },
+    { icon: "compare", title: "출력 에이전트", text: "그래프 종류·배치·편집 명세 생성" },
     { icon: "lineage", title: "Query Planner", text: "표·항목 선택 근거를 확인" },
     { icon: "database", title: "Data Lineage", text: "수치 출처와 변환을 추적" },
   ];
   return <section className="feature-strip">{items.map((x) => <article key={x.title}><span className="feature-icon"><Icon name={x.icon}/></span><div><strong>{x.title}</strong><p>{x.text}</p></div></article>)}</section>;
 }
 
-function LineChart({ series }: { series: ChartSeries[] }) {
+function ChartRenderer({ series, chartType = "line", xAxisLabel, yAxisLabel }: { series: ChartSeries[]; chartType?: ChartType; xAxisLabel?:string|null; yAxisLabel?:string|null }) {
   if (!series.length) return <div className="empty-chart">선택한 기간에 표시할 수치가 없습니다.</div>;
   const w = 700, h = 250, px = 58, py = 26;
   const dates = [...new Set(series.flatMap((s) => s.points.map((p) => p.date)))].sort();
@@ -208,8 +208,10 @@ function LineChart({ series }: { series: ChartSeries[] }) {
   return <div className="chart-wrap">
     <svg viewBox={`0 0 ${w} ${h}`} role="img" aria-label={`${series.map((s) => s.label).join(", ")} 시계열 그래프`}>
       {ticks.map((v) => <g key={v}><line className="grid" x1={px} y1={y(v)} x2={w-px} y2={y(v)}/><text className="axis-label" x={px-8} y={y(v)+4}>{v.toLocaleString(undefined,{maximumFractionDigits:1})}</text></g>)}
-      {series.map((item) => <g key={item.id}><path className="line" style={{stroke:item.color}} d={path(item)}/>{item.points.map((p) => <circle key={p.date} className="dot" style={{fill:item.color}} cx={x(p.date)} cy={y(p.value)} r="3.5"><title>{item.label}: {p.value.toLocaleString()} {item.unit}</title></circle>)}</g>)}
+      {series.map((item) => <g key={item.id}>{chartType==="bar" ? item.points.map((p)=><rect key={p.date} x={x(p.date)-5} y={y(p.value)} width="10" height={Math.max(1,h-py-y(p.value))} fill={item.color}><title>{item.label}: {p.value.toLocaleString()} {item.unit}</title></rect>) : <><path className="line" style={{stroke:item.color,fill:chartType==="area"?`${item.color}22`:"none"}} d={path(item)}/>{item.points.map((p) => <circle key={p.date} className="dot" style={{fill:item.color}} cx={x(p.date)} cy={y(p.value)} r={chartType==="scatter"?"5":"3.5"}><title>{item.label}: {p.value.toLocaleString()} {item.unit}</title></circle>)}</>}</g>)}
       {dates.map((date, i) => (i % Math.max(1, Math.ceil(dates.length / 7)) === 0 || i === dates.length - 1) && <text key={date} className="x-label" x={x(date)} y={h-5}>{date}</text>)}
+      {xAxisLabel&&<text className="x-label" x={w/2} y={h-1}>{xAxisLabel}</text>}
+      {yAxisLabel&&<text className="axis-label" transform={`translate(12 ${h/2}) rotate(-90)`}>{yAxisLabel}</text>}
     </svg>
   </div>;
 }
@@ -218,53 +220,117 @@ function LayoutChoice({ mode, setMode }: { mode: "combined"|"separate"; setMode:
   return <div className="setup-block"><strong>그래프 표시 방식</strong><div className="clarification-options"><button type="button" className={mode==="combined"?"selected":""} onClick={()=>setMode("combined")}><span className="multi-check">{mode==="combined"&&<Icon name="check" size={13}/>}</span>여러 계열을 한 그래프에</button><button type="button" className={mode==="separate"?"selected":""} onClick={()=>setMode("separate")}><span className="multi-check">{mode==="separate"&&<Icon name="check" size={13}/>}</span>계열별 그래프 여러 개</button></div></div>;
 }
 
-function PeriodPanel({ result, loading, submit }: { result: QueryResponse; loading: boolean; submit: (start: string, end: string, mode:"combined"|"separate") => void }) {
-  const [start, setStart] = useState(""); const [end, setEnd] = useState("");
+function ChartTypeChoice({ value, onChange }: { value: "auto"|ChartType; onChange:(value:"auto"|ChartType)=>void }) {
+  return <div className="setup-block"><strong>그래프 종류</strong><div className="clarification-options">{(["auto","line","bar","area","scatter"] as const).map((type)=><button type="button" key={type} className={value===type?"selected":""} onClick={()=>onChange(type)}>{type==="auto"?"자동 선택":type}</button>)}</div></div>;
+}
+
+function OutputConfigPanel({ result, loading, submit }: { result: QueryResponse; loading:boolean; submit:(value:{chartType:ChartType;mode:"combined"|"separate";title:string;showLegend:boolean;xAxisLabel:string;yAxisLabel:string})=>void }) {
+  const recommended=result.outputOptions?.recommendedChartType||"line";
+  const [chartType,setChartType]=useState<ChartType>(recommended);
   const [mode,setMode]=useState<"combined"|"separate">("combined");
+  const [title,setTitle]=useState(""); const [showLegend,setShowLegend]=useState(true);
+  const [xAxisLabel,setXAxisLabel]=useState("시점"); const [yAxisLabel,setYAxisLabel]=useState("값");
+  return <section className="clarification-section" id="analysis-result"><div className="clarification-card">
+    <span className="eyebrow">OUTPUT AGENT ORDER</span>
+    <div className="clarification-title"><span><Icon name="chart" size={19}/></span><div><h2>MCP 데이터를 어떤 그래프로 출력할까요?</h2><p>{result.seriesCount||0}개 계열의 조회가 끝났습니다. 지금 선택해도 데이터를 다시 조회하지 않습니다.</p></div></div>
+    <ChartTypeChoice value={chartType} onChange={(value)=>setChartType(value==="auto"?recommended:value)}/>
+    {(result.seriesCount||0)>1&&<LayoutChoice mode={mode} setMode={setMode}/>}
+    <div className="setup-block"><strong>그래프 편집</strong><div className="period-form"><label>제목<input value={title} placeholder="자동 제목" onChange={(e)=>setTitle(e.target.value)}/></label><label>X축 이름<input value={xAxisLabel} onChange={(e)=>setXAxisLabel(e.target.value)}/></label><label>Y축 이름<input value={yAxisLabel} onChange={(e)=>setYAxisLabel(e.target.value)}/></label></div><label><input type="checkbox" checked={showLegend} onChange={(e)=>setShowLegend(e.target.checked)}/> 범례 표시</label></div>
+    <div className="clarification-submit"><span>출력 에이전트가 선택값으로 최종 그래프 명세를 만듭니다.</span><button disabled={loading} onClick={()=>submit({chartType,mode,title,showLegend,xAxisLabel,yAxisLabel})}>그래프 생성 <Icon name="arrow" size={15}/></button></div>
+  </div></section>;
+}
+
+function PeriodPanel({ result, loading, submit }: { result: QueryResponse; loading: boolean; submit: (start: string, end: string) => void }) {
+  const [start, setStart] = useState(""); const [end, setEnd] = useState("");
   const minDate=result.availablePeriod?.min||undefined, maxDate=result.availablePeriod?.max||undefined;
   const invalid=Boolean(start&&end&&(start>end||(minDate&&start<minDate)||(maxDate&&end>maxDate)));
   return <section className="clarification-section" id="analysis-result"><div className="clarification-card">
     <span className="eyebrow">CHART PERIOD</span><div className="clarification-title"><span><Icon name="chart" size={19}/></span><div><h2>그래프로 볼 정확한 기간을 입력해 주세요.</h2><p>{result.interpretedQuery} · 원자료 주기 {result.frequency}</p></div></div>
-    <div className="period-form"><label>시작일<DateSelector label="시작일" value={start} min={minDate} max={end&&(!maxDate||end<maxDate)?end:maxDate} onChange={setStart}/></label><span>→</span><label>종료일<DateSelector label="종료일" value={end} min={start&&(!minDate||start>minDate)?start:minDate} max={maxDate} onChange={setEnd}/></label></div>{minDate&&maxDate&&<p className="period-availability">선택 가능 기간: {minDate} ~ {maxDate}</p>}{(result.tables.length>1||(result.seriesCount||0)>1)&&<LayoutChoice mode={mode} setMode={setMode}/>}<div className="clarification-submit"><span>{invalid?"원자료 제공 기간 안에서 선택해 주세요.":"조회 기간을 적용합니다."}</span><button disabled={loading || !start || !end || invalid} onClick={() => submit(start,end,mode)}>그래프 만들기 <Icon name="arrow" size={15}/></button></div>
-  </div></section>;
-}
-
-function ChartModePanel({ result, loading, choose }: { result: QueryResponse; loading: boolean; choose: (mode: "combined" | "separate") => void }) {
-  return <section className="clarification-section" id="analysis-result"><div className="clarification-card">
-    <span className="eyebrow">CHART LAYOUT</span><div className="clarification-title"><span><Icon name="compare" size={19}/></span><div><h2>{result.seriesCount}개 계열을 어떻게 표시할까요?</h2><p>한 화면에서 비교하거나, 계열별 눈금을 유지하도록 각각 나눠 볼 수 있습니다.</p></div></div>
-    <div className="clarification-options"><button disabled={loading} onClick={() => choose("combined")}>여러 계열을 한 그래프에 <Icon name="arrow" size={15}/></button><button disabled={loading} onClick={() => choose("separate")}>계열별 그래프 여러 개 <Icon name="arrow" size={15}/></button></div>
+    <div className="period-form"><label>시작일<DateSelector label="시작일" value={start} min={minDate} max={end&&(!maxDate||end<maxDate)?end:maxDate} onChange={setStart}/></label><span>→</span><label>종료일<DateSelector label="종료일" value={end} min={start&&(!minDate||start>minDate)?start:minDate} max={maxDate} onChange={setEnd}/></label></div>{minDate&&maxDate&&<p className="period-availability">선택 가능 기간: {minDate} ~ {maxDate}</p>}<div className="clarification-submit"><span>{invalid?"원자료 제공 기간 안에서 선택해 주세요.":"먼저 MCP 데이터를 조회합니다."}</span><button disabled={loading || !start || !end || invalid} onClick={() => submit(start,end)}>데이터 조회 <Icon name="arrow" size={15}/></button></div>
   </div></section>;
 }
 
 
-function ClarificationPanel({ result, loading, choose }: { result: QueryResponse; loading: boolean; choose: (values: Array<{ clarification_id: string; values: string[] }>,start:string,end:string,mode:"combined"|"separate") => void }) {
-  const groups=result.clarifications?.length?result.clarifications:result.clarification?[result.clarification]:[];
+function ClarificationPanel({ result, loading, choose }: { result: QueryResponse; loading: boolean; choose: (values: Array<{ clarification_id: string; values: string[] }>,start:string,end:string) => void }) {
+  const [stepResult,setStepResult]=useState(result);
   const [selected,setSelected]=useState<Record<string,string[]>>({});
-  const [start,setStart]=useState(""); const [end,setEnd]=useState(""); const [mode,setMode]=useState<"combined"|"separate">("combined");
-  const [availablePeriod,setAvailablePeriod]=useState(result.availablePeriod);
-  const selectedKey=JSON.stringify(selected);
-  useEffect(()=>{
-    const selections=Object.entries(selected).filter(([,values])=>values.length).map(([clarification_id,values])=>({clarification_id,values}));
-    if(!selections.length){setAvailablePeriod(result.availablePeriod);return;}
-    const timer=window.setTimeout(()=>{submitQuery({query:result.query,state:result.state,selections,execute:false}).then((preview)=>{if(preview.availablePeriod)setAvailablePeriod(preview.availablePeriod)}).catch(()=>undefined)},120);
-    return()=>window.clearTimeout(timer);
-  },[selectedKey,result.query,result.state,result.availablePeriod]);
-  if(result.status!=="need_clarification"||!groups.length)return null;
-  const toggle=(groupId:string,value:string)=>setSelected((current)=>{const values=current[groupId]||[];return{...current,[groupId]:values.includes(value)?values.filter((item)=>item!==value):[...values,value]}});
-  const selectionCount=Object.values(selected).reduce((count,values)=>count+values.length,0);
-  const minDate=availablePeriod?.min||undefined, maxDate=availablePeriod?.max||undefined;
-  const invalid=Boolean(start&&end&&(start>end||(minDate&&start<minDate)||(maxDate&&end>maxDate)));
+  const [completed,setCompleted]=useState<Array<{id:string;question:string;label:string}>>([]);
+  const [stepLoading,setStepLoading]=useState(false);
+  const [stepError,setStepError]=useState("");
+  const [start,setStart]=useState(""); const [end,setEnd]=useState("");
+  const activeGroup=stepResult.status==="need_clarification" ? stepResult.clarification : undefined;
+  const periodReady=stepResult.status==="need_period";
+  const minDate=periodReady ? stepResult.availablePeriod?.min||undefined : undefined;
+  const maxDate=periodReady ? stepResult.availablePeriod?.max||undefined : undefined;
+  const datesComplete=Boolean(start&&end);
+  const invalid=Boolean(datesComplete&&(start>end||(minDate&&start<minDate)||(maxDate&&end>maxDate)));
+  if (result.status !== "need_clarification" || !result.clarification) return null;
+  const selectStep=async(option:{label:string;value:string})=>{
+    if(!activeGroup||stepLoading)return;
+    const nextSelected={...selected,[activeGroup.id]:[option.value]};
+    setSelected(nextSelected); setStepLoading(true); setStepError("");
+    try{
+      const next=await submitQuery({query:result.query,state:stepResult.state,clarification:{clarification_id:activeGroup.id,value:option.value},execute:false});
+      if(next.status==="no_match")throw new Error("이 선택과 연결된 지원 통계표가 없습니다.");
+      setCompleted((items)=>[...items,{id:activeGroup.id,question:activeGroup.question,label:option.label}]);
+      setStepResult(next); setStart(""); setEnd("");
+    }catch(error){
+      setSelected(selected); setStepError(error instanceof Error?error.message:"다음 선택지를 불러오지 못했습니다.");
+    }finally{setStepLoading(false);}
+  };
+  const resetSteps=()=>{setStepResult(result);setSelected({});setCompleted([]);setStart("");setEnd("");setStepError("");};
   return <section className="clarification-section" id="analysis-result">
     <div className="clarification-card">
       <span className="eyebrow">AGENT CLARIFICATION</span>
-      <div className="clarification-title"><span><Icon name="chat" size={19}/></span><div><h2>필요한 조건을 한 화면에서 선택해 주세요.</h2><p>각 항목은 복수 선택할 수 있습니다. 여러 지표를 선택하면 비교 데이터로 함께 조회합니다.</p></div></div>
-      <div className="clarification-groups">{groups.map((group)=><fieldset key={group.id}><legend>{group.question}</legend><div className="clarification-options">{group.options.map((option)=>{const active=(selected[group.id]||[]).includes(option.value);return <button type="button" aria-pressed={active} className={active?"selected":""} key={option.value} disabled={loading} onClick={()=>toggle(group.id,option.value)}><span className="multi-check">{active&&<Icon name="check" size={13}/>}</span>{option.label}</button>})}</div></fieldset>)}</div>
-      <div className="setup-block date-step"><strong>조회 날짜</strong><p>선택한 통계표가 실제 제공하는 기간 안에서 조회합니다.</p><div className="period-form"><label>시작일<DateSelector label="시작일" value={start} min={minDate} max={end&&(!maxDate||end<maxDate)?end:maxDate} onChange={setStart}/></label><span>→</span><label>종료일<DateSelector label="종료일" value={end} min={start&&(!minDate||start>minDate)?start:minDate} max={maxDate} onChange={setEnd}/></label></div>{minDate&&maxDate&&<p className="period-availability"><Icon name="check" size={14}/> 선택 가능 기간: {minDate} ~ {maxDate}</p>}</div>
-      {selectionCount>1&&start&&end&&!invalid&&<div className="layout-step"><LayoutChoice mode={mode} setMode={setMode}/></div>}
-      <div className="clarification-submit"><span>{invalid?"선택한 통계표의 제공 기간 안에서 날짜를 선택해 주세요.":selectionCount?`${selectionCount}개 항목 선택됨`:"항목과 조회 날짜를 선택해 주세요."}</span><button disabled={loading||!selectionCount||!start||!end||invalid} onClick={()=>choose(Object.entries(selected).filter(([,values])=>values.length).map(([clarification_id,values])=>({clarification_id,values})),start,end,mode)}>선택 완료 후 그래프 만들기 <Icon name="arrow" size={15}/></button></div>
+      <div className="clarification-title"><span><Icon name="chat" size={19}/></span><div><h2>질문에 맞는 조건을 순서대로 선택해 주세요.</h2><p>앞 단계의 선택에 연결되는 항목과 지원 기간만 다음 단계에 표시합니다.</p></div></div>
+      <div className="clarification-progress">{completed.map((step,index)=><div className="completed-step" key={step.id}><span>{index+1}</span><div><small>{step.question}</small><strong>{step.label}</strong></div></div>)}{completed.length>0&&<button type="button" onClick={resetSteps}>처음부터 다시 선택</button>}</div>
+      {activeGroup&&<div className="clarification-groups"><fieldset><legend><span className="step-number">{completed.length+1}</span>{activeGroup.question}</legend><div className="clarification-options">{activeGroup.options.map((option)=>{const active=(selected[activeGroup.id]||[]).includes(option.value);return <button type="button" aria-pressed={active} className={active?"selected":""} key={option.value} disabled={loading||stepLoading} onClick={()=>selectStep(option)}><span className="multi-check">{active&&<Icon name="check" size={13}/>}</span>{option.label}</button>})}</div>{stepLoading&&<p className="step-loading"><span className="spinner"/> 관련 통계표와 다음 질문을 확인하고 있습니다.</p>}</fieldset></div>}
+      {stepError&&<div className="error-banner">{stepError}</div>}
+      {periodReady&&<div className="setup-block date-step"><strong><span className="step-number">{completed.length+1}</span>조회 날짜</strong><p>선택한 통계표가 실제 제공하는 기간 안에서 조회합니다.</p><div className="period-form"><label>시작일<DateSelector label="시작일" value={start} min={minDate} max={end&&(!maxDate||end<maxDate)?end:maxDate} onChange={setStart}/></label><span>→</span><label>종료일<DateSelector label="종료일" value={end} min={start&&(!minDate||start>minDate)?start:minDate} max={maxDate} onChange={setEnd}/></label></div>{minDate&&maxDate&&<p className="period-availability"><Icon name="check" size={14}/> 선택 가능 기간: {minDate} ~ {maxDate}</p>}</div>}
+      {periodReady&&<div className="clarification-submit"><span>{invalid?"선택한 통계표의 제공 기간 안에서 날짜를 선택해 주세요.":!datesComplete?"시작일과 종료일을 먼저 선택해 주세요.":"조건이 준비되었습니다. 먼저 MCP 데이터를 조회합니다."}</span><button disabled={loading||stepLoading||!datesComplete||invalid} onClick={()=>choose(Object.entries(selected).map(([clarification_id,values])=>({clarification_id,values})),start,end)}>선택 완료 후 데이터 조회 <Icon name="arrow" size={15}/></button></div>}
       <div className="clarification-trace"><Icon name="lineage" size={15}/><span>UI → Agent → 통계언어 사전 → 역질문 → 선택값 확정 → 사전 재검색</span></div>
     </div>
   </section>;
+}
+
+type IntentReady = { initial: QueryResponse; selections: Array<{clarification_id:string;values:string[]}>; start:string; end:string };
+
+function IntentSetupCard({ index, title, initial, onReady }: { index:number; title:string; initial:QueryResponse; onReady:(value:IntentReady|null)=>void }) {
+  const [stepResult,setStepResult]=useState(initial);
+  const [selected,setSelected]=useState<Record<string,string[]>>({});
+  const [completed,setCompleted]=useState<Array<{question:string;label:string}>>([]);
+  const [busy,setBusy]=useState(false); const [error,setError]=useState("");
+  const [start,setStart]=useState(""); const [end,setEnd]=useState("");
+  const group=stepResult.status==="need_clarification"?stepResult.clarification:undefined;
+  const periodReady=stepResult.status==="need_period";
+  const min=periodReady?stepResult.availablePeriod?.min||undefined:undefined;
+  const max=periodReady?stepResult.availablePeriod?.max||undefined:undefined;
+  const valid=Boolean(start&&end&&start<=end&&(!min||start>=min)&&(!max||end<=max));
+  const selectionKey=JSON.stringify(selected);
+  useEffect(()=>{onReady(valid?{initial,selections:Object.entries(selected).map(([clarification_id,values])=>({clarification_id,values})),start,end}:null)},[valid,start,end,selectionKey]);
+  const chooseOption=async(option:{label:string;value:string})=>{
+    if(!group||busy)return; setBusy(true); setError("");
+    const nextSelected={...selected,[group.id]:[option.value]}; setSelected(nextSelected);
+    try{const next=await submitQuery({query:initial.query,state:stepResult.state,clarification:{clarification_id:group.id,value:option.value},execute:false}); if(next.status==="no_match")throw new Error("이 선택에 연결된 통계표가 없습니다."); setCompleted((items)=>[...items,{question:group.question,label:option.label}]);setStepResult(next);setStart("");setEnd("");}
+    catch(e){setSelected(selected);setError(e instanceof Error?e.message:"다음 조건을 불러오지 못했습니다.")}finally{setBusy(false)}
+  };
+  return <article className="intent-setup-card">
+    <header><span>{index}</span><div><small>비교 항목 {index}</small><h3>{title}</h3></div></header>
+    {completed.map((item,i)=><div className="intent-completed" key={`${item.question}-${i}`}><Icon name="check" size={13}/><span>{item.question}</span><strong>{item.label}</strong></div>)}
+    {group&&<fieldset><legend>{group.question}</legend><div className="intent-options">{group.options.map((option)=><button key={option.value} type="button" disabled={busy} onClick={()=>chooseOption(option)}>{option.label}</button>)}</div>{busy&&<p className="step-loading"><span className="spinner"/> 관련 선택지를 확인하고 있습니다.</p>}</fieldset>}
+    {periodReady&&<div className="intent-period"><strong>이 항목의 조회 기간</strong><div className="intent-date-grid"><label>시작일<DateSelector label="시작일" value={start} min={min} max={end||max} onChange={setStart}/></label><span>→</span><label>종료일<DateSelector label="종료일" value={end} min={start||min} max={max} onChange={setEnd}/></label></div><small>지원 기간 {min} ~ {max}</small></div>}
+    {valid&&<p className="intent-ready"><Icon name="check" size={14}/> 이 항목의 설정이 완료되었습니다.</p>}{error&&<div className="error-banner">{error}</div>}
+  </article>;
+}
+
+function MultiIntentPanel({ query, intents, loading, execute }: { query:string; intents:Array<{id:string;title:string;initial:QueryResponse}>; loading:boolean; execute:(ready:IntentReady[])=>void }) {
+  const [ready,setReady]=useState<Record<string,IntentReady>>({});
+  const complete=intents.length>1&&intents.every((intent)=>ready[intent.id]);
+  return <section className="clarification-section" id="analysis-result"><div className="clarification-card multi-intent-panel">
+    <span className="eyebrow">STRUCTURED COMPARISON</span><div className="clarification-title"><span><Icon name="compare" size={19}/></span><div><h2>비교할 항목을 각각 설정해 주세요.</h2><p>“{query}”에서 대출과 금리를 분리했습니다. 종류와 조회 기간을 항목별로 독립적으로 선택합니다.</p></div></div>
+    <div className="intent-grid">{intents.map((intent,i)=><IntentSetupCard key={intent.id} index={i+1} title={intent.title} initial={intent.initial} onReady={(value)=>setReady((current)=>{const next={...current};if(value)next[intent.id]=value;else delete next[intent.id];return next})}/>)}</div>
+    <div className="clarification-submit"><span>{complete?"모든 항목과 기간이 준비되었습니다. 먼저 MCP 데이터를 조회합니다.":`${Object.keys(ready).length}/${intents.length}개 항목 설정 완료`}</span><button disabled={loading||!complete} onClick={()=>execute(intents.map((x)=>ready[x.id]))}>비교 데이터 조회 <Icon name="arrow" size={15}/></button></div>
+  </div></section>
 }
 
 function Results({ result }: { result: QueryResponse }) {
@@ -276,6 +342,7 @@ function Results({ result }: { result: QueryResponse }) {
     return [...series.points.slice(0,3),...series.points.slice(-3)].map((point)=>({series,point}));
   });
   const visibleRows=allDataOpen?allRows:previewRows;
+  const editOptions=result.outputSpec?.visualization.editOptions;
   const exportCsv = () => {
     const rows = ["계열,단위,시점,값", ...result.chart.flatMap((s) => s.points.map((p) => `"${s.label}","${s.unit}",${p.date},${p.value}`))];
     const blob = new Blob(["\ufeff" + rows.join("\n")], { type: "text/csv;charset=utf-8" });
@@ -303,16 +370,16 @@ function Results({ result }: { result: QueryResponse }) {
     const pngUrl=URL.createObjectURL(png);const link=document.createElement("a");link.download="statbridge-chart.png";link.href=pngUrl;link.click();
     window.setTimeout(()=>URL.revokeObjectURL(pngUrl),1000);
   };
-  const noMatch=result.status==="no_match";
+  const noMatch=["no_match","data_unavailable","catalog_only"].includes(result.status||"");
   return <section className="results" id="analysis-result">
     <div className="section-heading"><div><span className="eyebrow">ANALYSIS RESULT</span><h2>질문에서 근거까지, 한눈에</h2></div>{noMatch?<span className="unavailable-badge">지원 데이터 없음</span>:<span className="verified-badge"><Icon name="check" size={15}/> 검증된 데이터</span>}</div>
     <div className="result-grid">
       <article className="panel chart-panel">
         <div className="panel-top"><div><span className="question-label">분석한 질문</span><h3>“{result.query}”</h3></div><div className="panel-actions">{result.chart.length>0&&<button onClick={exportPng}><Icon name="chart" size={17}/> PNG</button>}<button onClick={exportCsv}><Icon name="download" size={17}/> CSV</button><button onClick={() => navigator.clipboard?.writeText(location.href)}><Icon name="share" size={17}/> 공유</button></div></div>
         <div className="answer-summary"><span><Icon name="sparkle" size={16}/></span><p>{result.summary}</p></div>
-        {result.warnings?.map((warning,index)=><div className="error-banner" key={`${index}-${warning}`}>{warning}</div>)}
-        <div className="chart-header"><div><h3>{result.chart.length ? "시계열 분석 결과" : "MCP 통계표 탐색 결과"}</h3>{result.chart.length > 0 && <div className="legend">{result.chart.map((s) => <span key={s.id}><i style={{background:s.color}}/> {s.label}{s.unit ? ` (${s.unit})` : ""}</span>)}</div>}</div>{result.chart.length>0&&<div className="filter-pills"><span>{result.period.start}–{result.period.end}</span><span>{result.frequency} <Icon name="chevron" size={13}/></span></div>}</div>
-        {result.chartMode === "separate" ? <div className="separate-charts">{result.chart.map((s) => <div className="single-chart" key={s.id}><h4>{s.label} <small>{s.unit}</small></h4><LineChart series={[s]}/></div>)}</div> : <LineChart series={result.chart}/>}
+        {result.warnings?.map((warning,index)=><div className="error-banner" role="alert" key={`${index}-${warning}`}>{warning}</div>)}
+        <div className="chart-header"><div><h3>{editOptions?.title||(result.chart.length ? "시계열 분석 결과" : "MCP 통계표 탐색 결과")}</h3>{result.chart.length > 0 && editOptions?.showLegend!==false && <div className="legend">{result.chart.map((s) => <span key={s.id}><i style={{background:s.color}}/> {s.label}{s.unit ? ` (${s.unit})` : ""}</span>)}</div>}</div>{result.chart.length>0&&<div className="filter-pills"><span>{result.period.start}–{result.period.end}</span><span>{result.frequency} <Icon name="chevron" size={13}/></span></div>}</div>
+        {result.chartMode === "separate" ? <div className="separate-charts">{result.chart.map((s) => <div className="single-chart" key={s.id}><h4>{s.label} <small>{s.unit}</small></h4><ChartRenderer series={[s]} chartType={result.chartType} xAxisLabel={editOptions?.xAxisLabel} yAxisLabel={editOptions?.yAxisLabel}/></div>)}</div> : <ChartRenderer series={result.chart} chartType={result.chartType} xAxisLabel={editOptions?.xAxisLabel} yAxisLabel={editOptions?.yAxisLabel}/>}
         {result.insights.length>0&&<div className="insight-box"><div className="insight-title"><span><Icon name="sparkle" size={17}/></span><strong>핵심 인사이트</strong></div><ul>{result.insights.map((x,index) => <li key={`${index}-${x}`}>{x}</li>)}</ul></div>}
         {result.chart.length > 0 && <div className="data-table-wrap"><div className="subsection-title"><div><h3>{allDataOpen?"전체 데이터":"주요 데이터 예시"}</h3><p>{allDataOpen?"조회된 모든 관측치를 표시합니다.":"각 계열의 시작과 최근 값을 간략히 보여줍니다."}</p></div><span>전체 {allRows.length}개 관측치</span></div><table><thead><tr><th>계열</th><th>시점</th><th>값</th></tr></thead><tbody>{visibleRows.map(({series,point}) => <tr key={`${series.id}-${point.date}`}><td>{series.label}</td><td>{point.date}</td><td>{point.value.toLocaleString()} {series.unit}</td></tr>)}</tbody></table>{allRows.length>previewRows.length&&<div className="data-more"><span>{allDataOpen?`전체 ${allRows.length}개를 표시 중입니다.`:`${previewRows.length}개 예시만 표시 중입니다.`}</span><button type="button" aria-expanded={allDataOpen} onClick={()=>setAllDataOpen((current)=>!current)}>{allDataOpen?"간략히 보기":`전체 데이터 더 보기 (${allRows.length}개)`}<Icon name="chevron" size={14}/></button></div>}</div>}
       </article>
@@ -331,7 +398,7 @@ export default function App() {
   const [result, setResult] = useState<QueryResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [periodSelection, setPeriodSelection] = useState<{start:string;end:string} | null>(null);
+  const [multiIntents,setMultiIntents]=useState<Array<{id:string;title:string;initial:QueryResponse}>|null>(null);
   const examples = useMemo(() => ["대출 얼마나 늘었어?", "요즘 물가 어때?", "경기 분위기 어때?", "최근 5년 경제심리지수 추이"], []);
 
   useEffect(()=>{
@@ -339,7 +406,7 @@ export default function App() {
       if(!state?.statbridge)return;
       setView(state.view==="lineage"?"lineage":"home");
       setQuery(typeof state.query==="string"?state.query:"대출 얼마나 늘었어?");
-      setResult((state.result as QueryResponse|null)||null);setPeriodSelection(null);setError("");
+      setResult((state.result as QueryResponse|null)||null);setMultiIntents(null);setError("");
       window.setTimeout(()=>window.scrollTo({top:state.result?document.body.scrollHeight:0,behavior:"smooth"}),20);
     };
     if(history.state?.statbridge)restore(history.state);
@@ -358,7 +425,7 @@ export default function App() {
   };
 
   const goHome=()=>{
-    setView("home");setResult(null);setPeriodSelection(null);setError("");
+    setView("home");setResult(null);setMultiIntents(null);setError("");
     pushUiState("home",null,query);window.scrollTo({top:0,behavior:"smooth"});
   };
 
@@ -369,18 +436,38 @@ export default function App() {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!query.trim()) return;
-    setLoading(true); setError(""); setResult(null); setPeriodSelection(null);
+    setLoading(true); setError(""); setResult(null); setMultiIntents(null);
     try {
-      // Preserve the user's original request. HCX classification.series and the
-      // resolver's deterministic fallback own comparison decomposition.
-      const data=await submitQuery({query:query.trim(),execute:true});
+      const data = await submitQuery({ query: query.trim(), execute: true });
       showResult(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.");
     } finally { setLoading(false); }
   };
 
-  const chooseClarification = async (selections: Array<{ clarification_id: string; values: string[] }>, start:string, end:string, mode:"combined"|"separate") => {
+  const executeMultiIntents=async(ready:IntentReady[])=>{
+    setLoading(true);setError("");
+    try{
+      const responses=await Promise.all(ready.map((item)=>submitQuery({query:item.initial.query,state:item.initial.state,selections:item.selections,execute:true,period_start:item.start,period_end:item.end})));
+      const failed=responses.find((item)=>item.status!=="need_output_config"||!item.outputSessionId);
+      if(failed)throw new Error(failed.summary||"비교 데이터를 준비하지 못했습니다.");
+      const starts=responses.map((item)=>item.period.start).filter(Boolean).sort();
+      const ends=responses.map((item)=>item.period.end).filter(Boolean).sort();
+      const merged:QueryResponse={
+        status:"need_output_config",query:query.trim(),interpretedQuery:responses.map((item)=>item.interpretedQuery).join(" · "),
+        summary:"모든 MCP 데이터 조회가 끝났습니다. 비교 그래프 출력 방식을 선택해 주세요.",
+        period:{start:starts[0]||"",end:ends.at(-1)||""},frequency:[...new Set(responses.map((item)=>item.frequency))].join(" / "),
+        chart:[],chartMode:null,seriesCount:responses.reduce((count,item)=>count+(item.seriesCount||0),0),tables:responses.flatMap((item)=>item.tables),
+        outputSessionIds:responses.map((item)=>item.outputSessionId!),outputOptions:{...(responses[0].outputOptions!),seriesCount:responses.reduce((count,item)=>count+(item.seriesCount||0),0)},
+        insights:responses.flatMap((item)=>item.insights),lineage:responses.flatMap((item,responseIndex)=>item.lineage.map((step)=>({...step,id:`intent-${responseIndex}-${step.id}`}))),
+        warnings:responses.flatMap((item)=>item.warnings),
+      };
+      setMultiIntents(null);showResult(merged);
+    }catch(err){setError(err instanceof Error?err.message:"비교 그래프를 만드는 중 오류가 발생했습니다.");}
+    finally{setLoading(false);}
+  };
+
+  const chooseClarification = async (selections: Array<{ clarification_id: string; values: string[] }>, start:string, end:string) => {
     if (!result || !selections.length) return;
     setLoading(true); setError("");
     try {
@@ -389,7 +476,7 @@ export default function App() {
         state: result.state,
         selections,
         execute: true,
-        period_start:start, period_end:end, chart_mode:mode,
+        period_start:start, period_end:end,
       });
       showResult(data);
     } catch (err) {
@@ -397,28 +484,30 @@ export default function App() {
     } finally { setLoading(false); }
   };
 
-  const submitPeriod = async (start: string, end: string, mode:"combined"|"separate") => {
+  const submitPeriod = async (start: string, end: string) => {
     if (!result) return;
-    setLoading(true); setError(""); setPeriodSelection({start,end});
+    setLoading(true); setError("");
     try {
-      const data = await submitQuery({ query: result.query, state: result.state, execute: true, period_start: start, period_end: end, chart_mode:mode });
+      const data = await submitQuery({ query: result.query, state: result.state, execute: true, period_start: start, period_end: end });
       showResult(data);
     } catch (err) { setError(err instanceof Error ? err.message : "기간 처리 중 오류가 발생했습니다."); }
     finally { setLoading(false); }
   };
 
-  const chooseChartMode = async (mode: "combined" | "separate") => {
-    if (!result || !periodSelection) return;
+  const renderSelectedOutput = async (value:{chartType:ChartType;mode:"combined"|"separate";title:string;showLegend:boolean;xAxisLabel:string;yAxisLabel:string}) => {
+    if (!result) return;
+    const sessionIds=result.outputSessionIds||[result.outputSessionId||""].filter(Boolean);
+    if(!sessionIds.length)return;
     setLoading(true); setError("");
     try {
-      const data = await submitQuery({ query: result.query, state: result.state, execute: true, period_start: periodSelection.start, period_end: periodSelection.end, chart_mode: mode });
+      const data = await submitOutput({session_ids:sessionIds,chart_type:value.chartType,chart_mode:value.mode,title:value.title||undefined,show_legend:value.showLegend,x_axis_label:value.xAxisLabel||undefined,y_axis_label:value.yAxisLabel||undefined});
       showResult(data);
-    } catch (err) { setError(err instanceof Error ? err.message : "그래프 구성 중 오류가 발생했습니다."); }
+    } catch (err) { setError(err instanceof Error ? err.message : "출력 에이전트가 그래프를 만드는 중 오류가 발생했습니다."); }
     finally { setLoading(false); }
   };
 
   return <div className="app-shell">
     <Sidebar open={menuOpen} close={() => setMenuOpen(false)} view={view} selectView={navigateView} goHome={goHome}/>
-    <div className="main-shell"><Header openMenu={() => setMenuOpen(true)}/>{view === "lineage" ? <DataCatalog/> : <main><Hero query={query} setQuery={setQuery} submit={onSubmit} loading={loading}/><FeatureStrip/>{error && <div className="error-banner">{error}</div>}{result?.status === "need_clarification" && <ClarificationPanel result={result} loading={loading} choose={chooseClarification}/>} {result?.status === "need_period" && <PeriodPanel result={result} loading={loading} submit={submitPeriod}/>} {result?.status === "need_chart_mode" && <ChartModePanel result={result} loading={loading} choose={chooseChartMode}/>} {result && !["need_clarification","need_period","need_chart_mode"].includes(result.status || "") && <Results result={result}/>}<section className="example-footer"><div><Icon name="history"/><span>다른 질문도 탐색해보세요</span></div>{examples.map((x) => <button key={x} onClick={() => { setQuery(x); setResult(null); setPeriodSelection(null); window.scrollTo({ top: 0, behavior: "smooth" }); }}>{x}</button>)}</section></main>}<footer><span>© 2026 StatBridge</span><span>UI → Agent → 통계언어 사전 → MCP → KOSIS</span></footer></div>
+    <div className="main-shell"><Header openMenu={() => setMenuOpen(true)}/>{view === "lineage" ? <DataCatalog/> : <main><Hero query={query} setQuery={setQuery} submit={onSubmit} loading={loading}/><FeatureStrip/>{error && <div className="error-banner">{error}</div>}{multiIntents&&<MultiIntentPanel query={query} intents={multiIntents} loading={loading} execute={executeMultiIntents}/>} {result?.status === "need_clarification" && <ClarificationPanel result={result} loading={loading} choose={chooseClarification}/>} {result?.status === "need_period" && <PeriodPanel result={result} loading={loading} submit={submitPeriod}/>} {result?.status === "need_output_config" && <OutputConfigPanel result={result} loading={loading} submit={renderSelectedOutput}/>} {result && !["need_clarification","need_period","need_output_config"].includes(result.status || "") && <Results result={result}/>}<section className="example-footer"><div><Icon name="history"/><span>다른 질문도 탐색해보세요</span></div>{examples.map((x) => <button key={x} onClick={() => { setQuery(x); setResult(null); setMultiIntents(null); window.scrollTo({ top: 0, behavior: "smooth" }); }}>{x}</button>)}</section></main>}<footer><span>© 2026 StatBridge</span><span>입력 UI → LangGraph → MCP/KOSIS → 출력 선택 → 출력 Agent → Renderer</span></footer></div>
   </div>;
 }

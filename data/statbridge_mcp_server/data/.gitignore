@@ -1,0 +1,4 @@
+# kosis_bok_metadata_collector 산출물 연결 위치 (bok_table_master/items/classifications/periods …)
+# 로컬에서 연결해 쓰는 데이터 — 수집물·대용량 파일 커밋 금지
+*
+!.gitignore

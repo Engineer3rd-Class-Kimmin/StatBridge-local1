@@ -1,0 +1,12 @@
+{
+  "source_project": "uploaded StatBridge1/StatBridge-official",
+  "dictionary_sha256": "f0913fd626f9e685cd4371bedc200ecfd86e5c03206d214a6ad2601c9923bb3d",
+  "ncp_client_sha256": "665b6fbe7c53b88b79cc3877a9cfd1ff4b6f484bfbd8e4a5451a7f52bbf1cd5b",
+  "routing_examples": 29,
+  "gold_cases": 100,
+  "models": [
+    "HCX-003",
+    "jev-latest",
+    "jev-preview"
+  ]
+}

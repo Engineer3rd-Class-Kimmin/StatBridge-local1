@@ -1,7 +1,7 @@
 import { mockResponse } from "./mock";
-import type { CatalogResponse, QueryRequest, QueryResponse } from "./types";
+import type { CatalogResponse, OutputRenderRequest, QueryRequest, QueryResponse } from "./types";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "/api";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000/api";
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
 
 function localFallback(query: string, reason: string): QueryResponse {
@@ -15,7 +15,7 @@ function localFallback(query: string, reason: string): QueryResponse {
     tables: [],
     insights: [
       "UI 자체는 정상 동작하고 있습니다.",
-      "Agent API가 실행 중인지 확인해 주세요.",
+      "START_STATBRIDGE.cmd로 Agent API와 MCP를 함께 실행해 주세요.",
     ],
     lineage: [
       { id: "ui", title: "UI 질의 수신", description: "질의 입력과 제출은 정상", status: "complete" },
@@ -53,4 +53,14 @@ export async function submitQuery(payload: QueryRequest): Promise<QueryResponse>
     const message = error instanceof Error ? error.message : "network error";
     return localFallback(payload.query, message);
   }
+}
+
+export async function submitOutput(payload: OutputRenderRequest): Promise<QueryResponse> {
+  const response = await fetch(`${API_BASE_URL}/output`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!response.ok) throw new Error(`출력 Agent API 오류: HTTP ${response.status}`);
+  return (await response.json()) as QueryResponse;
 }

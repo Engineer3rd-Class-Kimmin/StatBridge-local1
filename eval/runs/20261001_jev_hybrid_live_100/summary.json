@@ -1,0 +1,17 @@
+{
+  "Hybrid-live-current-prompt": {
+    "n_cases": 100,
+    "n_runs": 100,
+    "domain_accuracy_pct": 98.0,
+    "intent_f1_pct": 64.23,
+    "condition_f1_pct": 93.33,
+    "frequency_accuracy_pct": 100.0,
+    "series_count_accuracy_pct": 100.0,
+    "valid_output_pct": 99.0,
+    "api_error_pct": 1.0,
+    "latency_p50_s": 4.18,
+    "latency_p95_s": 5.251
+  },
+  "jev_fallback_count": 0,
+  "method": "One live Jev call per frozen gold case, paired with saved HCX-003 repeat-1 output."
+}

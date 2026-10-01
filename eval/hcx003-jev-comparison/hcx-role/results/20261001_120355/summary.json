@@ -1,0 +1,47 @@
+{
+  "HCX-003": {
+    "n_runs": 300,
+    "n_cases": 100,
+    "role_score_pct": 71.49,
+    "domain_accuracy_pct": 98.0,
+    "intent_f1_pct": 64.23,
+    "qualifier_f1_pct": 93.33,
+    "frequency_accuracy_pct": 100.0,
+    "series_count_accuracy_pct": 28.0,
+    "valid_output_pct": 99.0,
+    "api_error_pct": 0.0,
+    "consistency_pct": 100.0,
+    "latency_p50_s": 4.009,
+    "latency_p95_s": 5.036
+  },
+  "jev-latest": {
+    "n_runs": 300,
+    "n_cases": 100,
+    "role_score_pct": 41.95,
+    "domain_accuracy_pct": 0.0,
+    "intent_f1_pct": 0.0,
+    "qualifier_f1_pct": 85.0,
+    "frequency_accuracy_pct": 0.0,
+    "series_count_accuracy_pct": 87.0,
+    "valid_output_pct": 0.0,
+    "api_error_pct": 100.0,
+    "consistency_pct": 100.0,
+    "latency_p50_s": 0.214,
+    "latency_p95_s": 0.237
+  },
+  "jev-preview": {
+    "n_runs": 300,
+    "n_cases": 100,
+    "role_score_pct": 41.95,
+    "domain_accuracy_pct": 0.0,
+    "intent_f1_pct": 0.0,
+    "qualifier_f1_pct": 85.0,
+    "frequency_accuracy_pct": 0.0,
+    "series_count_accuracy_pct": 87.0,
+    "valid_output_pct": 0.0,
+    "api_error_pct": 100.0,
+    "consistency_pct": 100.0,
+    "latency_p50_s": 0.208,
+    "latency_p95_s": 0.263
+  }
+}

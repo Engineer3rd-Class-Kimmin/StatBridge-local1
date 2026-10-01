@@ -424,23 +424,23 @@ class StatLanguageResolver:
             options=[]
             for o in g['options']:
                 matching=[]
-                def table_matches_option(table_name):
-                    name=table_name.lower()
-                    any_terms=[x.lower() for x in o.get('table_name_any',[]) if x]
-                    all_terms=[x.lower() for x in o.get('table_name_all',[]) if x]
-                    none_terms=[x.lower() for x in o.get('table_name_none',[]) if x]
-                    return (not any_terms or any(x in name for x in any_terms)) and all(x in name for x in all_terms) and not any(x in name for x in none_terms)
                 # First use current candidates when possible.
                 for c in candidates:
-                    if table_matches_option(c['table_name']):
+                    tn=c['table_name'].lower()
+                    if any(x.lower() in tn for x in o.get('table_name_any',[])) and not any(x.lower() in tn for x in o.get('table_name_none',[])):
                         matching.append(c['table_id'])
-                # The initial ranking may omit valid sibling branches from top-k.
-                # Complete only an unconstrained first-turn clarification from the
-                # catalog; after a user choice, keep the narrowed candidate scope.
-                initial_unconstrained_turn=not confirmed and not asked
+                # On the initial turn, ranking can omit valid sibling branches
+                # from its top-k candidates (for example, household-loan measures
+                # or corporate-statement types).  Complete the clarification from
+                # the catalog so a partial ranking cannot silently auto-select one
+                # branch.  After an earlier answer has constrained the search,
+                # however, an option with no candidate match is genuinely
+                # irrelevant and must stay hidden.
+                initial_unconstrained_turn = not confirmed and not asked
                 if not matching and (not candidates or initial_unconstrained_turn):
                     for t in self.tables:
-                        if table_matches_option(t['table_name']):
+                        tn=t['table_name'].lower()
+                        if any(x.lower() in tn for x in o.get('table_name_any',[])) and not any(x.lower() in tn for x in o.get('table_name_none',[])):
                             matching.append(t['table_id'])
                 if matching:
                     options.append({

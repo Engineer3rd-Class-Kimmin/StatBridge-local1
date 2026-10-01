@@ -15,16 +15,16 @@
     },
     {
       "id": "industry_loan_breakdown",
-      "priority": 14,
+      "priority": 12,
       "trigger_terms": ["산업별대출", "산업별 대출"],
       "skip_if_terms": ["기업형태별", "용도별", "전산업", "기업규모별"],
       "question": "산업별 대출을 어떤 기준으로 나눠 볼까요?",
       "ui": "single_select_buttons",
       "options": [
-        {"label": "전산업", "value": "전산업", "confirmed_terms": ["전산업"], "table_name_any": ["산업별대출금"], "table_name_all": ["전산업"]},
-        {"label": "용도별", "value": "용도별", "confirmed_terms": ["용도별"], "table_name_any": ["산업별대출금"], "table_name_all": ["용도별"]},
-        {"label": "기업형태별", "value": "기업형태별", "confirmed_terms": ["기업형태별"], "table_name_any": ["산업별대출금"], "table_name_all": ["기업형태별"]},
-        {"label": "기업규모별", "value": "기업규모별", "confirmed_terms": ["기업규모별"], "table_name_any": ["산업별대출금"], "table_name_all": ["기업규모별"]}
+        {"label": "전산업", "value": "전산업", "confirmed_terms": ["전산업"], "table_name_any": ["전산업"]},
+        {"label": "용도별", "value": "용도별", "confirmed_terms": ["용도별"], "table_name_any": ["용도별"]},
+        {"label": "기업형태별", "value": "기업형태별", "confirmed_terms": ["기업형태별"], "table_name_any": ["기업형태별"]},
+        {"label": "기업규모별", "value": "기업규모별", "confirmed_terms": ["기업규모별"], "table_name_any": ["기업규모별"]}
       ]
     },
     {

@@ -1,0 +1,257 @@
+{
+  "timestamp": "2026-10-01T15:59:38+0900",
+  "jev_key_configured": true,
+  "records": [
+    {
+      "query": "최근 경제심리지수 추이 보여줘",
+      "elapsed_s": 3.911,
+      "status": "resolved",
+      "hcx": {
+        "normalized_query": "최근 경제심리지수 추이 보여줘",
+        "concepts": null,
+        "subjects": null,
+        "measures": null,
+        "time_terms": null,
+        "comparison_terms": null,
+        "qualifiers": null,
+        "series": []
+      },
+      "jev_trace": null,
+      "tables": [
+        {
+          "table_id": "DT_513Y001",
+          "table_name": "경제심리지수",
+          "series_label": null
+        }
+      ],
+      "mcp": {
+        "status": "planned_only",
+        "row_count": 0,
+        "error": null
+      },
+      "clarification": null,
+      "orchestration": {
+        "engine": "langgraph",
+        "stage": "awaiting_output_selection",
+        "path": [
+          "resolve_request",
+          "execute_statistics",
+          "await_output_selection"
+        ]
+      }
+    },
+    {
+      "query": "최근 5년 기준금리와 대출금리를 비교해줘",
+      "elapsed_s": 4.73,
+      "status": "no_match",
+      "hcx": {
+        "normalized_query": "최근 5년 기준금리와 대출금리 비교",
+        "concepts": [
+          "기준금리",
+          "대출금리"
+        ],
+        "subjects": null,
+        "measures": [
+          "비교"
+        ],
+        "time_terms": [
+          "최근 5년"
+        ],
+        "comparison_terms": null,
+        "qualifiers": null,
+        "series": [
+          {
+            "label": "기준금리",
+            "query": "최근 5년 기준금리"
+          },
+          {
+            "label": "대출금리",
+            "query": "최근 5년 대출금리"
+          }
+        ]
+      },
+      "jev_trace": {
+        "jev_enabled": true,
+        "jev_model": "jev-preview",
+        "jev_status": "success",
+        "jev_latency_ms": 558.98,
+        "jev_series_count": 2,
+        "jev_probability": 1.0,
+        "hcx_series_count_before": 2,
+        "final_series_count": 2,
+        "series_action": "kept",
+        "jev_fallback_used": false
+      },
+      "tables": [],
+      "mcp": {
+        "status": null,
+        "row_count": 0,
+        "error": null
+      },
+      "clarification": null,
+      "orchestration": {
+        "engine": "langgraph",
+        "stage": "unresolved",
+        "path": [
+          "resolve_request",
+          "finish_unresolved"
+        ]
+      }
+    },
+    {
+      "query": "기준금리, 예금금리, 대출금리를 최근 3년간 비교해줘",
+      "elapsed_s": 5.047,
+      "status": "no_match",
+      "hcx": {
+        "normalized_query": "기준금리, 예금금리, 대출금리 최근 3년간 비교",
+        "concepts": [
+          "기준금리",
+          "예금금리",
+          "대출금리"
+        ],
+        "subjects": null,
+        "measures": null,
+        "time_terms": [
+          "최근3년"
+        ],
+        "comparison_terms": [
+          "비교"
+        ],
+        "qualifiers": null,
+        "series": [
+          {
+            "label": "기준금리",
+            "query": "기준금리"
+          },
+          {
+            "label": "예금금리",
+            "query": "정기예적금 금리"
+          },
+          {
+            "label": "대출금리",
+            "query": "대출 평균금리"
+          }
+        ]
+      },
+      "jev_trace": {
+        "jev_enabled": true,
+        "jev_model": "jev-preview",
+        "jev_status": "success",
+        "jev_latency_ms": 215.42,
+        "jev_series_count": 3,
+        "jev_probability": 0.99,
+        "hcx_series_count_before": 3,
+        "final_series_count": 3,
+        "series_action": "kept",
+        "jev_fallback_used": false
+      },
+      "tables": [],
+      "mcp": {
+        "status": null,
+        "row_count": 0,
+        "error": null
+      },
+      "clarification": null,
+      "orchestration": {
+        "engine": "langgraph",
+        "stage": "unresolved",
+        "path": [
+          "resolve_request",
+          "finish_unresolved"
+        ]
+      }
+    },
+    {
+      "query": "서울과 부산의 소비자물가지수를 비교해줘",
+      "elapsed_s": 4.76,
+      "status": "no_match",
+      "hcx": {
+        "normalized_query": "서울과 부산의 소비자물가지수 비교",
+        "concepts": [
+          "소비자물가지수"
+        ],
+        "subjects": [
+          "서울",
+          "부산"
+        ],
+        "measures": [
+          "지수"
+        ],
+        "time_terms": null,
+        "comparison_terms": [
+          "비교"
+        ],
+        "qualifiers": null,
+        "series": []
+      },
+      "jev_trace": {
+        "jev_enabled": true,
+        "jev_model": "jev-preview",
+        "jev_status": "success",
+        "jev_latency_ms": 233.63,
+        "jev_series_count": 0,
+        "jev_probability": 1.0,
+        "hcx_series_count_before": 2,
+        "final_series_count": 0,
+        "series_action": "cleared",
+        "jev_fallback_used": false
+      },
+      "tables": [],
+      "mcp": {
+        "status": null,
+        "row_count": 0,
+        "error": null
+      },
+      "clarification": null,
+      "orchestration": {
+        "engine": "langgraph",
+        "stage": "unresolved",
+        "path": [
+          "resolve_request",
+          "finish_unresolved"
+        ]
+      }
+    }
+  ],
+  "mcp_kosis_probe": {
+    "query": "최근 경제심리지수 추이 보여줘",
+    "status": "resolved",
+    "hcx": {
+      "normalized_query": "최근 경제심리지수 추이 보여줘",
+      "concepts": null,
+      "subjects": null,
+      "measures": null,
+      "time_terms": null,
+      "comparison_terms": null,
+      "qualifiers": null,
+      "series": []
+    },
+    "jev_trace": null,
+    "tables": [
+      {
+        "table_id": "DT_513Y001",
+        "table_name": "경제심리지수",
+        "series_label": null
+      }
+    ],
+    "mcp": {
+      "status": "success",
+      "row_count": 12,
+      "error": null
+    },
+    "clarification": null,
+    "orchestration": {
+      "engine": "langgraph",
+      "stage": "output_ready",
+      "path": [
+        "resolve_request",
+        "execute_statistics",
+        "prepare_output"
+      ]
+    }
+  },
+  "disabled_probe": {
+    "enabled": false,
+    "configured": false
+  }
+}
