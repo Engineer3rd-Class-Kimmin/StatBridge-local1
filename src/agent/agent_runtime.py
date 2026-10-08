@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import calendar
+import json
 import os
 import re
 from dataclasses import dataclass
@@ -16,6 +17,7 @@ from output_agent import OutputAgent
 from jev_series_client import JevSeriesClient
 from jev_series_hybrid import apply_jev_series_decision
 from request_match_guard import structure_request, table_evidence, catalog_mentions, scoped_metric_query, unsupported_quantity_terms
+from catalog_request_planner import selections as catalog_selections, unavailable as unavailable_catalog_quantity
 
 
 @dataclass(slots=True)
@@ -382,6 +384,26 @@ class StatBridgeAgent:
             'dictionary_query':query,'request_query':query,'classification':{'status':'scoped_comparison'}})
 
     def resolve(self, query: str, state: dict[str, Any] | None = None, clarification: dict[str, str] | None = None) -> dict[str, Any]:
+        repeat_grounded_request = bool(
+            state and state.get('_catalog_grounded')
+            and state.get('_user_query') == query and not state.get('confirmed')
+        )
+        if not clarification and (not state or repeat_grounded_request):
+            missing = unavailable_catalog_quantity(query, self.resolver.tables)
+            if missing:
+                return {'status': 'no_match', 'missing_series': [missing],
+                        'state': {'original_query': query}}
+            selected = catalog_selections(query, self.resolver.tables)
+            if selected:
+                plans = [self.build_api_plan(query, item).as_dict() for item in selected]
+                return self.validate_resolution(query, {
+                    'status': 'resolved', 'selected_table': selected[0],
+                    'selected_tables': selected, 'api_plan': plans[0], 'api_plans': plans,
+                    'candidates': selected, 'dictionary_query': query,
+                    'classification': {'status': 'catalog_measured_concept', 'normalized_query': query},
+                    'state': {**(state or {}), 'original_query': query, '_request_query': query,
+                              '_user_query': query, '_catalog_grounded': True, 'confirmed': {}},
+                })
         scoped=self._scoped_comparison(query,state,clarification)
         if scoped is not None:return scoped
         request_query = query
@@ -542,6 +564,30 @@ class StatBridgeAgent:
 
     def validate_resolution(self, query: str, resolution: dict[str, Any]) -> dict[str, Any]:
         """Check original intent and canonical IDs again after model/vector ranking."""
+        grounded = catalog_selections(query, self.resolver.tables)
+        grounded_plans = [self.build_api_plan(query, item).as_dict() for item in grounded]
+        observed = resolution.get('api_plans') or ([resolution['api_plan']] if resolution.get('api_plan') else [])
+        confirmed = (resolution.get('state') or {}).get('confirmed') or {}
+
+        def canonical(plans):
+            return sorted(json.dumps(p, sort_keys=True, ensure_ascii=False) for p in plans)
+
+        # Reconstruct complete plans from current metadata rather than trusting
+        # a model flag, table-name overlap, or only one member of a comparison.
+        if (grounded_plans and canonical(grounded_plans) == canonical(observed)
+                and all(self.resolver._matches_confirmed_filters(self.tables_by_id[p['table_id']], confirmed)
+                        for p in observed)):
+            return {**resolution, 'request_query': query, 'request_validation': {
+                'valid': True, 'errors': [], 'table_ids': [p['table_id'] for p in observed],
+                'evidence': 'measured_concept_and_each_catalog_dimension',
+            }}
+        if grounded_plans:
+            return {**resolution, 'status': 'no_match', 'selected_table': None,
+                    'selected_tables': [], 'api_plan': None, 'api_plans': [],
+                    'request_validation': {'valid': False, 'errors': [
+                        '요청한 모든 계열과 정본 조회 계획 또는 확정 조건이 일치하지 않습니다.'
+                    ], 'table_ids': [p.get('table_id') for p in observed]},
+                    'state': {**(resolution.get('state') or {}), 'status': 'no_match'}}
         request = structure_request(query)
         mentions=catalog_mentions(query,self.tables_by_id.values())
         plans = resolution.get("api_plans") or ([resolution["api_plan"]] if resolution.get("api_plan") else [])
