@@ -1,5 +1,8 @@
 # StatBridge
 
+[지원용 프로젝트 설명](docs/APPLICATION_PORTFOLIO.md)에 문제·접근·기여 범위·AI 활용·결과와 한계를 연결했습니다. 기존 공개 개발 평가와 사람 승인 상태를 구분하며, 이번 변경에서 E2E 점수를 새로 측정하지 않았습니다.
+
+
 현재 작업 저장소는 [Engineer3rd-Class-Kimmin/StatBridge-local1](https://github.com/Engineer3rd-Class-Kimmin/StatBridge-local1)이다. Windows에서는 `scripts/windows/START_STATBRIDGE.cmd`로 실행한다. 통합 HTTP 실행 모듈은 `src/agent/agent_runtime.py`이며 기존 `statbridge_agent/` 패키지도 보존한다.
 
 오늘의 출력 에이전트·Jev 패치·평가 기록은 [통합 작업 요약](docs/운영/2026-10-01-통합-작업-요약.md), 저장소 이전 과정은 [저장소 이전 기록](docs/운영/2026-10-01-저장소-이전.md)에 정리했다.
