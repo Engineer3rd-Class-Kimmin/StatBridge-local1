@@ -4,6 +4,8 @@ def refresh_classifications(tables, store):
         if table['table_id'] not in store.table_ids():
             continue
         metadata=store.get(table['table_id'])
+        if getattr(metadata, 'frequencies', None):
+            table['available_frequencies'] = list(metadata.frequencies)
         dimensions={d['mcp_param']:d for d in metadata.dimensions}
         for dimension in table.get('dimensions',[]):
             current=dimensions.get(dimension['api_param'])

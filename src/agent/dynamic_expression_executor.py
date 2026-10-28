@@ -4,7 +4,7 @@ import math
 from decimal import Decimal, localcontext
 from dataclasses import dataclass
 from expression_tree_validator import (DerivedValidationError, MAX_POINTS, MAX_CELLS, MAX_WORK,
-                                       YEAR_LAGS, period_index, shift_period, prior_year_period, result_unit)
+                                       YEAR_LAGS, period_index, shift_period, prior_year_period, result_unit, canonical_bound)
 
 
 @dataclass
@@ -47,7 +47,7 @@ def source_series(source, response):
         actual_frequency = {'A': 'Y', 'H': 'S'}.get(row.get('PRD_SE'), row.get('PRD_SE'))
         if actual_frequency != source.frequency:
             raise DerivedValidationError('조회 응답의 주기가 요청과 다릅니다.')
-        period = str(row.get('PRD_DE') or '')
+        period = canonical_bound(str(row.get('PRD_DE') or ''), source.frequency)
         period_index(period, source.frequency)
         if period in values:
             raise DerivedValidationError(f'{source.alias}: 중복 관측 시점 {period}')
@@ -167,19 +167,20 @@ class DynamicExpressionExecutor:
                             if all(v is not None for v in window):
                                 value = sum(window) / node.window
                         elif x is not None:
-                            if op in {'add', 'subtract', 'multiply', 'divide'} and y is not None:
+                            if op in {'add', 'subtract', 'multiply', 'divide', 'percent_ratio'} and y is not None:
                                 if op == 'add': value = x + y
                                 elif op == 'subtract': value = x - y
                                 elif op == 'multiply': value = x * y
-                                else: value = x / y
+                                else: value = x / y * (100 if op == 'percent_ratio' else 1)
                             elif op in {'pct_change', 'yoy_pct', 'difference'}:
                                 prior_period = prior_year_period(period, freq) if op == 'yoy_pct' else shift_period(period, freq, -node.lag)
                                 prior = args[0].values.get(prior_period)
                                 if prior is not None:
                                     value = x - prior if op == 'difference' else (x / prior - 1) * 100
-                            elif op == 'rebase_100':
+                            elif op in {'rebase_100', 'base_change'}:
                                 base = args[0].values.get(node.base_period)
-                                if base is not None: value = x / base * 100
+                                if base is not None:
+                                    value = (x / base - (1 if op == 'base_change' else 0)) * 100
                             elif op == 'inverse': value = 1 / x
                             elif op == 'log': value = math.log(x)
                             elif op == 'power':

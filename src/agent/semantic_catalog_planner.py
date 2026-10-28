@@ -158,7 +158,7 @@ def family(q,title,table):
         if '계절조정' in q and '원계열' not in q and not any(w in q for w in ['계절조정하지않','계절조정하지않은']):return '국제수지' if '경상수지' in title and '계절조정' in title else None
         return '국제수지' if title=='국제수지' else None
     if any(x in q for x in ['여행수지','운송수지']):return '서비스수지' if '서비스무역세분류' in title else None
-    if '기업' in q and any(w in q for w in ['연간','연도별','최근몇년']) and '금리' not in q:
+    if '기업' in q and (any(w in q for w in ['연간','연도별','최근몇년']) or ('기업경영분석' in q and not any(w in q for w in ['월별','분기별']))) and '금리' not in q:
         return 'corporate_measure' if 'corporate_finance' in table.get('domains',[]) else None
     if '광의유동성' in q:return '광의유동성' if '광의유동성' in title else None
     if '개관표' in q:return '개관표' if '개관표' in title else None
@@ -219,6 +219,8 @@ def family(q,title,table):
 
 
 def selections(query,tables,debug=None):
+    from query_semantics import active_request
+    query=active_request(query)
     query=re.sub(r'계절\s*조정하지\s*않(?:은|고)?', '원계열',query)
     query=query.replace('계절 요인을 제거한','계절조정').replace('계절 요인 제거','계절조정')
     q=norm(query).replace('협의통화','m1').replace('광의통화','m2').replace('대중국','중국')
@@ -264,7 +266,7 @@ def selections(query,tables,debug=None):
             if any(x in q for x in ['금리','업황','bsi','소비자물가','기준금리']):continue
             f='dimension_measure'
         frequency=table.get('prd_se')
-        if any(x in q for x in ['연간','연도별','매년']) and ('연간' in title or '년' in table.get('available_frequencies',[])):
+        if any(x in q for x in ['연간','연도별','매년']) and ('연간' in title or set(table.get('available_frequencies',[])) & {'년','Y','A'}):
             frequency='Y'
         if '일별' in q and frequency!='D':continue
         if '시간별' in q and frequency!='H':continue
@@ -363,5 +365,5 @@ def selections(query,tables,debug=None):
                 vs=vs[:1]
             choices.append(vs or [None])
         for combo in product(*choices):
-            result.append({'table_id':table['table_id'],'table_name':table['table_name'],'score':400,'reasons':['metadata_named_measure'],'_frequency':('Y' if any(x in q for x in ['연간','연도별','매년']) and '연간' in norm(table['table_name']) else table.get('prd_se')),'dimension_hits':[{'api_param':d['api_param'],'value_id':v['value_id'],'value_name':v['value_name']} for d,v in zip(table.get('dimensions',[]),combo) if v],'_missing_dimensions':missing})
+            result.append({'table_id':table['table_id'],'table_name':table['table_name'],'score':400,'reasons':['metadata_named_measure'],'_frequency':('Y' if any(x in q for x in ['연간','연도별','매년']) and ('연간' in norm(table['table_name']) or set(table.get('available_frequencies',[])) & {'년','Y','A'}) else table.get('prd_se')),'dimension_hits':[{'api_param':d['api_param'],'value_id':v['value_id'],'value_name':v['value_name']} for d,v in zip(table.get('dimensions',[]),combo) if v],'_missing_dimensions':missing})
     return result

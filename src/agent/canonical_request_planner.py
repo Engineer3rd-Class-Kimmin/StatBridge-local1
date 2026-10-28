@@ -24,10 +24,13 @@ def references(query, tables):
 
 
 def instruction_text(query, tables):
+    from query_semantics import active_request
+    query=active_request(query)
     chars=list(query)
     for start,end,_ in references(query,tables):
         chars[start:end]=' '* (end-start)
     text=''.join(chars)
+    text=re.sub(r'(?<!\d)(?:19|20)\d{2}\s*SNA(?:\s*기준)?', ' ', text, flags=re.I)
     text=re.sub(r'\[분류\s*코드[^\]]*\]',' ',text)
     text=re.sub(r'\bDT_[0-9A-Za-z]+\b',' ',text)
     values={v['value_name'] for _,_,t in references(query,tables) for d in t.get('dimensions',[]) for v in d.get('values',[])}

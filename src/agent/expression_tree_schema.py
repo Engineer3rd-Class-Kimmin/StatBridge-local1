@@ -5,8 +5,8 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 MAX_SOURCES = 12
 MAX_OUTPUTS = 12
 
-Operator = Literal['add', 'subtract', 'multiply', 'divide', 'pct_change', 'yoy_pct',
-                   'difference', 'rolling_mean', 'cumulative_sum', 'rebase_100',
+Operator = Literal['add', 'subtract', 'multiply', 'divide', 'percent_ratio', 'pct_change', 'yoy_pct',
+                   'difference', 'rolling_mean', 'cumulative_sum', 'rebase_100', 'base_change',
                    'lag', 'inverse', 'log', 'power', 'period_change']
 
 
@@ -47,11 +47,11 @@ class ExpressionNode(ClosedModel):
 
     @model_validator(mode='after')
     def parameters(self):
-        binary = self.operator in {'add', 'subtract', 'multiply', 'divide'}
+        binary = self.operator in {'add', 'subtract', 'multiply', 'divide', 'percent_ratio'}
         if len(self.inputs) != (2 if binary else 1):
             raise ValueError('연산 입력 개수가 맞지 않습니다.')
         allowed = {'pct_change': 'lag', 'difference': 'lag', 'lag': 'lag',
-                   'rolling_mean': 'window', 'rebase_100': 'base_period', 'power': 'exponent'}
+                   'rolling_mean': 'window', 'rebase_100': 'base_period', 'base_change': 'base_period', 'power': 'exponent'}
         parameter = allowed.get(self.operator)
         for key in ('lag', 'window', 'base_period', 'exponent'):
             value = getattr(self, key)
@@ -70,6 +70,7 @@ class ExpressionNode(ClosedModel):
 class ExpressionOutput(ClosedModel):
     node: str
     label: str = Field(min_length=1, max_length=150)
+    display: Literal['both', 'table', 'chart'] = 'both'
 
 
 class ExpressionPlan(ClosedModel):

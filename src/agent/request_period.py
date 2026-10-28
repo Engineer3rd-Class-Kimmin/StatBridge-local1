@@ -15,7 +15,10 @@ def _boundary(match,end=False):
 
 def explicit_period(query, latest=None):
     original=str(query or '')
-    original=re.sub(r'(?<!\d)(?:19|20)\d{2}\s*SNA\s*기준|\((?:19|20)\d{2}\s*[~∼]\s*\)', ' ',original,flags=re.I)
+    original=re.sub(r'((?:19|20)\d{2})\s*년\s*(?:첫\s*(?:석|세|3)\s*달|첫\s*분기)',r'\1년 1분기',original)
+    original=re.sub(r'((?:19|20)\d{2})\s*년\s*(?:첫\s*(?:두|2)\s*달)',r'\1년 1~2월',original)
+    original=re.sub(r'(?:19|20)\d{2}\s*년\s*이후\s*수록(?:된|\s*자료)?', ' ',original)
+    original=re.sub(r'(?<!\d)(?:19|20)\d{2}\s*SNA(?:\s*기준)?|\((?:19|20)\d{2}\s*[~∼]\s*\)', ' ',original,flags=re.I)
     # Expand closed shorthand before TOKEN can mistake its year for a full
     # January-to-December request ("2025년 1~6월"). No endpoints are guessed
     # across distinct years, and open bounds keep their existing behavior.

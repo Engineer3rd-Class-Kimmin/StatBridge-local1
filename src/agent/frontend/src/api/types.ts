@@ -126,6 +126,7 @@ export type QueryResponse = {
     echartsUnavailable?: string;
     reportDocument?: Record<string, unknown>;
     tableDocument?: import('../reportTable').TableDocument;
+    tableSeries?: ChartSeries[];
     editAgent?: { model: string; supportsImages: boolean; markCount: number; path: string[] };
     editCapabilities?: { model: string; supportsImages: boolean };
     editVersion?: number;

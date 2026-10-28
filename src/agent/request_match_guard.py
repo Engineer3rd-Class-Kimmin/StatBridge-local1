@@ -14,7 +14,8 @@ def compact(value):
 
 def active_measure_text(query):
     """Remove explicitly rejected measures before checking the requested measure."""
-    text = str(query)
+    from query_semantics import active_request
+    text = active_request(query)
     return re.sub(r"(?:비중|구성비|비율|금리|이자율|잔액|금액|물량)\s*(?:말고|대신|(?:이|가|은|는)?\s*(?:아닌|아니고|아니라))", " ", text)
 
 
@@ -137,11 +138,20 @@ def scoped_metric_query(query, table, mentions):
 
 def unsupported_quantity_terms(query, tables):
     """Unsupported explicitly named quantities must not disappear in a multi-query."""
+    tables = list(tables)
     catalog=' '.join(compact(value) for t in tables for value in
                      [t.get('table_name',''),*t.get('aliases',[]),*t.get('public_query_terms',[]),*[v.get('value_name','') for d in t.get('dimensions',[]) for v in d.get('values',[])]])
     unknown=[]
     for word in re.findall(r'[가-힣a-zA-Z]+', COMBINED_RATE_PATTERN.sub('대출금리와 수신금리', str(query))):
         term=re.sub(r'(?:으로|까지|부터|에서|을|를|은|는|의|와|과)$','',word)
+        term=term.replace('차입금리','대출금리')
+        # A named account followed by 금리 is a compositional measure name,
+        # even when metadata separates the account from the rate table title.
+        if (term.endswith('금리') and len(term[:-2]) >= 3
+                and any(compact(v.get('value_name','')).startswith(compact(term[:-2]))
+                        for t in tables if '금리' in t.get('table_name','')
+                        for d in t.get('dimensions',[]) for v in d.get('values',[]))):
+            continue
         if len(term)>=3 and term.endswith(('지수','금리','물가','사용량','발전량','생산량','소비량','실업률','전세가율','연체율')) and compact(term) not in catalog:
             unknown.append(term)
     return list(dict.fromkeys(unknown))
@@ -181,6 +191,9 @@ QUALIFIERS = ("지역별", "국가별", "나라별", "산업별", "기관별", "
 
 
 def structure_request(query):
+    original=query
+    from query_semantics import active_request
+    query=active_request(query)
     # 여수신 is a compound request, even without an explicit conjunction.
     q=compact(COMBINED_RATE_PATTERN.sub('대출금리와 수신금리', re.sub(r'이\s+자료', '해당 자료', str(query))))
     # Institution names are qualifiers, not requests for deposit statistics.
@@ -194,7 +207,7 @@ def structure_request(query):
         "대출금리":("대출","금리"),"수신금리":("수신","금리"),"생산자물가":("물가",),"소비자물가":("물가",)}
     removed={broad for name,_,_ in matches for broad in specific.get(name,())}
     metrics=[name for name,_,_ in matches if name not in removed]
-    return {"original_query":query,"metrics":metrics,
+    return {"original_query":original,"metrics":metrics,
             "qualifiers":[term for term in QUALIFIERS if term in q],
             "years":re.findall(r"(?<!\d)(?:19|20)\d{2}(?!\d)",str(query)),
             "explicit_ids":re.findall(r"\bDT_[0-9A-Za-z]+\b",str(query),re.I),

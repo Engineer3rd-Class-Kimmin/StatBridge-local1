@@ -105,7 +105,14 @@ class DerivedIndicatorRuntime:
                     or not assessment.get('sources') or any(s['status']!='available' for s in assessment['sources'])):
                 return checked
             verified=[{**s['selection'],'alias':f'verified_{i+1}'} for i,s in enumerate(assessment['sources']) if s['status']=='available' and s.get('selection')]
-            planned=self.planner.plan(query,verified_sources=verified,**kwargs)
+            units=[]
+            for source in assessment['sources']:
+                checks=source.get('observationChecks') or []
+                observed={c['unit'] for c in checks if c.get('status')=='available' and c.get('unit')}
+                if source.get('selection') and len(observed)==1 and len(checks)==sum(c.get('status')=='available' and bool(c.get('unit')) for c in checks):
+                    units.append({**{k:source['selection'][k] for k in ('table_id','item_id','classifications','frequency')},
+                                  'unit':next(iter(observed)), 'origin':'validated_KOSIS_observation_response'})
+            planned=self.planner.plan(query,verified_sources=verified,verified_source_units=units,**kwargs)
             planned['usage']=checked.get('usage',[])+planned.get('usage',[])
             planned['source_preflight']=assessment
             return planned

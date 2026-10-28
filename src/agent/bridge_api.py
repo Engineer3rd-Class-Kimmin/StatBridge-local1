@@ -1159,7 +1159,7 @@ def query(payload: QueryRequest) -> dict[str, Any]:
     frequencies = list(dict.fromkeys(str(x["frequency"]) for x in plans))
     frequency_label = "/".join(frequencies)
     available_period = _availability_from_plans(plans)
-    if re.search(r'최신|가장\s*최근', q) and re.search(r'부터|이후', q):
+    if re.search(r'최신|가장\s*최근|관측값.*마지막|발표된\s*마지막', q) and re.search(r'부터|이후', q):
         # Catalog snapshots lag releases. Resolve an explicit latest-observation
         # endpoint from this exact source, not today's calendar or another series.
         from datetime import date
@@ -1455,7 +1455,7 @@ def render_output(payload: OutputRenderRequest) -> dict[str, Any]:
         "natural_language": payload.natural_language or " · ".join(str(session["query"]) for session in sessions),
     }
     if derived:
-        output_request.update(quick_output=True, natural_language='',
+        output_request.update(quick_output=True,
                               title=payload.title or results[0]['derivedEvidence']['plan']['indicator_name'])
     try:
         rendered = agent.render_output(merged, output_request)

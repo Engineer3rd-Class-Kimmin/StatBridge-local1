@@ -152,6 +152,54 @@ def test_planner_catalog_tools_and_review(catalog):
     assert planner.plan('지수 역수')['status']=='planned'
 
 
+def test_metadata_refresh_accepts_server_verified_source_without_search_hit(catalog):
+    p=plan(catalog,'inverse')
+    planner=DerivedIndicatorPlanner(Model([
+        {'action':'metadata','table_id':p.sources[0].table_id},
+        {'action':'plan','plan':p.model_dump()}, {'approved':True,'reason':'검증된 원자료'}]),catalog)
+    assert planner.plan('역수 계산',verified_sources=[p.sources[0].model_dump()])['status']=='planned'
+
+
+def test_metadata_refresh_still_rejects_unseen_table(catalog):
+    planner=DerivedIndicatorPlanner(Model([{'action':'metadata','table_id':'DT_UNSEEN'}]),catalog)
+    with pytest.raises(DerivedValidationError,match='검색 결과에 없는'):
+        planner.plan('역수 계산')
+
+
+def test_planning_and_review_receive_server_metadata_and_verified_units(catalog):
+    p=plan(catalog,'inverse');contexts=[]
+    class Capture(Model):
+        def request(self,*args,**kwargs):
+            contexts.append(json.loads(args[1]));return super().request(*args,**kwargs)
+    units=[{**{k:v for k,v in p.sources[0].model_dump().items() if k in ('table_id','item_id','classifications','frequency')},
+            'unit':'지수','origin':'validated_KOSIS_observation_response'}]
+    planner=DerivedIndicatorPlanner(Capture([{'action':'plan','plan':p.model_dump()},
+        {'approved':True,'reason':'실제 메타데이터 일치'}]),catalog)
+    assert planner.plan('역수 계산',verified_sources=[p.sources[0].model_dump()],verified_source_units=units)['status']=='planned'
+    assert all(c['server_verified_observation_units']==units for c in contexts)
+    description=contexts[-1]['source_descriptions'][0]
+    assert description['table_id']==p.sources[0].table_id
+    assert description['item_id']==p.sources[0].item_id
+    assert description['origin']=='server_validated_catalog_selection'
+
+
+def test_preflight_forwards_only_units_observed_for_exact_selection(catalog,tmp_path,monkeypatch):
+    p=plan(catalog,'inverse')
+    runtime=DerivedIndicatorRuntime(SimpleNamespace(service=SimpleNamespace(store=catalog.store)),Model([]),tmp_path)
+    runtime.api_inventory=object();captured={}
+    source={'status':'available','selection':p.sources[0].model_dump(),
+            'observationChecks':[{'status':'available','unit':'지수'}]}
+    monkeypatch.setattr('derived_availability.check_availability',lambda *a,**kw:{'availability':{'status':'checked','sources':[source],'questions':[]}})
+    def capture(*args,**kwargs):captured.update(kwargs);return {'status':'planned'}
+    monkeypatch.setattr(runtime.planner,'plan',capture)
+    assert runtime._plan_uncached('두 지수의 차이 계산')['status']=='planned'
+    observed=captured['verified_source_units'][0]
+    assert observed['table_id']==p.sources[0].table_id and observed['unit']=='지수'
+    source['observationChecks'].append({'status':'available','unit':'다른 단위'})
+    runtime._plan_uncached('두 지수의 차이 계산')
+    assert captured['verified_source_units']==[]
+
+
 def test_edit_reuses_only_revalidated_prior_source_ids(catalog):
     p=plan(catalog,'pct_change',lag=1)
     amended=copy.deepcopy(p)
@@ -308,12 +356,13 @@ def test_api_output_edit_failure_and_restore(catalog,tmp_path,monkeypatch):
     def fetch(**kwargs):calls.append(kwargs);return response(p)
     monkeypatch.setattr(runtime.gateway,'get_statistics',fetch)
     client=TestClient(api.app)
-    r=client.post('/api/query',json={'query':'파생 변화율 계산'});assert r.status_code==200,r.text
+    r=client.post('/api/query',json={'query':'파생 변화율 계산 후 선그래프로 보여줘'});assert r.status_code==200,r.text
     data=r.json();assert data['status']=='need_output_config',data
     r=client.post('/api/output',json={'session_ids':[data['outputSessionId']],'chart_type':'line'})
     assert r.status_code==200,r.text
     chart=r.json();assert chart['analysisKind']=='derived' and chart['chart'][0]['points'][-1]['value']==pytest.approx(21)
     sid=chart['editSessionId']
+    assert api.EDIT_SESSIONS[sid]['output']['chartState']['chart_type']=='line'
     r=client.post('/api/output/edit',json={'edit_session_id':sid,'derived_node_patch':{'id':'calc','lag':1},
         'visual':{'marks':[],'selected_target':'전체 그래프'}})
     assert r.status_code==200,r.text

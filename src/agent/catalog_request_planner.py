@@ -226,4 +226,27 @@ def selections(query,tables):
     # e.g. an unadjusted account must not acquire a seasonal table as an extra.
     selected=semantic_selections(query,tables)
     if selected and not missing_requested_scopes(query,selected,tables):return selected
-    return legacy if legacy and not missing_requested_scopes(query,legacy,tables) else []
+    if legacy and not missing_requested_scopes(query,legacy,tables):return legacy
+    return scoped_selections(query, tables)
+
+
+def scoped_selections(query, tables):
+    """Keep the basis/region of each independently named comparison clause."""
+    sentences = re.split(r'(?<!\d)[.!?\n]', query)
+    dated = [s for s in sentences if re.search(r'(?:19|20)\d{2}년', s)]
+    shared = ' '.join(re.findall(r'(?:19|20)\d{2}년|월별|분기별|연간|연도별|일별', query))
+    for sentence in dated or sentences:
+        parts = re.split(r'(?:과|와)\s+(?!선그래프|그래프|표\b)', sentence)
+        if not 2 <= len(parts) <= 5:
+            continue
+        selected = []
+        for part in parts:
+            # Recursion terminates: each part has no comparison separator.
+            matches = selections(part + ' ' + shared, tables)
+            if not matches or any(m.get('_missing_dimensions') for m in matches):
+                break
+            selected.extend(matches)
+        else:
+            if len({m['table_id'] for m in selected}) > 1 and not missing_requested_scopes(query, selected, tables):
+                return selected
+    return []

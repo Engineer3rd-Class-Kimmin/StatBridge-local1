@@ -48,6 +48,14 @@ def test_full_live_inventory_negative_is_separate_from_questions_and_upload():
     assert not r.calls and len(r.planner.client.calls)==1 and 'supplement' not in result
 
 
+def test_preflight_sees_explicit_table_definitions_before_asking_questions():
+    r=runtime()
+    check_availability(r,'국가별 결제통화를 확인해줘')
+    context=json.loads(r.planner.client.calls[0][0][1])
+    assert [m['table_id'] for m in context['explicit_table_metadata']]==['DT_FIXTURE']
+    assert context['explicit_table_metadata'][0]['frequencies']==['M']
+
+
 def test_repeated_negative_check_reuses_same_snapshot_without_model_calls():
     r=runtime();first=check_availability(r,'일별 환율 확인');second=check_availability(r,'일별 환율 확인')
     assert len(r.planner.client.calls)==1 and second['usage']==[] and second['cache_hit']

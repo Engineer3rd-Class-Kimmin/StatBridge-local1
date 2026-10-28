@@ -12,6 +12,12 @@ MAX_WORK = 2000000
 
 
 def canonical_bound(value, frequency):
+    # KOSIS observation codes include YYYYQn and YYYYHn as well as
+    # YYYY01..04 / YYYY01..02. Only normalize a matching frequency.
+    pattern = {'Q': r'(\d{4})Q([1-4])', 'S': r'(\d{4})H([1-2])'}.get(frequency)
+    match = re.fullmatch(pattern, value) if pattern and isinstance(value, str) else None
+    if match:
+        return f'{match[1]}0{match[2]}'
     if not value or '-' not in value:
         return value
     parsed = date.fromisoformat(value)
@@ -118,11 +124,17 @@ def validate_plan(plan: ExpressionPlan, catalog):
                 ends.add(p.end);labels.add(p.label)
         work += (last - first + 1 + history[node.id]) * (node.window or 1)
         ids.add(node.id)
-    if any(out.node not in {n.id for n in plan.nodes} for out in plan.outputs):
-        raise DerivedValidationError('출력은 검증된 계산 노드를 참조해야 합니다.')
+    if any(out.node not in ids for out in plan.outputs):
+        raise DerivedValidationError('출력은 검증된 원자료 또는 계산 노드를 참조해야 합니다.')
+    if len({out.label for out in plan.outputs}) != len(plan.outputs):
+        raise DerivedValidationError('출력 계열 이름은 서로 달라야 합니다.')
+    if not any(out.display != 'table' for out in plan.outputs):
+        raise DerivedValidationError('그래프에 표시할 출력 계열이 필요합니다.')
     if plan.category_comparison:
         outputs=[o.node for o in plan.outputs]
         nodes={n.id:n for n in plan.nodes}
+        if any(o not in nodes for o in outputs):
+            raise DerivedValidationError('국가별 비교 출력은 기간 비교 계산 노드를 참조해야 합니다.')
         selected=[nodes[o] for o in outputs]
         if (len(set(outputs))!=len(outputs) or any(n.operator!='period_change' for n in selected)
                 or len({str(n.periods) for n in selected})!=1
@@ -154,7 +166,7 @@ def result_unit(operator, units, exponent=None):
         if len(set(units)) != 1 or not units[0]:
             raise DerivedValidationError('덧셈·뺄셈에는 동일하고 확인된 단위가 필요합니다.')
         return difference(units[0]) if operator == 'subtract' else units[0]
-    if operator in {'pct_change', 'yoy_pct', 'period_change'}:
+    if operator in {'pct_change', 'yoy_pct', 'period_change', 'base_change'}:
         if difference_unit(units[0]) == '%p':
             raise DerivedValidationError('비율의 증가율은 의미가 모호합니다. 차이(%p)인지 확인해 주세요.')
         return '%'
@@ -162,6 +174,10 @@ def result_unit(operator, units, exponent=None):
         return '지수(기준=100)'
     if operator == 'divide':
         return '배' if units[0] and units[0] == units[1] else f'({units[0]})/({units[1]})'
+    if operator == 'percent_ratio':
+        if len(set(units)) != 1 or not units[0]:
+            raise DerivedValidationError('백분율 비율에는 동일하고 확인된 단위가 필요합니다.')
+        return '%'
     if operator == 'multiply':
         return f'({units[0]})·({units[1]})'
     if operator == 'inverse':

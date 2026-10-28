@@ -123,8 +123,10 @@ def export_preflight(series,spec,result,format):
         raise ValueError('기존 가로 막대·혼합 종류·보조축 설정은 보고서 인쇄와 함께 사용할 수 없습니다. 보고서의 종류·right_axis 설정을 사용하세요.')
     if o.kind in {'regression','bubble','violin'} and (spec.guides or spec.reference_lines or spec.highlights or spec.annotations or spec.notes):
         raise ValueError('비시계열 인쇄 그래프에 기존 시계열 위치 주석을 재해석하지 않습니다. 해당 주석을 해제해 주세요.')
-    if spec.range_styles or any(s.line_shape not in {None,'linear'} for s in spec.series_styles.values()):
-        raise ValueError('인쇄 렌더러는 구간별 선 스타일·비선형 연결을 지원하지 않습니다. Plotly PNG 출력 또는 해당 스타일 해제를 사용하세요.')
+    if spec.range_styles and o.kind in {'regression','bubble','violin','heatmap','waterfall','stacked_area'}:
+        raise ValueError('이 인쇄 그래프 종류는 구간 스타일을 지원하지 않습니다. 선·막대·영역 그래프를 사용해 주세요.')
+    if any(s.line_shape not in {None,'linear'} for s in spec.series_styles.values()) or any(s.style.line_shape not in {None,'linear'} for s in spec.range_styles):
+        raise ValueError('인쇄 렌더러는 비선형 연결을 지원하지 않습니다. Plotly PNG 출력 또는 해당 스타일 해제를 사용하세요.')
     if spec.paper_shapes and any(s.data_anchor for s in spec.paper_shapes):
         raise ValueError('데이터 좌표에 고정된 강조 도형은 현재 인쇄 렌더러가 지원하지 않습니다.')
     if o.width*o.height*(o.dpi/100)**2>32_000_000:
@@ -207,17 +209,22 @@ def _render_validated(series,spec,result,format,legacy,periods,colors,period_ind
                             bottoms=[]
                             for date,value in zip(x,y):
                                 key=(id(ax),date,value>=0);bottom=bar_bases.get(key,0);bottoms.append(bottom);bar_bases[key]=bottom+value;bar_tops[(s['label'],date)]=bottom+value
-                            ax.bar(x,y,bottom=bottoms,width=(1-spec.presentation.bar_gap)*(1-spec.presentation.bar_group_gap),label=name,color=color(i,s),alpha=alpha)
+                            bars_out=ax.bar(x,y,bottom=bottoms,width=(1-spec.presentation.bar_gap)*(1-spec.presentation.bar_group_gap),label=name,color=color(i,s),alpha=alpha)
                         else:
                             bars=[j for j,item in enumerate(series) if target(j,item) is ax and spec.series_chart_types.get(item['label'],'bar' if o.kind=='dual_axis' and item['label'] in o.right_axis else legacy or 'line')=='bar']
                             slot=(1-spec.presentation.bar_gap)/max(1,len(bars));width=slot*(1-spec.presentation.bar_group_gap);offset=(bars.index(i)-(len(bars)-1)/2)*slot
-                            ax.bar(np.asarray(x)+offset,y,width=width,label=name,color=color(i,s),alpha=alpha)
+                            bars_out=ax.bar(np.asarray(x)+offset,y,width=width,label=name,color=color(i,s),alpha=alpha)
+                        _style_print_bars(bars_out,s,spec)
                     elif o.kind=='contribution' and local_kind not in {'line','area'}:
                         base=np.where(y>=0,positive,negative)
                         ax.bar(x,y,bottom=base,width=(1-spec.presentation.bar_gap)*(1-spec.presentation.bar_group_gap),label=name,color=color(i,s));positive+=np.maximum(y,0);negative+=np.minimum(y,0)
                     elif o.kind=='stacked_area': pass
                     else:
                         if local_kind=='area':ax.fill_between(x,y,alpha=.15,color=color(i,s),zorder=0)
+                        if any(rule.label==s['label'] for rule in spec.range_styles):
+                            _draw_styled_series(ax,s,spec,period_index,name)
+                            if o.kind=='panels':ax.set_title(name,fontproperties=font,fontsize=11)
+                            continue
                         style=spec.series_styles.get(s['label']);dash=spec.series_dashes.get(s['label'],style.dash if style and style.dash else 'solid')
                         ax.plot(x,y,label=name,color=color(i,s),linewidth=style.width if style and style.width else spec.line_width if spec.presentation.design_template=='snapshot' else spec.line_width/1.5,
                             linestyle={'solid':'-','dash':'--','dot':':','dashdot':'-.','longdash':(0,(6,2))}.get(dash,'-'),marker={'circle':'o','square':'s','diamond':'D','cross':'+','triangle-up':'^','triangle-down':'v'}.get(style.marker_symbol,'o') if style and style.markers else None,
@@ -332,7 +339,8 @@ def _render_validated(series,spec,result,format,legacy,periods,colors,period_ind
                     if s:
                         point=next((p for p in s['points'] if p['date']==note.period),None)
                         if point:xy=(periods.index(note.period),point['value']);coords='data';target_ax=target(series.index(s),s)
-                target_ax.annotate(note.text,xy=xy,xycoords=coords,xytext=(note.ax,note.ay),textcoords='offset pixels',fontproperties=font,fontsize=note.font_size,color=note.color,
+                offset=(note.x_shift+note.ax,note.y_shift-note.ay) if note.arrow else (note.x_shift,note.y_shift)
+                target_ax.annotate(note.text,xy=xy,xycoords=coords,xytext=offset,textcoords='offset pixels',fontproperties=font,fontsize=note.font_size*.72,color=note.color,ha='center',va='center',alpha=note.opacity,
                     arrowprops={'arrowstyle':'->','color':note.color,'lw':note.arrow_width} if note.arrow else None)
             for annotation in spec.annotations:
                 if annotation.period in periods:primary.text(periods.index(annotation.period),1.01,annotation.text,transform=primary.get_xaxis_transform(),fontproperties=font,fontsize=9)
@@ -374,6 +382,43 @@ def _render_validated(series,spec,result,format,legacy,periods,colors,period_ind
 def math_ceil(value):
     import math
     return math.ceil(value)
+
+
+def _draw_styled_series(ax,item,spec,period_index,name):
+    """Consume the same edge/point styles as the interactive Plotly renderer."""
+    from research_plotly_styles import cartesian_traces
+    dashes={'solid':'-','dash':'--','dot':':','dashdot':'-.','longdash':(0,(6,2))}
+    markers={'circle':'o','square':'s','diamond':'D','cross':'+','triangle-up':'^','triangle-down':'v'}
+    for trace in cartesian_traces(item,spec,'line'):
+        x=[period_index[d] for d in trace.x];y=list(trace.y)
+        label=name if trace.showlegend is not False else '_nolegend_'
+        if 'lines' in trace.mode:
+            ax.plot(x,y,color=trace.line.color,linewidth=trace.line.width,
+                    linestyle=dashes.get(trace.line.dash,'-'),alpha=trace.opacity,label=label)
+            label='_nolegend_'
+        if 'markers' in trace.mode:
+            for j,(xp,yp) in enumerate(zip(x,y)):
+                size=trace.marker.size[j] if isinstance(trace.marker.size,(tuple,list)) else trace.marker.size
+                color=trace.marker.color[j] if isinstance(trace.marker.color,(tuple,list)) else trace.marker.color
+                symbol=trace.marker.symbol[j] if isinstance(trace.marker.symbol,(tuple,list)) else trace.marker.symbol
+                if size:
+                    if color and color.startswith('rgba('):
+                        values=[float(v) for v in color[5:-1].split(',')];color=(*[v/255 for v in values[:3]],values[3])
+                    ax.scatter([xp],[yp],s=size**2,color=color,marker=markers.get(symbol,'o'),label=label)
+                    label='_nolegend_'
+        if 'text' in trace.mode and trace.text:
+            for xp,yp,text in zip(x,y,trace.text):
+                if text:ax.annotate(text,(xp,yp),xytext=(0,8),textcoords='offset points',ha='center')
+
+
+def _style_print_bars(bars,item,spec):
+    from research_plotly_styles import style_for
+    if not any(rule.label==item['label'] for rule in spec.range_styles):return
+    for bar,point in zip(bars,item['points']):
+        style=style_for(spec,item,period=point['date'])
+        bar.set_facecolor(style['color']);bar.set_alpha(style['opacity'])
+        if any(r.label==item['label'] and r.start<=point['date']<=r.end and r.style.width is not None for r in spec.range_styles):
+            bar.set_edgecolor(style['color']);bar.set_linewidth(style['width'])
 
 
 def _print_layout(series,spec,result):

@@ -695,7 +695,9 @@ class StatBridgeAgent:
             if COMBINED_RATE_PATTERN.search(query) or re.search(r'(?:^|까지(?:의)?\s+|(?:최근|현재)\s+)금리(?:와|과)\s',query):
                 scoped=self._scoped_comparison(query,state,clarification)
                 if scoped is not None:return scoped
-            if '금리' in query and not any(word in query for word in ['신규','잔액','비중','구성비']):
+            from query_semantics import active_request
+            semantic_query=active_request(query)
+            if '금리' in semantic_query and not any(word in semantic_query for word in ['신규','잔액','비중','구성비']):
                 preflight=self.resolver.resolve(query,top_k=8)
                 if preflight.get('status')=='need_clarification':
                     scoped=self._scoped_comparison(query,state,clarification)

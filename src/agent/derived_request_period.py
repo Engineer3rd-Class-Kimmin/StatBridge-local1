@@ -30,7 +30,7 @@ def requested_display_period(query,table_names=()):
     # A period mean may explicitly request one result at its ending month.
     # That is the output range; the source lookback remains in the DAG and is
     # fetched independently. Do not force the model to emit earlier averages.
-    if re.search(r'월별.*산술\s*평균.*(?:대표값|결과).*하나',text):
+    if re.search(r'월별.*산술\s*평균.*(?:대표값|결과).*하나|각\s*달에\s*1/\d+씩\s*같은\s*비중',text):
         requested=explicit_period(text)
         if requested:return {**requested,'start':requested['end'][:8]+'01','basis':'월별 값의 기간 산술평균을 종료 월 한 점으로 표시'}
     single=re.search(r'(?:결과|출력)(?:는|을|은)?\s*(종료|마지막|\d{1,2})\s*월(?:에|의|만)?\s*(?:한\s*점|하나|1개)',text)

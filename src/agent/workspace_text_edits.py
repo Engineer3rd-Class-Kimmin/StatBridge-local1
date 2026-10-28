@@ -8,6 +8,12 @@ END=r'(?:바꿔줘|변경해줘|바꿔\s*주세요|변경해\s*주세요|해줘|
 
 def simple_workspace_commands(text,spec,series,selected='chart'):
     text=text.strip().rstrip('.!?')
+    compound=re.fullmatch(r'제목(?:을|은)?\s*([‘“\"\'])(.+?)[’”\"\'](?:으?로)\s*(?:바꾸고|변경하고|하고|,)?\s*(?:제목(?:의)?\s*)?(?:(?:글자|폰트)\s*)?크기(?:를|는|도)?\s*(\d+)\s*(?:px|pt)?(?:으?로)\s*'+END,text)
+    if compound:
+        size=int(compound[3])
+        if not 10<=size<=42:raise ValueError('제목 크기는 10~42로 지정해 주세요.')
+        return [ChartEditCommand(operation='set_title',kind='STYLE_EDIT',value=compound[2]),
+                ChartEditCommand(operation='set_presentation',kind='STYLE_EDIT',params={'title_size':size})]
     if re.search(r'[;\n]|그리고|바꾸고|변경하고|옮기고',text):return None
     title_size=re.fullmatch(r'제목(?:의)?\s*(?:(?:글자|폰트)\s*)?크기(?:를|는|도)?\s*(\d+)\s*(?:px|pt)?(?:으?로)\s*'+END,text)
     if title_size:
@@ -20,6 +26,7 @@ def simple_workspace_commands(text,spec,series,selected='chart'):
     title=re.fullmatch(r'제목(?:을|은)?\s*(.+?)(?:으?로)\s*'+END,text)
     if title:
         value=title[1].strip()
+        if re.search(r'(?:크기|폰트|글자).*\d+.*(?:으로|로)',value):return None
         pairs={'"':'"',"'":"'",'‘':'’','“':'”'}
         if len(value)>=2 and pairs.get(value[0])==value[-1]:value=value[1:-1]
         return [ChartEditCommand(operation='set_title',kind='STYLE_EDIT',value=value)]

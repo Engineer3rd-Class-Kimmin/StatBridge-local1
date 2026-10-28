@@ -3,6 +3,7 @@ import json
 import time
 import copy
 import hashlib
+import re
 from typing import Literal
 from pydantic import Field
 from expression_tree_schema import ClosedModel, MAX_SOURCES, SourceSelection
@@ -47,6 +48,7 @@ class CandidateSelection(ClosedModel):
 
 
 SYSTEM = '''사용자에게는 한국어 존댓말로 안내한다.
+이 서비스의 기본 자료 범위는 한국은행 KOSIS 승인 통계다. 국가·통화를 따로 지정하지 않은 국내 GDP 같은 한국은행 국내 통계는 대한민국·원화 자료를 탐색한다. 외국·외화·국가 간 비교를 요청하지 않았는데 국가나 통화를 다시 묻지 않는다. 명목/실질·원계열/계절조정 등 계산에 필요한 미확정 조건은 구별한다.
 calculation_guide에는 사용자 지표의 예정 계산법, 필요한 입력, 단위, 미확정 조건을 짧게 설명한다. 실제 수치는 생성하지 않는다. 원화 기준은 통화 지정이며 원 단위로 자동 환산한다는 뜻이 아니다. 금액 자료는 실제 API에서 확인한 원·백만원·십억원 등의 배율을 유지한다고 설명하고, 아직 확인하지 않은 배율 환산이나 원/명 출력을 약속하지 않는다.
 통화가치 변화율은 원자료가 자국통화/USD이면 (시작환율/종료환율-1)*100, USD/자국통화이면 (종료환율/시작환율-1)*100이다.
 DXY는 (종료지수/시작지수-1)*100이며 통화가치와 구별한다. 평균선은 사용자가 지정한 대상의 변화율 산술평균이다.
@@ -58,6 +60,7 @@ inputs는 필요한 원자료를 정확히 한 시계열씩 나열한다(최대1
 start/end에는 원문에 있는 YYYYMM 수준까지만 적고 임의 날짜를 채우지 않는다. 일별은 YYYYMMDD.
 월까지만 지정한 기간, 평균선의 구성 등 사용자 확인이 필요한 사항은 questions에 별도로 적는다.
 questions는 사용자가 결정해야 하는 미확정 계산 정의만 묻는다. 자료를 확인해도 되는지, 입수처를 안내해도 되는지,
+explicit_table_metadata는 원문에 명시된 표의 승인 메타데이터다. 주기·항목·분류를 여기서 확인할 수 있으면 사용자에게 다시 묻지 않는다. 명시한 분류 조합에 자산/부채 차원이 없으면 자산 측인지 부채 측인지 임의의 선택지를 만들지 않는다. 연간 공표 잔액의 전년동기 증가율은 연간 관측값끼리 비교하며, 사용자가 다른 집계 기준을 요청하지 않았다면 연말 기준을 다시 묻지 않는다.
 요청을 진행해도 되는지 등 이미 지시받은 업무의 허락을 다시 묻지 않는다. API 확인은 서버가 수행한다.
 평균 구성에 DXY와 중국 포함 여부는 한 질문에서 함께 확인한다. 답변이 추가 조건에 이미 있으면 다시 묻지 않는다.
 원문에 나열된 입력 순서를 유지한다. country를 분리한다. 계산하지 말라는 지시를 자료 조회 금지로 해석하지 않는다.
@@ -77,13 +80,14 @@ def _resolve_candidate(runtime, req, matches, usage):
     """Confirm selection against actual metadata, then fetch observations only."""
     if len(usage)>=4:
         return {'status':'selection_required','reason':'확인 호출 한도에 도달했습니다. 미확인 후보를 확보 완료나 자료 부재로 판정하지 않습니다.'}
-    if len(matches)>8:
-        return {'status':'selection_required','reason':'실제 API 후보가 많습니다. 지표명과 항목을 더 구체적으로 지정해 주세요.'}
+    truncated=len(matches)>8
+    if truncated:
+        matches=sorted(matches,key=lambda pair:-len(pair[1]))[:8]
     metas=[m for m,_ in matches]
     bounded=getattr(runtime.catalog,'bounded_metadata',None)
     if callable(bounded):
         metas=[bounded(m['table_id'],req.name) for m in metas]
-    partial=any(m.get('total_items',len(m['items']))>len(m['items']) or any(d.get('total_values',len(d['values']))>len(d['values']) for d in m['dimensions']) for m in metas)
+    partial=truncated or any(m.get('total_items',len(m['items']))>len(m['items']) or any(d.get('total_values',len(d['values']))>len(d['values']) for d in m['dimensions']) for m in metas)
     context=json.dumps({'required_input':req.model_dump(),'actual_api_metadata':metas},ensure_ascii=False)
     if len(context)>90000:
         return {'status':'selection_required','reason':'후보 메타데이터가 커서 선택을 확정하지 않았습니다. 항목을 구체화해 주세요.'}
@@ -159,7 +163,9 @@ def _search(snapshot, terms):
         labels=[meta['table_name']]+[i['item_name'] for i in meta['items']]
         labels += [v['class_name'] for d in meta['dimensions'] for v in d['values']]
         haystack=' '.join(labels).casefold()
-        hits=[term for term in terms if term in haystack]
+        normalized=re.sub(r'\s+','',haystack)
+        hits=[term for term in terms if term in haystack or (
+            len(parts:=term.split())>=2 and all(re.sub(r'\s+','',part) in normalized for part in parts))]
         if hits:
             matched.append((meta,hits))
     return matched
@@ -201,7 +207,19 @@ def check_availability(runtime, query):
         options['response_schema']=schema
     from derived_request_period import requested_display_period
     normalized_period=requested_display_period(query)
-    raw,usage=client.request(SYSTEM,json.dumps({'query':query,'server_display_period':normalized_period},ensure_ascii=False),**options)
+    # Supply actual definitions before the model invents missing dimensions.
+    compact_query=re.sub(r'\s+', '', query).lower()
+    named=[m for m in snapshot['tables'] if len(re.sub(r'\s+', '', m['table_name']))>=3
+           and re.sub(r'\s+', '', m['table_name']).lower() in compact_query]
+    metadata=[]
+    bounded=getattr(runtime.catalog, 'bounded_metadata', None)
+    if len(named)<=6:
+        for m in named:
+            item=bounded(m['table_id'], query) if callable(bounded) else m
+            if len(json.dumps(metadata+[item],ensure_ascii=False))<=30000:
+                metadata.append(item)
+    raw,usage=client.request(SYSTEM,json.dumps({'query':query,'server_display_period':normalized_period,
+                                               'explicit_table_metadata':metadata},ensure_ascii=False),**options)
     try:
         request=AvailabilityRequest.model_validate_json(raw)
     except ValueError as exc:

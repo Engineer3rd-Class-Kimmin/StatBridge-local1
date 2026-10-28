@@ -271,7 +271,25 @@ class OutputAgent:
             shaped.sort(key=lambda s: spec.series_order.index(s["label"]))
         return shaped
 
-    def _display_series(self, result, spec, source_series=None):
+    @staticmethod
+    def _output_series(result, series, target='chart'):
+        """Use the verified execution plan, never labels inferred by styling."""
+        outputs = (((result.get('_derived') or {}).get('record') or {}).get('plan') or {}).get('outputs', [])
+        if not outputs or target == 'all' or all(out.get('display', 'both') == 'both' for out in outputs):
+            return series
+        allowed = {(out['node'], out['label']) for out in outputs
+                   if out.get('display', 'both') in {'both', target}}
+        return [s for s in series if (s['sourceId'], s['label']) in allowed]
+
+    @staticmethod
+    def _layout_reason(result, series):
+        reason = combined_layout_reason(series)
+        names = [p.get('table_name', '') for p in result.get('api_plans', [])]
+        if len(series) > 1 and any('잔액표' in n for n in names) and any('거래표' in n for n in names):
+            return reason or '잔액과 기간 중 거래는 의미가 다르므로 계열별 그래프로 표시합니다.'
+        return reason
+
+    def _display_series(self, result, spec, source_series=None, *, target='chart'):
         if source_series is None:
             source_series = self._series((result.get('execution') or {}).get('rows') or [])
             plans = result.get('api_plans') or [result.get('api_plan')]
@@ -305,7 +323,7 @@ class OutputAgent:
             series = self._apply_data_edits(transform_series, spec.model_copy(update={'transform': 'raw'}))
         else:
             series = self._apply_data_edits(source_series, spec)
-        return series
+        return self._output_series(result, series, target)
 
     @observed('output.build', 'span')
     def _build(self, result: dict[str, Any], spec: ChartSpec, generate_explanation: bool = True) -> dict[str, Any]:
@@ -341,7 +359,9 @@ class OutputAgent:
         summary_series = [{**item, 'points': [p for p in item['points']
             if (not spec.period_start or p['date'] >= spec.period_start)
             and (not spec.period_end or p['date'] <= spec.period_end)]} for item in source_series]
-        series = self._display_series(result, spec, source_series)
+        displayed = self._display_series(result, spec, source_series, target='all')
+        table_series = self._output_series(result, displayed, 'table')
+        series = self._output_series(result, displayed, 'chart')
         visible_labels = {s['label'] for s in series}
         summary_series = [s for s in summary_series if s['label'] in visible_labels]
         series = [{**s, "color": spec.series_colors.get(s["label"], s["color"])} for s in series]
@@ -421,7 +441,7 @@ class OutputAgent:
         from report_export import export_formats
         explanation = {'text':summary,'facts':[]} if comparison else (self._explain(summary_series, spec, summary, query=str(result.get("query") or "")) if generate_explanation else explain(summary_series, query=str(result.get('query') or '')))
         explanation['scope'] = {'basis': 'original_observations', 'transform': spec.transform, 'labels': [s['label'] for s in summary_series], 'periodStart': spec.period_start, 'periodEnd': spec.period_end}
-        table_document=build_table(series, spec.report_table, title=spec.title, sources=self._evidence(result), display_names=spec.display_names)
+        table_document=build_table(table_series, spec.report_table, title=spec.title, sources=self._evidence(result), display_names=spec.display_names)
         if comparison:
             table_document['notes']=['사용자 파일의 실제 관측값으로 계산한 기간별 변화율(%)입니다. 월평균은 선택한 시작 월·종료 월의 관측값 평균 후 계산했습니다. 휴일·결측값은 보간하지 않았습니다.',
                 '계산 기간·원자료 표시 방향·평균 구성·출처·파일 해시는 계산 근거에서 확인해 주세요.']
@@ -433,7 +453,8 @@ class OutputAgent:
             "status": "ready" if any(s["points"] for s in series) else "empty",
             "agent": "output-agent-chartspec-v2",
             "summary": explanation["text"],
-            "table": self._table(series),
+            "table": self._table(table_series),
+            "tableSeries": table_series,
             "exportFormats": export_formats(series,spec,result),
             "tableDocument": table_document,
             "explanation": explanation,
@@ -458,6 +479,7 @@ class OutputAgent:
         series = self._series((result.get("execution") or {}).get("rows") or [])
         from derived_period_comparison import output_series,comparison_plan
         series=output_series(result,series)
+        series=self._output_series(result,series)
         from quick_output import dual_axis_requested,dual_axis_defaults
         dual_intent=dual_axis_requested(raw.get('natural_language') or '')
         quick = bool(raw.get('quick_output'))
@@ -466,7 +488,7 @@ class OutputAgent:
             explicit = ('line' if dual_intent else requested_chart(raw.get('natural_language') or '')) if raw.get('chart_type') in {None, 'auto'} else None
             if explicit:
                 raw['chart_type'] = explicit
-            if combined_layout_reason(series):
+            if self._layout_reason(result, series):
                 raw['layout'] = 'separate'
             labels = list(dict.fromkeys(item['label'] for item in series))
             title = ' · '.join(labels[:2])
@@ -727,6 +749,7 @@ class OutputAgent:
         series = self._series((result.get("execution") or {}).get("rows") or [])
         from derived_period_comparison import output_series,comparison_plan
         series=output_series(result,series)
+        series=self._output_series(result,series)
         allowed, unavailable = inspect_charts(series)
         return {
             "seriesCount": len(series),
@@ -734,7 +757,7 @@ class OutputAgent:
             "recommendedChartType": 'bar' if comparison_plan(result) else self._select_chart_type("auto", series),
             "supportedChartTypes": allowed,
             "unavailableChartTypes": unavailable,
-            "combinedLayoutReason": combined_layout_reason(series),
+            "combinedLayoutReason": self._layout_reason(result, series),
             "supportedLayouts": sorted(SUPPORTED_LAYOUTS),
             "editableFields": ["title", "show_legend", "x_axis_label", "y_axis_label"],
         }
