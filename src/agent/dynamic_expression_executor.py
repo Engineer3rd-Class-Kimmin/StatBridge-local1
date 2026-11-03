@@ -4,7 +4,7 @@ import math
 from decimal import Decimal, localcontext
 from dataclasses import dataclass
 from expression_tree_validator import (DerivedValidationError, MAX_POINTS, MAX_CELLS, MAX_WORK,
-                                       YEAR_LAGS, period_index, shift_period, prior_year_period, result_unit, canonical_bound)
+                                       YEAR_LAGS, period_index, shift_period, prior_year_period, result_unit, canonical_bound, operation_work)
 
 
 @dataclass
@@ -135,7 +135,7 @@ class DynamicExpressionExecutor:
                 if count > MAX_POINTS or cells + count > MAX_CELLS:
                     raise DerivedValidationError('실제 계산 메모리 한도를 초과했습니다.')
                 cells += count
-                work += count * (node.window or 1)
+                work += count * operation_work(node)
                 if work > MAX_WORK:
                     raise DerivedValidationError('실제 계산 작업량 한도를 초과했습니다.')
                 values = {}
@@ -160,12 +160,21 @@ class DynamicExpressionExecutor:
                                 if cumulative_valid:
                                     accumulator += x
                                     value = accumulator
-                        elif op == 'rolling_mean':
+                        elif op in {'rolling_mean', 'rolling_sum', 'rolling_median', 'rolling_range'}:
                             window_periods = [shift_period(period, freq, -k) for k in range(node.window)]
                             window = [args[0].values.get(p) for p in window_periods]
                             missing_periods = [p for p,v in zip(window_periods,window) if v is None]
                             if all(v is not None for v in window):
-                                value = sum(window) / node.window
+                                if op == 'rolling_sum':
+                                    value = sum(window)
+                                elif op == 'rolling_mean':
+                                    value = sum(window) / node.window
+                                elif op == 'rolling_range':
+                                    value = max(window) - min(window)
+                                else:
+                                    ordered = sorted(window)
+                                    middle = node.window // 2
+                                    value = ordered[middle] if node.window % 2 else (ordered[middle - 1] + ordered[middle]) / 2
                         elif x is not None:
                             if op in {'add', 'subtract', 'multiply', 'divide', 'percent_ratio'} and y is not None:
                                 if op == 'add': value = x + y

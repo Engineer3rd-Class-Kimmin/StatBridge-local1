@@ -5,7 +5,13 @@ export type TableDocument={layoutSections?:LayoutSection[];annotations?:Array<{n
 export function wantsReportTable(query:string){return /(?:표로\s*(?:보여|작성|정리|만들)|(?:비교표|추이표|보고서용\s*표|표)\s*(?:를\s*)?(?:만들|작성|생성))/.test(query);}
 export function tableFrequency(value:string){return ({M:'월별',Q:'분기별',Y:'연별',A:'연별',D:'일별',category:'항목별 비교'} as Record<string,string>)[value]||value;}
 export function tableFrequencyMatches(actual:string,requested:string){return requested==='Y'?actual==='Y'||actual==='A':actual===requested;}
-export function tableCell(value:string|number|null,decimals:number){return value===null?'—':typeof value==='number'?value.toLocaleString('ko-KR',{minimumFractionDigits:decimals,maximumFractionDigits:decimals}):value;}
+export function tableCell(value:string|number|null,decimals=2){return value===null?'—':typeof value==='number'?value.toLocaleString('ko-KR',{minimumFractionDigits:decimals,maximumFractionDigits:decimals}):value;}
+// Only observation fields use numeric-string conversion; labels and periods stay text.
+export function tableObservation(value:string|number|null){
+ if(typeof value!=='string'||!value.trim())return tableCell(value);
+ const number=Number(value.replaceAll(',',''));
+ return tableCell(Number.isFinite(number)?number:value);
+}
 // Ambiguous instructions never become chart edits or arbitrary numeric changes.
 export function tableInstruction(text:string):Partial<TableOptions>|null {
  const s=text.trim().replace(/[.!。]$/,'');

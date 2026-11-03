@@ -35,7 +35,8 @@ class DerivedIndicatorRuntime:
         # Any deployed planner, schema or validation change invalidates reuse.
         files = ('derived_indicator_planner.py', 'expression_tree_schema.py',
                  'expression_tree_validator.py', 'derived_support_policy.py',
-                 'derived_indicator_runtime.py', 'derived_plan_cache.py', 'verified_source_units.py', 'derived_provider_scope.py')
+                 'derived_indicator_runtime.py', 'derived_plan_cache.py', 'verified_source_units.py', 'derived_provider_scope.py',
+                 'derived_request_period.py', 'request_period.py', 'query_semantics.py', 'derived_availability.py', 'dynamic_expression_executor.py')
         self.plan_policy_hash = fingerprint([Path(__file__).with_name(f).read_text(encoding='utf-8') for f in files])
         self.plan_cache = VerifiedPlanCache()
 
@@ -98,20 +99,24 @@ class DerivedIndicatorRuntime:
             from derived_availability import check_availability
             checked=check_availability(self, query)
             assessment=checked['availability']
+            required_sources=[s for s in assessment.get('sources', []) if s.get('role') != 'definition_only']
             from derived_support_policy import assessment_scope, unsupported
             if assessment_scope(assessment)=='unsupported':
                 return {**checked,**unsupported(query),'availability':assessment,'usage':checked.get('usage',[])}
             if (is_availability_check(query) or assessment['status']!='checked' or assessment.get('questions')
-                    or not assessment.get('sources') or any(s['status']!='available' for s in assessment['sources'])):
+                    or not required_sources or any(s['status']!='available' for s in required_sources)):
                 return checked
-            verified=[{**s['selection'],'alias':f'verified_{i+1}'} for i,s in enumerate(assessment['sources']) if s['status']=='available' and s.get('selection')]
+            verified=[{**s['selection'],'alias':f'verified_{i+1}'} for i,s in enumerate(required_sources) if s['status']=='available' and s.get('selection')]
             units=[]
-            for source in assessment['sources']:
+            for source in required_sources:
                 checks=source.get('observationChecks') or []
                 observed={c['unit'] for c in checks if c.get('status')=='available' and c.get('unit')}
                 if source.get('selection') and len(observed)==1 and len(checks)==sum(c.get('status')=='available' and bool(c.get('unit')) for c in checks):
                     units.append({**{k:source['selection'][k] for k in ('table_id','item_id','classifications','frequency')},
                                   'unit':next(iter(observed)), 'origin':'validated_KOSIS_observation_response'})
+                    resolution = next((c['unitResolution'] for c in checks if c.get('unitResolution')), None)
+                    if resolution:
+                        units[-1].update(origin='official_definition_unit_resolution', unitResolution=resolution)
             planned=self.planner.plan(query,verified_sources=verified,verified_source_units=units,**kwargs)
             planned['usage']=checked.get('usage',[])+planned.get('usage',[])
             planned['source_preflight']=assessment

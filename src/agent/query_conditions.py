@@ -29,7 +29,8 @@ def clarification_question(query, tables):
         return '경제심리지수 원계열과 순환변동치 중 어느 계열을 조회할까요?'
     if any(w in q for w in ('수입물가', '수출물가')) and not any(w in q for w in ('원화', '달러', '계약통화')):
         return '물가지수는 원화·달러·계약통화 중 어느 통화 기준으로 조회할까요?'
-    if re.search(r'대표(?:값|숫자|하는값)',q) and not re.search(r'평균|연말|12월값|합계|합산|중앙값|최댓값|최솟값|1/\d+', q):
+    positive = re.sub(r'[^.!?]*대표(?:값|숫자|하는값)[^.!?]*?(?:대신|아니라|말고|유지해)', '', q)
+    if re.search(r'대표(?:값|숫자|하는값)',positive) and not re.search(r'평균|연말|12월값|합계|합산|중앙값|최댓값|최솟값|1/\d+', positive):
         return '연간 대표값은 월별 값의 단순평균과 연말 값 중 어떤 집계 기준을 원하시나요? 다른 기준도 지정할 수 있습니다.'
     return None
 

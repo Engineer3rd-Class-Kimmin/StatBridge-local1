@@ -27,6 +27,24 @@ def test_verified_dimensionless_unit_preserves_raw_response():
     assert raw==before and all('UNIT_NM' not in r for r in raw['rows'])
 
 
+def test_original_esi_unit_is_narrow_and_provenance_preserving():
+    from verified_source_units import ESI_CLASSES
+    s = SimpleNamespace(alias='esi', table_id='DT_513Y001', item_id='13103134473999',
+                        classifications=dict(ESI_CLASSES), frequency='M', required_data='경제심리지수 원계열')
+    raw = {'status':'success', 'source':'kosis_api', 'table_id':s.table_id, 'rows':[
+        {'ORG_ID':'301','TBL_ID':s.table_id,'ITM_ID':s.item_id,'C1':ESI_CLASSES['objL1'],
+         'PRD_SE':'M','PRD_DE':'202701','DT':'101'}]}
+    before = copy.deepcopy(raw)
+    resolution = unit_resolution(s, raw)
+    assert resolution['unit'] == '지수' and resolution['api_unit_status'] == 'not_supplied'
+    assert source_series(s, raw).unit == '지수'
+    assert raw == before
+    raw['rows'][0]['C1'] = 'unverified_series'
+    assert unit_resolution(s, raw) is None
+    with pytest.raises(ValueError):
+        source_series(s, raw)
+
+
 @pytest.mark.parametrize('field,value',[('table_id','other'),('item_id','other'),
                                      ('frequency','Q'),('classifications',{'objL1':'other'})])
 def test_other_sources_do_not_inherit_unit(field,value):

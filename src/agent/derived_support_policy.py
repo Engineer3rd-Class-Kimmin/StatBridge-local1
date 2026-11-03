@@ -22,7 +22,7 @@ def require_api_dependency(plan, catalog):
 
 
 def assessment_scope(assessment):
-    sources=assessment.get('sources') or []
+    sources=[s for s in assessment.get('sources') or [] if s.get('role') != 'definition_only']
     if assessment.get('status')!='checked' or not sources:return 'verification_pending'
     if any(s.get('status')=='available' for s in sources):
         return 'api_only' if all(s.get('status')=='available' for s in sources) else 'mixed'

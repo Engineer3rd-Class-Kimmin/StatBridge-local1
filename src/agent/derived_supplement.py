@@ -198,7 +198,7 @@ class DerivedSupplementService:
 
     def from_assessment(self,owner,query,assessment):
         """Only server-owned API checks may open concrete upload slots."""
-        sources=assessment.get('sources',[])
+        sources=[s for s in assessment.get('sources',[]) if s.get('role') != 'definition_only']
         if assessment.get('status')!='checked' or not sources or len(sources)>MAX_SOURCES:
             raise DerivedValidationError('실제 API 확인을 완료한 요청에서 파일 연결을 시작해 주세요.')
         from derived_support_policy import assessment_scope, unsupported, verification_pending

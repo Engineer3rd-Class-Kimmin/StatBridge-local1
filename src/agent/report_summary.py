@@ -2,7 +2,7 @@
 from decimal import Decimal, ROUND_HALF_UP, localcontext
 import json
 import re
-from narrative_labels import narrative_name
+from narrative_labels import narrative_names
 
 
 def difference_unit(unit):
@@ -22,7 +22,13 @@ def display_number(value):
     value = Decimal(str(value))
     # Keep small nonzero values visible rather than reporting a false zero.
     if value and abs(value) < Decimal('0.01'):
-        return number(value)
+        # Suppress binary roundoff only in this small-value escape hatch.
+        # Large monetary values must retain their integer and cent precision.
+        with localcontext() as context:
+            context.prec = 12
+            value = +value
+        if abs(value) < Decimal('0.01'):
+            return number(value)
     with localcontext() as context:
         context.prec = max(40, len(value.as_tuple().digits) + abs(value.adjusted()) + 5)
         return number(value.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP))
@@ -51,20 +57,21 @@ def ordinal(value, frequency):
 
 def facts_for(series):
     facts = []
+    names = narrative_names(series)
     for index, item in enumerate(series):
         points = item.get('points') or []
         if not points:
             continue
-        label, unit, frequency = narrative_name(item['label'], table_name=item.get('tableName', '')), item.get('unit') or '', item.get('frequency') or ''
+        label, unit, frequency = names[index], item.get('unit') or '', item.get('frequency') or ''
         ending = label[-1:]
         subject = label + ('은' if ending and '가' <= ending <= '힣' and (ord(ending) - ord('가')) % 28 else '는')
         first, last = points[0], points[-1]
         def date(p):
             return period(p['date'], frequency)
         def value(p):
-            if unit.strip() in {'연%', '연리%'}: return '연 ' + number(p['value']) + '%'
-            if re.search(r'\d{4}\s*[=＝]\s*100', unit): return number(p['value']) + ' (' + unit.replace('＝','=') + ')'
-            return number(p['value']) + (' ' + unit if unit else '')
+            if unit.strip() in {'연%', '연리%'}: return '연 ' + display_number(p['value']) + '%'
+            if re.search(r'\d{4}\s*[=＝]\s*100', unit): return display_number(p['value']) + ' (' + unit.replace('＝','=') + ')'
+            return display_number(p['value']) + (' ' + unit if unit else '')
         def add(kind, text, evidence):
             facts.append({'id': f's{index}-{kind}', 'kind': kind, 'series': index,
                           'text': text, 'observations': evidence, 'sourceId': item.get('sourceId'),
@@ -74,7 +81,7 @@ def facts_for(series):
             delta = Decimal(str(last['value'])) - Decimal(str(previous['value']))
             direction = '상승' if delta > 0 else '하락'
             delta_unit = difference_unit(unit)
-            detail = number(abs(delta)) + (' ' + delta_unit if delta_unit else '')
+            detail = display_number(abs(delta)) + (' ' + delta_unit if delta_unit else '')
             text = (f'{subject} {name}({date(previous)}, {value(previous)}) 대비 {detail} {direction}하였습니다.'
                     if delta else f'{subject} {name}({date(previous)})과 같은 수준을 유지하였습니다.')
             add(kind, text, [previous, last])
@@ -88,7 +95,7 @@ def facts_for(series):
         if yearly and last_ordinal is not None and last_ordinal - yearly in lookup:
             change(lookup[last_ordinal - yearly], '전년동기', 'yearly')
         if len(points) > 1:
-            change(first, '조회 시작 시점', 'period')
+            change(first, '표시 시작 시점', 'period')
         # A run requires every calendar interval to exist; gaps are never bridged.
         if last_ordinal is not None:
             run, cursor, sign = 0, last_ordinal, None
@@ -111,7 +118,8 @@ def facts_for(series):
                 if d1 * d2 < 0:
                     add('turn', f'{subject} {date(b)}의 {"하락" if d1 < 0 else "상승"}에서 {date(c)}에 {"상승" if d2 > 0 else "하락"}으로 전환하였습니다.', [a, b, c])
                 elif d1 * d2 > 0 and abs(d1) != abs(d2):
-                    add('pace', f'{label}의 {"상승폭" if d2 > 0 else "하락폭"}은 직전 기간보다 {"확대" if abs(d2) > abs(d1) else "축소"}되었습니다.', [a, b, c])
+                    comparison = {'M': '전월', 'Q': '전분기', 'A': '전년', 'Y': '전년'}[frequency]
+                    add('pace', f'{label}의 {comparison} 대비 {"상승폭" if d2 > 0 else "하락폭"}은 직전 기간보다 {"확대" if abs(d2) > abs(d1) else "축소"}되었습니다.', [a, b, c])
     return facts
 
 
@@ -148,6 +156,7 @@ SYSTEM = (
 
 def explain(series, client=None, *, query=''):
     facts = facts_for(series)
+    names = narrative_names(series)
     selected = default_ids(facts)
     source = 'rules'
     if facts and client and client.configured:
@@ -185,7 +194,7 @@ def explain(series, client=None, *, query=''):
                 gap = Decimal(str(a['value'])) - Decimal(str(b['value']))
                 unit = difference_unit(left.get('unit', ''))
                 evidence = [a, b]
-                text = f"{period(a['date'], left.get('frequency'))} {narrative_name(left['label'])}에서 {narrative_name(right['label'])}을 뺀 격차는 {number(gap)} {unit}입니다."
+                text = f"{period(a['date'], left.get('frequency'))} {names[index]}에서 {names[peer]}을 뺀 격차는 {display_number(gap)} {unit}입니다."
                 previous = ordinal(a['date'], left.get('frequency'))
                 if previous is not None:
                     la = {ordinal(p['date'], left.get('frequency')): p for p in left['points']}
@@ -193,7 +202,7 @@ def explain(series, client=None, *, query=''):
                     if previous-1 in la and previous-1 in rb:
                         old = Decimal(str(la[previous-1]['value'])) - Decimal(str(rb[previous-1]['value']))
                         width = abs(gap) - abs(old)
-                        text += f" 직전 기간 격차 {number(old)} {unit}에 비해 격차의 절댓값이 {number(abs(width))} {unit} {'확대' if width > 0 else '축소' if width < 0 else '유지'}되었습니다."
+                        text += f" 직전 기간 격차 {display_number(old)} {unit}에 비해 격차의 절댓값이 {display_number(abs(width))} {unit} {'확대' if width > 0 else '축소' if width < 0 else '유지'}되었습니다."
                         evidence += [la[previous-1], rb[previous-1]]
                 fact = {'id': f's{index}-gap-{peer}', 'kind': 'gap', 'series': index,
                         'peerSeries': peer, 'text': text, 'observations': evidence,

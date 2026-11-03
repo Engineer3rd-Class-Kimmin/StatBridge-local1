@@ -56,6 +56,28 @@ def test_repeated_concatenated_json_fails_after_one_repair():
     assert model.count == 2
 
 
+@pytest.mark.parametrize('explicit_table_only', [False, True])
+def test_numeric_result_chart_feedback_preserves_explicit_table_only(explicit_table_only):
+    import copy
+    from statbridge_mcp.metadata_store import MetadataStore
+    from derived_catalog_tools import DerivedCatalogTools
+    from derived_indicator_planner import DerivedIndicatorPlanner
+    from test_dynamic_derived_indicators import plan, Model
+    catalog=DerivedCatalogTools(MetadataStore());valid=plan(catalog,'rolling_range',window=4).model_dump()
+    valid.update(start_period='202004',end_period='202004')
+    table=copy.deepcopy(valid);table['outputs'][0]['display']='table'
+    model=Model([{'action':'metadata','table_id':'DT_513Y001'}, {'action':'plan','plan':table},
+                 {'action':'plan','plan':valid}, {'approved':True,'reason':'synthetic range request'}])
+    query='2020년 1~4월 경제심리지수의 최대·최소 차이를 한 숫자로 보여줘.'
+    if explicit_table_only:
+        with pytest.raises(ValueError,match='그래프에 표시'):
+            DerivedIndicatorPlanner(model,catalog).plan(query+' 그래프 없이 표만.')
+    else:
+        result=DerivedIndicatorPlanner(model,catalog).plan(query)
+        assert result['plan'].model_dump()==valid
+        assert [u['stage'] for u in result['usage']][-2:]==['planning','semantic_review']
+
+
 def test_period_model_must_resubmit_original_math_and_get_semantic_review():
     import copy
     from statbridge_mcp.metadata_store import MetadataStore

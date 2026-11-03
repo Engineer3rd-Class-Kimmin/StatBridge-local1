@@ -11,6 +11,11 @@ MAX_CELLS = 500000
 MAX_WORK = 2000000
 
 
+def operation_work(node):
+    window = node.window or 1
+    return window * (window.bit_length() if node.operator == 'rolling_median' else 1)
+
+
 def canonical_bound(value, frequency):
     # KOSIS observation codes include YYYYQn and YYYYHn as well as
     # YYYY01..04 / YYYY01..02. Only normalize a matching frequency.
@@ -122,7 +127,7 @@ def validate_plan(plan: ExpressionPlan, catalog):
                 if p.end in ends or p.label in labels:
                     raise DerivedValidationError('중복 비교기간입니다.')
                 ends.add(p.end);labels.add(p.label)
-        work += (last - first + 1 + history[node.id]) * (node.window or 1)
+        work += (last - first + 1 + history[node.id]) * operation_work(node)
         ids.add(node.id)
     if any(out.node not in ids for out in plan.outputs):
         raise DerivedValidationError('출력은 검증된 원자료 또는 계산 노드를 참조해야 합니다.')
@@ -188,4 +193,4 @@ def result_unit(operator, units, exponent=None):
         if units[0] not in {'배', '1', '무차원'} and not index_unit(units[0]):
             raise DerivedValidationError('로그에는 기준이 확인된 무차원 값 또는 지수가 필요합니다.')
         return '로그'
-    return difference(units[0]) if operator == 'difference' else units[0]
+    return difference(units[0]) if operator in {'difference', 'rolling_range'} else units[0]

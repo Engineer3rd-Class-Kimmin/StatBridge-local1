@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {calculationFormula} from './calculationFormula';
 import {accountRequest} from './accountApi';
+import {tableObservation} from './reportTable';
 import type {QueryResponse} from './api/types';
 
 type SourcePage={alias:string;total:number;rows:Array<Record<string,string|number>>};
@@ -33,6 +34,6 @@ export default function DerivedEvidence({result}:{result:QueryResponse}) {
   <p><small>계산 ID: {evidence.calculationId} · 근거 해시: {evidence.sha256}</small></p>
   {result.editSessionId&&<button type="button" disabled={busy} onClick={load}>{busy?'불러오는 중':raw?'계산 결과로 돌아가기':'사용한 원자료 보기'}</button>}
   {error&&<p role="alert">{error}</p>}
-  {raw?.map(s=><section key={s.alias}><h4>{s.alias} 원자료 ({s.total}개 중 {s.rows.length}개)</h4><table><thead><tr><th>시점</th><th>원자료</th><th>단위</th></tr></thead><tbody>{s.rows.map((r,i)=><tr key={i}><td>{r.PRD_DE}</td><td>{r.DT}</td><td>{r.UNIT_NM}</td></tr>)}</tbody></table></section>)}
+  {raw?.map(s=><section key={s.alias}><h4>{s.alias} 원자료 ({s.total}개 중 {s.rows.length}개)</h4><table><thead><tr><th>시점</th><th>원자료</th><th>단위</th></tr></thead><tbody>{s.rows.map((r,i)=><tr key={i}><td>{r.PRD_DE}</td><td>{tableObservation(r.DT)}</td><td>{r.UNIT_NM}</td></tr>)}</tbody></table></section>)}
  </details>;
 }

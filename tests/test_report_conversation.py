@@ -27,7 +27,7 @@ def test_followup_rank_formula_and_table_need_no_gpt_and_preserve_context():
     d,s=talk('같은 기준으로 전월대비로 보여줘',s)
     assert d['facts'][0]['result']=='-0.4'
     e,s=talk('표로 정리해줘',s)
-    assert e['table']['rows'][0][3]=='-0.4' and e['modelCalls']==0
+    assert e['table']['rows'][0][3]=='-0.40' and e['modelCalls']==0
 
 
 def test_edit_recomputes_ranking_and_dependent_turns_not_old_winner():

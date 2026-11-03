@@ -81,11 +81,8 @@ def build_table(series, options=None, *, title='', sources=None, display_names=N
     known = {s['label']: s for s in series}
     display_names = display_names or {}
     if options.decimals is None:
-        rate = any('%' in s.get('unit', '') or '＝100' in s.get('unit', '') or '=100' in s.get('unit', '') for s in series)
-        precisions=[min(6,max(0,-Decimal(str(p['value'])).as_tuple().exponent))
-                    for s in series for p in s.get('points',[])
-                    if isinstance(p.get('value'),(int,float)) and math.isfinite(p['value'])]
-        options = options.model_copy(update={'decimals': max([2 if rate else 1,*precisions])})
+        # Precision is a display setting; observations and calculations stay raw.
+        options = options.model_copy(update={'decimals': 2})
     visible_sources = {s.get('sourceId') for s in series if s.get('sourceId')}
     unique_sources = {}
     for source in sources or []:
@@ -171,7 +168,7 @@ def build_table(series, options=None, *, title='', sources=None, display_names=N
 
 def text_value(value, decimals):
     if value is None: return '—'
-    if isinstance(value, (int, float)):
+    if isinstance(value, (int, float, Decimal)):
         # Match the browser Intl display at exact half-way values (1.25→1.3),
         # including negatives, without changing the stored observation.
         number = Decimal(str(value))

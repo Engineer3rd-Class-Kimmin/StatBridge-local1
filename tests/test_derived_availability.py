@@ -48,6 +48,22 @@ def test_full_live_inventory_negative_is_separate_from_questions_and_upload():
     assert not r.calls and len(r.planner.client.calls)==1 and 'supplement' not in result
 
 
+def test_defined_but_unused_input_never_blocks_or_fetches_extra_data():
+    req = requirement('생산자')
+    req['periods'] = [{'label':'조회', 'start':'202301', 'end':'202302', 'frequency':'M'}]
+    meta = {'table_id':'DT_FIXTURE', 'table_name':'생산자물가', 'items':[{'item_id':'I','item_name':'총지수'}],
+            'dimensions':[], 'frequencies':['M'], 'periods':[{'frequency':'M','start_period':'202001','end_period':'202512'}]}
+    r = runtime(req, meta, {'table_id':'DT_FIXTURE','item_id':'I','classifications':[],'reason':'정확한 선택'},
+                {'values':{'202301': 10, '202302': 20}, 'unit':'지수'})
+    unused = {**req, 'name':'참고로 정의한 미사용 계열', 'role':'definition_only', 'search_terms':['없는 자료']}
+    r.planner.client.rows[0] = {'inputs':[req, unused], 'questions':[]}
+    result = check_availability(r, '원자료 A만 사용하는 이동평균을 계산해줘.')
+    assert len(r.calls) == 1
+    assert [s['status'] for s in result['availability']['sources']] == ['available', 'definition_only']
+    from derived_support_policy import assessment_scope
+    assert assessment_scope(result['availability']) == 'api_only'
+
+
 def test_preflight_sees_explicit_table_definitions_before_asking_questions():
     r=runtime()
     check_availability(r,'국가별 결제통화를 확인해줘')
@@ -103,6 +119,32 @@ def test_positive_selection_requires_actual_observations():
     a=check_availability(r,'확인')['availability']['sources'][0]
     assert a['status']=='available' and a['observationChecks'][0]['observations']==2
     assert len(r.calls)==1 and r.calls[0]['allow_fallback'] is False and r.calls[0]['prefer_local'] is False
+
+
+def test_invalid_quarter_month_code_is_repaired_before_observation_io():
+    req=requirement('생산자')
+    req['periods']=[{'label':'비교','start':'202301','end':'202306','frequency':'Q'}]
+    meta={'table_id':'DT_FIXTURE','table_name':'생산자물가','items':[{'item_id':'I','item_name':'총지수'}],
+          'dimensions':[],'frequencies':['Q'],'periods':[{'frequency':'Q','start_period':'202001','end_period':'202504'}]}
+    r=runtime(req,meta,response={'values':{'202301':7,'202302':8},'unit':'지수'})
+    corrected=copy.deepcopy(req);corrected['periods'][0]['end']='2023-06-30'
+    r.planner.client.rows += [{'inputs':[corrected],'questions':[]},
+        {'table_id':'DT_FIXTURE','item_id':'I','classifications':[],'reason':'선택 확인'}]
+    result=check_availability(r,'2023년 1분기와 2분기를 비교해줘')
+    assert result['availability']['sources'][0]['status']=='available'
+    assert len(r.calls)==1 and r.calls[0]['end_period']=='202302'
+    assert len(result['usage'])==3
+    feedback=json.loads(r.planner.client.calls[1][0][1])['validation_feedback']
+    assert '202306' in feedback['reason'] and 'No observation API' in feedback['instruction']
+
+
+def test_repeated_invalid_preflight_period_stops_without_io():
+    req=requirement();req['periods'][0].update(frequency='Q',start='202301',end='202306')
+    r=runtime(req)
+    r.planner.client.rows.append(copy.deepcopy(r.planner.client.rows[0]))
+    with pytest.raises(DerivedValidationError,match='응답 형식'):
+        check_availability(r,'분기 비교')
+    assert len(r.planner.client.calls)==2 and not r.calls
 
 
 def test_invalid_period_and_unsupported_frequency_do_not_fetch():

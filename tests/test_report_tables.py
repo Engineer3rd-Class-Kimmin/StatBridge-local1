@@ -141,10 +141,10 @@ def test_export_endpoint_checks_login_ownership_revision_and_saved_settings(monk
     response = client.post('/api/table/export', json=body)
     assert response.status_code == 200, response.text
     assert response.content.startswith(b'PK')
-    edit = client.post('/api/output/edit', json={'edit_session_id': 'table', 'revision': body['revision'], 'commands': [{'operation': 'set_table', 'kind': 'STYLE_EDIT', 'params': {'patch': {'decimals': 2}}}]})
+    edit = client.post('/api/output/edit', json={'edit_session_id': 'table', 'revision': body['revision'], 'commands': [{'operation': 'set_table', 'kind': 'STYLE_EDIT', 'params': {'patch': {'decimals': 3}}}]})
     assert edit.status_code == 200, edit.text
-    assert edit.json()['outputSpec']['tableDocument']['options']['decimals'] == 2
+    assert edit.json()['outputSpec']['tableDocument']['options']['decimals'] == 3
     assert not edit.json()['outputSpec'].get('stateOnlyChange')
     undo = client.post('/api/output/edit', json={'edit_session_id': 'table', 'revision': edit.json()['outputSpec']['editVersion'], 'action': 'undo'})
     assert undo.status_code == 200
-    assert undo.json()['outputSpec']['tableDocument']['options']['decimals'] == 1
+    assert undo.json()['outputSpec']['tableDocument']['options']['decimals'] == 2

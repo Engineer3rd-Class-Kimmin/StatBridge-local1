@@ -87,3 +87,11 @@ def test_source_search_matches_words_across_metadata_fields():
           'items':[],'dimensions':[{'values':[{'class_name':'가계대출'}]}]}
     assert _search({'tables':[meta]},['예금은행 가계대출 금리'])[0][0]['table_id']=='DT_TEST'
     assert not _search({'tables':[meta]},['주택 가격 지수'])
+
+
+def test_compound_search_preserves_all_requested_words_across_metadata_fields():
+    from derived_availability import _search
+    meta = {'table_id':'DT_SYNTHETIC', 'table_name':'상업은행 대출금리',
+            'items':[], 'dimensions':[{'values':[{'class_name':'중소기업대출'}]}]}
+    assert _search({'tables':[meta]}, ['중소기업대출금리'])
+    assert not _search({'tables':[meta]}, ['중소기업예금금리'])

@@ -14,6 +14,9 @@ export function calculationFormula(n:Node, labels:Record<string,string>):string 
  case 'yoy_pct':return `(${a}(당기) ÷ ${a}(전년 동일 시점) − 1) × 100 (%)`;
  case 'difference':return `${a}(당기) − ${a}(${lag}기간 전)`;
  case 'rolling_mean':return `${a}의 당기 포함 ${n.window}기간 산술평균 (결측이면 계산하지 않음)`;
+ case 'rolling_sum':return `${a}의 당기 포함 ${n.window}기간 합계 (결측이면 계산하지 않음)`;
+ case 'rolling_median':return `${a}의 당기 포함 ${n.window}기간 중앙값 (짝수 개이면 가운데 두 값의 평균, 결측이면 계산하지 않음)`;
+ case 'rolling_range':return `${a}의 당기 포함 ${n.window}기간 최댓값 − 최솟값 (결측이면 계산하지 않음)`;
  case 'cumulative_sum':return `${a}의 표시 시작기간부터 당기까지 누적합`;
  case 'rebase_100':return `${a}(당기) ÷ ${a}(${n.base_period}) × 100`;
  case 'base_change':return `(${a}(당기) ÷ ${a}(${n.base_period}) − 1) × 100`;

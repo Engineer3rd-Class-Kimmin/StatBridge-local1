@@ -190,7 +190,8 @@ def _execute(question,plan,series,context):
     elif plan.style=='simple' and result['status']=='answered':result['paragraphs']=[p.replace('하락했어','내려갔어').replace('상승했어','올라갔어').replace('하락폭','내려간 폭').replace('상승폭','올라간 폭') for p in result['paragraphs']]
     elif plan.style=='bullets':result['paragraphs']=['• '+p for p in result['paragraphs']]
     if plan.style=='table' and facts and result['status']=='answered':
-        result['table']={'columns':['지표','비교 기준','종료 시점','변화','단위'], 'rows':[[('두 지표의 격차' if f['id'] in {'level-gap','change-gap'} else f['observations'][-1]['label']),f['observations'][0]['date'],f['observations'][-1]['date'],display_number(Decimal(f['result'])),f['unit']] for f in result['facts']]}
+        from report_table import text_value
+        result['table']={'columns':['지표','비교 기준','종료 시점','변화','단위'], 'rows':[[('두 지표의 격차' if f['id'] in {'level-gap','change-gap'} else f['observations'][-1]['label']),f['observations'][0]['date'],f['observations'][-1]['date'],text_value(Decimal(f['result']),2),f['unit']] for f in result['facts']]}
         result['paragraphs']=['앞서 정한 지표와 비교 기준을 최신 자료로 다시 계산해 표로 정리했어. 아래 값은 원자료 수준이 아니라 변화야.']
     for f in result['facts']:
         for obs in f.get('observations',[]):

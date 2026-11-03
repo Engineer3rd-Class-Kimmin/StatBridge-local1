@@ -1,5 +1,7 @@
 """Closed display ranges independent of base dates and catalog title years."""
 import re
+import calendar
+from datetime import date
 from request_period import explicit_period,TOKEN
 
 
@@ -27,6 +29,28 @@ def requested_display_period(query,table_names=()):
     # A historical table's title is not the requested observation interval.
     for name in sorted(set(table_names),key=len,reverse=True):
         if name:text=text.replace(name,' ')
+    single_result = re.search(r'한\s*(?:숫자|점|값)|(?:숫자|간격|중간값|결과|금액|폭)(?:이|은|는|을|를)?\s*하나', text)
+    calculation = re.search(r'1/\d+\s*씩|평균|합계|더한|더해|간격|차이|퍼센트|변화|폭|중간값|얼마에\s*해당', text)
+    if single_result and calculation and not re.search(r'(?:표시|출력)\s*기간', text):
+        requested = explicit_period(text)
+        if requested:
+            end = date.fromisoformat(requested['end'])
+            start_month = end.month
+            if re.search(r'분기', text) and not re.search(r'\d{1,2}\s*월', text):
+                target = re.search(r'[1-4]\s*분기(?:(?![1-4]\s*분기).)*?(?:비해|대비|기준|에서)(?:(?![1-4]\s*분기).)*?([1-4])\s*분기', text)
+                if target:
+                    start_month = (int(target[1]) - 1) * 3 + 1
+                else:
+                    start_month = (end.month - 1) // 3 * 3 + 1
+                finish_month = start_month + 2
+            else:
+                target = re.search(r'(?<!\d)\d{1,2}\s*월(?:(?!\d{1,2}\s*월).)*?(?:비해|대비|기준|에서)(?:(?!\d{1,2}\s*월).)*?(\d{1,2})\s*월', text)
+                if target:
+                    start_month = int(target[1])
+                finish_month = start_month
+            return {**requested, 'start': date(end.year, start_month, 1).isoformat(),
+                    'end': date(end.year, finish_month, calendar.monthrange(end.year, finish_month)[1]).isoformat(),
+                    'basis': '명시한 입력 기간과 구분한 단일 계산 결과 표시기간'}
     # A period mean may explicitly request one result at its ending month.
     # That is the output range; the source lookback remains in the DAG and is
     # fetched independently. Do not force the model to emit earlier averages.

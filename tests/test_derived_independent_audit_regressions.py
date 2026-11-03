@@ -84,7 +84,11 @@ def test_source_failure_kinds(catalog):
 
 
 def test_missing_unit_has_precise_source_failure(catalog):
-    p=plan(catalog,'inverse');data=response(p)
+    p=plan(catalog,'inverse')
+    # A generic unverified source must still fail closed. The exact official
+    # ESI selection now has a separately tested, source-backed unit rule.
+    p.sources[0].table_id='DT_SYNTHETIC_UNVERIFIED'
+    data=response(p)
     for row in data['rows']:row['UNIT_NM']=''
     with pytest.raises(ValueError,match='단위') as caught:source_series(p.sources[0],data)
     assert caught.value.failure_kind=='source_metadata_incomplete'

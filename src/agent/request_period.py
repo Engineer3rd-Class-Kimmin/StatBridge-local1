@@ -37,6 +37,21 @@ def explicit_period(query, latest=None):
     # Index base years are metadata, not a second observation endpoint.
     text=re.sub(r'(?<!\d)(?:19|20)\d{2}\s*(?:년\s*(?:\d{1,2}\s*월\s*)?)?[=＝]\s*100(?!\d)',lambda m:' '*len(m[0]),original)
     matches=list(TOKEN.finditer(text))
+    years = {m['year'] for m in matches}
+    # A later month/quarter can inherit the only explicit year across a
+    # comparison or a contiguous input list, not just a literal "...까지".
+    if len(years) == 1 and re.search(r'비해|대비|기준|에서|[·ㆍ,]\s*\d{1,2}\s*월', text):
+        year = int(next(iter(years)))
+        months = [int(v) for v in re.findall(r'(?<!\d)(\d{1,2})\s*월', text)]
+        quarters = [int(v) for v in re.findall(r'(?<!\d)([1-4])\s*분기', text)]
+        if len(set(months)) >= 2 and all(1 <= m <= 12 for m in months):
+            if set(months) == set(range(min(months), max(months) + 1)):
+                start, end = date(year, min(months), 1), date(year, max(months), calendar.monthrange(year, max(months))[1])
+                return {'start': start.isoformat(), 'end': end.isoformat(), 'source': 'text', 'expression': original}
+        if not months and len(set(quarters)) >= 2:
+            first, last = (min(quarters) - 1) * 3 + 1, max(quarters) * 3
+            return {'start': date(year, first, 1).isoformat(), 'end': date(year, last, calendar.monthrange(year, last)[1]).isoformat(),
+                    'source': 'text', 'expression': original}
     relative = re.search(r'최근\s*(\d{1,2})\s*년', text)
     if relative and not matches and latest:
         end = date.fromisoformat(latest)
