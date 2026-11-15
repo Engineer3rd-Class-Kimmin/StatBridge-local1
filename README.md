@@ -4,6 +4,8 @@
 
 **현재 범위:** local1의 공개 코드·메타데이터·개발 평가 문서입니다. 원자료 CSV 347개·API 키·벡터·사용자 저장 분석은 별도입니다. 팀 기여와 개인 후속 개선을 구분합니다.
 
+**프로젝트 형태:** 팀 프로젝트 · **김민 담당:** Backend·Data·MCP 및 local1 후속 개선. [개인 기여와 팀 작업 경계](#기여와-ai-활용)에서 직접 구현·수정과 팀원 코드 통합을 구분합니다.
+
 ```mermaid
 flowchart LR
  A["통계 질문·확정 조건"] --> B["메타데이터 탐색·계획"] --> C["원자료 조회·검산"] --> D["표·그래프·근거"] --> E["편집·저장·내보내기"]
@@ -135,7 +137,27 @@ RAGAS Faithfulness, LLM 화면 Judge, 저장 수치 검산은 별개입니다. �
 
 ## 기여와 AI 활용
 
-Backend·Data·MCP 영역과 개인 후속 개선을 [기여 설명](docs/APPLICATION_PORTFOLIO.md)·구현 기록·Git 변경으로 연결합니다. 팀의 전체 코드를 개인 단독 개발로 주장하지 않습니다. 제품의 모델은 해석·계획·편집을 돕고, 원자료와 산술 검증은 서버가 맡습니다. AI 코딩 도구로 개발·평가·문서 작업을 수행했으며(ai-assisted), AI 판정을 사람 검토·승인으로 표시하지 않습니다.
+### 팀 전체와 개인 담당
+
+StatBridge는 **팀 프로젝트**입니다. 팀은 PM·Evaluation / Backend·Data·MCP / Agent·LLM·Frontend로 역할을 나눴으며, **김민(본인)은 Backend·Data·MCP를 담당**했습니다. 자연어 질문부터 통계표·그래프 출력까지의 전체 서비스는 팀 산출물입니다. [팀 일정](docs/팀-프로젝트-일정.md)은 역할·계획 자료이며 완료 증빙과 구분합니다.
+
+| 구분 | 김민의 작업 범위 | 근거와 설명 경계 |
+|---|---|---|
+| 팀 내 담당 | 통계표 메타데이터·검색·자료 조회와 API/MCP 연결 | [백엔드 코드](src/backend/), [기여 설명](docs/APPLICATION_PORTFOLIO.md). 팀의 Agent·프론트 전체를 단독 개발한 것으로 설명하지 않음 |
+| local1 후속 구현·개선 | 파생지표 계획 검증·계산, 자료가 부족할 때 파일 보완과 재개 흐름 | [파생지표 설계](docs/implementation/2026-10-19-dynamic-derived-design.md), [전체 작업 기록](docs/implementation/2026-10-19-complete-derived-worklog.md), [파일 보완 흐름](docs/derived_upload_flow.md) |
+| local1 후속 복구·안정화 | 그래프 편집 상태 복구, 사용자 작업 흐름, Windows 기동 문제 점검 | [복구 구현 기록](docs/implementation/2026-10-12-agent-recovery-openai-reference.md), [Windows 실행 개선](docs/implementation/2026-10-13-windows-launcher-reliability.md) |
+| 팀원 코드 통합 | 팀원의 출력·편집·UI 변경을 기존 계약과 데이터·상태 보존 조건에 맞춰 선별 통합 | [출력 에이전트 리뷰](docs/implementation/2026-10-02-output-agent-review.md), [편집 통합](docs/implementation/2026-10-06-chart-editing-integration.md), [선별 이식](docs/implementation/2026-10-20-teammate-selective-integration.md). 원 기능의 최초 구현과 통합 기여를 구분 |
+| 평가·회귀 작업 | local1 실패 분석, 수정 후 개발 회귀와 평가 조건·제약 기록 | [v1.1 실패·수정 기록](docs/implementation/2026-10-22-e2e-v11-delta-evaluation.md), [최근 평가](docs/evaluation/2026-11-02-ragas-llm-judge.md). 팀 PM의 평가 운영이나 사람 정답 승인을 대신했다고 하지 않음 |
+
+### 개인 기여를 설명하는 대표 사례
+
+**자료가 부족한 파생 계산을 잘못된 수치로 완성하지 않도록 한 작업**입니다. 모델이 계산 계획을 제안하면 서버가 실제 자료·단위·주기·허용 연산을 확인하고 계산하도록 경계를 두었습니다. 자료가 모자라면 필요한 입력을 설명하고 파일 보완 뒤 재개하는 흐름으로 연결했습니다. [현재 워크플로우](#상세-워크플로우), [설계·제한](docs/implementation/2026-10-19-dynamic-derived-design.md), [후속 작업 기록](docs/implementation/2026-10-19-complete-derived-worklog.md)에서 구현과 한계를 확인할 수 있습니다.
+
+**면접 설명:** “팀에서는 Backend·Data·MCP를 맡아 통계 메타데이터와 실제 자료 조회를 에이전트에 연결했습니다. local1에서는 파생 계산 검증과 자료 보완·재개, 그래프 상태 복구와 실행 안정화를 추가로 개선했습니다. 팀원이 만든 출력·UI 기능은 제가 처음부터 구현한 것이 아니라, 기존 동작을 보존하며 통합하고 검증한 범위를 기여로 설명합니다.”
+
+개발 회귀 40/40 등의 수치는 특정 버전·조건에서의 제품 검증 결과입니다. 개인 기여율이나 독립 정확도가 아니며, 이번 README 수정에서 E2E를 재실행한 결과도 아닙니다. 역할별 코드 소유 비율은 산정하지 않았습니다.
+
+제품 모델은 해석·계획·편집을 돕고 원자료와 산술 검증은 서버가 맡습니다. AI 코딩 도구로 개발·평가·문서를 보완했으며(ai-assisted), AI 판정을 사람의 검토·승인으로 표시하지 않습니다.
 
 ## 상세 문서와 이전 기록
 
